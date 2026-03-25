@@ -12,3 +12,7 @@ wordpress/wp-content/plugins/
 wordpress/wp-content/themes/*
 !wordpress/wp-content/themes/fastheme/
 !wordpress/static/
+.agents/
+.claude/
+.gemini/
+.continue/

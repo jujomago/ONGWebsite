@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundación Alimentando Sonrisas (FAS)</title>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fas-primary': '#72B083',
+                        'fas-primary-dark': '#4A8A5E',
+                        'fas-primary-light': '#94C4A3',
+                        'fas-accent': '#C4704A',
+                        'fas-accent-warm': '#E8A87C',
+                        'fas-cream': '#FAF8F5',
+                        'fas-warm': '#F5F0E8',
+                        'fas-sand': '#EDE8E0',
+                        'fas-leaf': '#72B083',
+                    },
+                    fontFamily: {
+                        'display': ['"Cormorant Garamond"', 'serif'],
+                        'body': ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --fas-primary: #72B083;
+            --fas-primary-dark: #4A8A5E;
+            --fas-primary-light: #94C4A3;
+            --fas-accent: #C4704A;
+            --fas-accent-warm: #E8A87C;
+            --fas-cream: #FAF8F5;
+            --fas-warm: #F5F0E8;
+            --fas-sand: #EDE8E0;
+            --fas-leaf: #72B083;
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 16px;
+            background: var(--fas-primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 0 0 12px 12px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        .reveal-delay-5 {
+            transition-delay: 0.5s;
+        }
+
+        .reveal-delay-6 {
+            transition-delay: 0.6s;
+        }
+
+        .hero-slide {
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .card-organic {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+        }
+
+        .card-organic:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 32px 64px rgba(46, 92, 72, 0.12);
+        }
+
+        .btn-fas {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-fas:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(46, 92, 72, 0.25);
+        }
+
+        .btn-fas-secondary {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-fas-secondary:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown-content {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-12px) translateZ(0);
+            transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+        }
+
+        .dropdown:hover .dropdown-content,
+        .dropdown:focus-within .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) translateZ(0);
+        }
+
+        .community-card .community-img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .community-card:hover .community-img {
+            transform: scale(1.12);
+        }
+
+        .blob-bg {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .gradient-mesh {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(107, 155, 122, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(196, 112, 74, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 40%, rgba(46, 92, 72, 0.08) 0%, transparent 40%);
+            z-index: 0;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-15px);
+            }
+
+            60% {
+                transform: translateY(-7px);
+            }
+        }
+
+        .pattern-dots {
+            background-image: radial-gradient(circle, var(--fas-primary-light) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.15;
+        }
+
+        .card-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .card-organic:hover .card-shine::before {
+            left: 100%;
+        }
+
+        .nav-link-underline {
+            position: relative;
+        }
+
+        .nav-link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--fas-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link-underline:hover::after {
+            width: 70%;
+        }
+
+        .icon-bounce:hover i {
+            animation: iconBounce 0.6s ease;
+        }
+
+        @keyframes iconBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .reveal,
+            .hero-slide.active,
+            .hero-text-reveal,
+            .card-organic,
+            .btn-fas,
+            .btn-fas-secondary,
+            .community-card .community-img,
+            .scroll-indicator,
+            .floating-shape {
+                animation: none;
+                transition: none;
+                transform: none !important;
+            }
+
+            .parallax-hero {
+                background-attachment: scroll;
+            }
+
+            * {
+                scroll-behavior: auto;
+            }
+        }
+
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+
+        .focus-visible:focus {
+            outline: 2px solid var(--fas-primary);
+            outline-offset: 2px;
+        }
+
+        .decorative-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--fas-accent), var(--fas-accent-warm));
+        }
+    </style>
+</head>
+
+<body class="font-body text-gray-700 bg-fas-cream">
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <a href="#inicio" class="skip-link focus-visible">Saltar al contenido</a>
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-lg border-b border-fas-sand/50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#inicio" class="flex items-center gap-3 group">
+                    <img src="/static/images/logoTrans.png" alt="FAS - Fundación Alimentando Sonrisas"
+                        class="h-16 w-auto">
+                </a>
+
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="#inicio"
+                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Inicio</a>
+                    <a href="#nosotros"
+                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Quiénes
+                        somos</a>
+
+                    <div class="relative dropdown px-2">
+                        <button type="button"
+                            class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1 focus-visible"
+                            aria-haspopup="true" aria-expanded="false" aria-label="Ver programas">
+                            Cómo ayudamos
+                            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="dropdown-content absolute left-0 top-full mt-3 w-60 bg-white rounded-2xl shadow-2xl border border-fas-sand py-3"
+                            role="menu">
+                            <a href="#programas"
+                                class="flex items-center gap-3 px-5 py-3 text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-all"
+                                role="menuitem">
+                                <i class="fas fa-utensils w-5 text-fas-accent" aria-hidden="true"></i>
+                                Alimentación
+                            </a>
+                            <a href="#programas"
+                                class="flex items-center gap-3 px-5 py-3 text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-all"
+                                role="menuitem">
+                                <i class="fas fa-heartbeat w-5 text-fas-accent" aria-hidden="true"></i>
+                                Salud
+                            </a>
+                            <a href="#programas"
+                                class="flex items-center gap-3 px-5 py-3 text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-all"
+                                role="menuitem">
+                                <i class="fas fa-graduation-cap w-5 text-fas-accent" aria-hidden="true"></i>
+                                Educación
+                            </a>
+                            <a href="#programas"
+                                class="flex items-center gap-3 px-5 py-3 text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-all"
+                                role="menuitem">
+                                <i class="fas fa-lightbulb w-5 text-fas-accent" aria-hidden="true"></i>
+                                Emprendimiento
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="#comunidades"
+                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Comunidades</a>
+                    <a href="#equipo"
+                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Nuestro
+                        equipo</a>
+                    <a href="#participa"
+                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Participa</a>
+                    <a href="#apoyanos"
+                        class="btn-fas ml-3 px-7 py-3.5 bg-fas-primary text-white rounded-full font-medium text-sm tracking-wide">Apóyanos</a>
+                    <a href="#contacto"
+                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Contacto</a>
+                </div>
+
+                <button type="button" id="mobile-menu-btn"
+                    class="lg:hidden p-3 text-gray-600 focus-visible rounded-lg hover:bg-fas-cream transition"
+                    aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+                    <i class="fas fa-bars text-xl" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-fas-sand">
+            <div class="px-6 py-4 space-y-2">
+                <a href="#inicio"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Inicio</a>
+                <a href="#nosotros"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Quiénes somos</a>
+                <div class="py-2">
+                    <span class="px-4 text-gray-400 text-sm">Cómo ayudamos</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="#programas"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Alimentación</a>
+                        <a href="#programas"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Salud</a>
+                        <a href="#programas"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Educación</a>
+                        <a href="#programas"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Emprendimiento</a>
+                    </div>
+                </div>
+                <a href="#comunidades"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Comunidades</a>
+                <a href="#equipo" class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Nuestro
+                    equipo</a>
+                <a href="#participa"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Participa</a>
+                <a href="#apoyanos"
+                    class="btn-fas block text-center py-3.5 bg-fas-primary text-white rounded-full font-medium">Apóyanos</a>
+                <a href="#contacto"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SLIDER (like version 3) -->
+    <section id="inicio" class="relative min-h-screen flex items-center overflow-hidden">
+        <!-- Parallax Background Elements -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <!-- Decorative circles like plates/plates silhouettes -->
+            <div class="absolute top-1/4 -left-10 w-64 h-64 border-[30px] border-fas-primary/10 rounded-full"
+                data-speed="0.1"></div>
+            <div class="absolute bottom-1/4 right-10 w-48 h-48 border-[20px] border-fas-accent/15 rounded-full"
+                data-speed="-0.1"></div>
+            <!-- Leaf shapes -->
+            <div class="absolute top-1/3 right-1/4 w-24 h-24 bg-fas-primary/10 rotate-45 rounded-full"
+                data-speed="0.15"></div>
+            <!-- Small decorative elements -->
+            <div class="absolute top-1/2 left-1/4 w-3 h-3 bg-fas-accent/30 rounded-full" data-speed="0.2"></div>
+            <div class="absolute bottom-1/3 right-1/3 w-2 h-2 bg-fas-primary/40 rounded-full" data-speed="-0.15"></div>
+            <div class="absolute top-20 right-20 w-4 h-4 bg-fas-accent/20 rounded-full" data-speed="0.08"></div>
+        </div>
+
+        <!-- Slide 1 -->
+        <div class="hero-slide active absolute inset-0" data-parallax="0.3"
+            style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal inline-flex items-center gap-4 mb-6">
+                        <span class="w-16 h-px bg-fas-accent"></span>
+                        <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Fundación
+                            Alimentando Sonrisas</span>
+                    </div>
+                    <h1
+                        class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
+                        Ayudamos a niños a tener un <span class="italic text-fas-accent">mejor futuro</span>
+                    </h1>
+                    <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
+                        En FAS creemos que cada niño merece la oportunidad de sonar, aprender y crecer con dignidad.
+                    </p>
+                    <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
+                        <a href="#apoyanos"
+                            class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
+                        <a href="#participa"
+                            class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide absolute inset-0" data-parallax="0.3"
+            style="background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1920&q=80'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal inline-flex items-center gap-4 mb-6">
+                        <span class="w-16 h-px bg-fas-accent"></span>
+                        <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Comunidades
+                            Guaraníes</span>
+                    </div>
+                    <h1
+                        class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
+                        Llevamos alimentación y apoyo a quienes más lo necesitan
+                    </h1>
+                    <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
+                        Trabajamos directamente en las comunidades más vulnerables de Cochabamba, Bolivia.
+                    </p>
+                    <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
+                        <a href="#apoyanos"
+                            class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
+                        <a href="#participa"
+                            class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-slide absolute inset-0" data-parallax="0.3"
+            style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&q=80'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal inline-flex items-center gap-4 mb-6">
+                        <span class="w-16 h-px bg-fas-accent"></span>
+                        <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Juntos es
+                            posible</span>
+                    </div>
+                    <h1
+                        class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
+                        Juntos podemos generar nuevas oportunidades
+                    </h1>
+                    <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
+                        Tu apoyo puede transformar vidas y construir un Bolivia donde todos tengan chances.
+                    </p>
+                    <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
+                        <a href="#apoyanos"
+                            class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
+                        <a href="#participa"
+                            class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Controls -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
+            <button type="button"
+                class="w-12 h-12 bg-white/10 backdrop-blur rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110"
+                onclick="changeSlide(-1)" aria-label="Anterior">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="flex gap-2">
+                <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white transition-all"
+                    onclick="goToSlide(0)" aria-label="Slide 1"></button>
+                <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all"
+                    onclick="goToSlide(1)" aria-label="Slide 2"></button>
+                <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all"
+                    onclick="goToSlide(2)" aria-label="Slide 3"></button>
+            </div>
+            <button type="button"
+                class="w-12 h-12 bg-white/10 backdrop-blur rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110"
+                onclick="changeSlide(1)" aria-label="Siguiente">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div
+            class="absolute bottom-10 right-10 z-20 hidden md:flex flex-col items-center gap-2 text-white/50 scroll-indicator">
+            <span class="text-xs tracking-widest uppercase">Scroll</span>
+            <div class="w-px h-12 bg-gradient-to-b from-white/50 to-transparent"></div>
+        </div>
+    </section>
+
+    <script>
+        // Hero Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slide-dot');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('bg-white');
+                dots[i].classList.add('bg-white/40');
+            });
+
+            slides[index].classList.add('active');
+            dots[index].classList.remove('bg-white/40');
+            dots[index].classList.add('bg-white');
+
+            // Trigger reveal animations for current slide
+            const activeSlide = slides[index];
+            activeSlide.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                setTimeout(() => el.classList.add('active'), 100);
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Auto-play cada 6 segundos
+        setInterval(() => changeSlide(1), 6000);
+
+        // Parallax effect for all sections
+        const parallaxElements = document.querySelectorAll('[data-speed]');
+
+        function applyParallax() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            parallaxElements.forEach(el => {
+                const speed = parseFloat(el.dataset.speed);
+                const rect = el.getBoundingClientRect();
+                const sectionTop = el.offsetTop;
+
+                if (scrollY + windowHeight > sectionTop && scrollY < sectionTop + rect.height) {
+                    const yPos = (scrollY - sectionTop) * speed;
+                    el.style.transform = `translateY(${yPos}px)`;
+                }
+            });
+        }
+
+        window.addEventListener('scroll', applyParallax, { passive: true });
+    </script>
+
+    <!-- PROBLEM SECTION -->
+    <section id="nosotros" class="relative py-32 px-6 bg-white overflow-hidden">
+        <div class="gradient-mesh"></div>
+        <!-- Heart shape -象征爱心 -->
+        <div class="absolute -top-20 -left-20 w-40 h-40 text-fas-primary/10" data-speed="0.1">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+        </div>
+        <!-- Circle pattern like plates -->
+        <div class="absolute bottom-10 right-10 w-32 h-32 border-[15px] border-fas-accent/10 rounded-full"
+            data-speed="-0.1"></div>
+        <div class="absolute top-1/3 right-1/4 w-4 h-4 bg-fas-primary/20 rounded-full" data-speed="0.15"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative">
+            <span
+                class="reveal inline-block text-fas-accent font-body font-medium tracking-[0.25em] uppercase text-xs mb-8">Nuestra
+                razón de ser</span>
+            <div
+                class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-8">
+            </div>
+            <h2
+                class="reveal reveal-delay-2 font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-10 leading-tight">
+                En Bolivia, miles de familias enfrentan el desafío diario de no tener suficientes alimentos</h2>
+            <p class="reveal reveal-delay-3 text-lg text-gray-600 leading-loose max-w-2xl mx-auto mb-6 font-light">
+                Muchos niños crecen sin acceso a una alimentación adecuada, sin oportunidades de estudio y sin la
+                posibilidad de soñar con un futuro diferente. En las comunidades más alejadas, la pobreza no es solo
+                falta de dinero: es falta de esperanza.
+            </p>
+            <p class="reveal reveal-delay-4 text-lg text-gray-600 leading-loose max-w-2xl mx-auto font-light">
+                Pero creemos que cada persona merece la oportunidad de construir una vida digna. Por eso nacimos: para
+                caminar junto a las comunidades, no para dar limosna, sino para construir juntos un futuro mejor.
+            </p>
+            <div class="reveal reveal-delay-5 mt-10">
+                <a href="/quienes-somos"
+                    class="btn-fas inline-flex items-center gap-2 px-6 py-3 border-2 border-fas-accent text-fas-accent rounded-full font-medium hover:bg-fas-accent hover:text-white transition-colors">
+                    Conoce nuestra historia
+                    <i class="fas fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAMS - Improved Bento Grid -->
+    <section id="programas" class="py-40 px-6 bg-fas-cream relative overflow-hidden">
+        <!-- Decorative background with parallax -->
+        <div class="absolute inset-0 pattern-dots opacity-30"></div>
+
+        <!-- Utensils silhouettes (fork & knife shapes) -->
+        <div class="absolute top-10 right-10 w-16 h-32 text-fas-primary/10" data-speed="0.08">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z" />
+            </svg>
+        </div>
+        <!-- Leaf element -->
+        <div class="absolute bottom-10 left-10 w-20 h-20 text-fas-accent/10" data-speed="-0.08">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z" />
+            </svg>
+        </div>
+        <!-- Small decorative circles -->
+        <div class="absolute top-1/3 left-1/4 w-3 h-3 bg-fas-primary/20 rounded-full" data-speed="0.12"></div>
+        <div class="absolute bottom-1/4 right-1/3 w-2 h-2 bg-fas-accent/30 rounded-full" data-speed="-0.1"></div>
+
+        <div class="max-w-7xl mx-auto relative">
+            <!-- Section Header -->
+            <div class="text-center mb-20">
+                <span
+                    class="reveal inline-block px-5 py-2 bg-fas-primary/10 text-fas-primary font-medium tracking-[0.2em] uppercase text-xs mb-6 rounded-full">Nuestro
+                    trabajo</span>
+                <div class="reveal reveal-delay-1 flex items-center justify-center gap-4 mb-6">
+                    <div class="w-12 h-px bg-gradient-to-r from-transparent to-fas-accent"></div>
+                    <div class="w-2 h-2 bg-fas-accent rounded-full"></div>
+                    <div class="w-12 h-px bg-gradient-to-l from-transparent to-fas-accent"></div>
+                </div>
+                <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-6">Cómo
+                    ayudamos</h2>
+                <p class="reveal reveal-delay-3 text-gray-600 max-w-xl mx-auto font-light leading-relaxed">4 pilares que
+                    transforman vidas</p>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid md:grid-cols-4 gap-5">
+                <!-- Main Card - Alimentacion (spans 2 cols, 2 rows) -->
+                <div class="reveal reveal-delay-3 md:col-span-2 md:row-span-2 group">
+                    <div
+                        class="h-full bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-500 card-organic overflow-hidden relative">
+                        <!-- Background accent -->
+                        <div
+                            class="absolute top-0 right-0 w-40 h-40 bg-fas-primary/5 rounded-full blur-3xl group-hover:bg-fas-primary/10 transition-all duration-500">
+                        </div>
+
+                        <div class="relative z-10 h-full flex flex-col justify-between">
+                            <div
+                                class="w-18 h-18 bg-fas-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-utensils text-2xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-3xl text-gray-800 mb-4">Alimentación</h3>
+                                <p class="text-gray-500 leading-relaxed font-light text-lg">Llevamos alimentos
+                                    nutritivos a familias en situación de inseguridad alimentaria. Creemos que una buena
+                                    alimentación es la base para el desarrollo integral de cada niño.</p>
+                            </div>
+                            <div class="mt-6 flex items-center gap-2 text-fas-primary font-medium">
+                                <span>Ver más</span>
+                                <i
+                                    class="fas fa-arrow-right text-sm group-hover:translate-x-2 transition-transform"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card - Salud -->
+                <div class="reveal reveal-delay-4 group">
+                    <div
+                        class="h-full bg-white rounded-[2rem] p-6 shadow-md hover:shadow-2xl transition-all duration-500 card-organic overflow-hidden relative">
+                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-fas-accent/10 rounded-full blur-2xl"></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-fas-accent to-fas-accent-warm rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-heartbeat text-xl text-white"></i>
+                            </div>
+                            <h3 class="font-display text-xl text-gray-800 mb-2">Salud</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed font-light">Atención médica básica y
+                                programas de salud preventiva para todas las edades.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card - Educación -->
+                <div class="reveal reveal-delay-5 group">
+                    <div
+                        class="h-full bg-white rounded-[2rem] p-6 shadow-md hover:shadow-2xl transition-all duration-500 card-organic overflow-hidden relative">
+                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-fas-leaf/20 rounded-full blur-2xl"></div>
+                        <div class="relative z-10">
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-fas-primary-light to-fas-leaf rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-graduation-cap text-xl text-white"></i>
+                            </div>
+                            <h3 class="font-display text-xl text-gray-800 mb-2">Educación</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed font-light">Materiales educativos, becas y
+                                apoyo escolar para niños y jóvenes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Card - Emprendimiento (spans 2 cols) -->
+                <div class="reveal reveal-delay-6 md:col-span-2 group">
+                    <div
+                        class="h-full bg-gradient-to-br from-fas-primary to-fas-primary-dark rounded-[2rem] p-8 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden relative">
+                        <!-- Decorative elements -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-fas-accent/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 flex items-center gap-6">
+                            <div
+                                class="w-20 h-20 bg-white/15 backdrop-blur rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 animate-pulse">
+                                <i class="fas fa-lightbulb text-3xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-2xl text-white mb-2">Emprendimiento</h3>
+                                <p class="text-white/75 leading-relaxed font-light">Capacitamos a familias para que
+                                    puedan generar sus propios ingresos y alcanzar independencia económica.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Card -->
+                <div class="reveal reveal-delay-6 md:col-span-2 bg-white rounded-[2rem] p-6 shadow-md">
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div>
+                            <span class="block font-display text-3xl text-fas-primary">4</span>
+                            <span class="text-gray-500 text-sm">Pilares</span>
+                        </div>
+                        <div>
+                            <span class="block font-display text-3xl text-fas-primary">1000+</span>
+                            <span class="text-gray-500 text-sm">Familias</span>
+                        </div>
+                        <div>
+                            <span class="block font-display text-3xl text-fas-primary">5</span>
+                            <span class="text-gray-500 text-sm">Años</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMUNITIES -->
+    <section id="comunidades" class="py-32 px-6 bg-white relative overflow-hidden">
+        <!-- Parallax decorative elements - House/village shapes -->
+        <!-- House silhouette -->
+        <div class="absolute top-10 -left-10 w-24 h-24 text-fas-primary/10" data-speed="0.1">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+        </div>
+        <!-- Mountains/nature shape -->
+        <div class="absolute bottom-10 -right-10 w-32 h-32 text-fas-accent/10" data-speed="-0.1">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z" />
+            </svg>
+        </div>
+        <!-- Sun/circle -->
+        <div class="absolute top-1/3 right-1/4 w-16 h-16 border-[12px] border-fas-primary/10 rounded-full"
+            data-speed="0.15"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-3 h-3 bg-fas-accent/30 rounded-full" data-speed="-0.12"></div>
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <span
+                    class="reveal inline-block text-fas-accent font-body font-medium tracking-[0.25em] uppercase text-xs mb-4">Donde
+                    trabajamos</span>
+                <div
+                    class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6">
+                </div>
+                <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-6">
+                    Comunidades que acompañamos</h2>
+                <p class="reveal reveal-delay-3 text-gray-600 max-w-xl mx-auto font-light">Estamos presentes en
+                    comunidades Guaraníes de Cochabamba, Bolivia.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <a href="/comunidades/tentayape" class="reveal reveal-delay-3 community-card group block">
+                    <div class="relative overflow-hidden rounded-[2rem] mb-5">
+                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&q=80"
+                            alt="Vista de la comunidad Tentayape" class="community-img w-full h-80 object-cover"
+                            width="600" height="320" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent">
+                        </div>
+                        <div class="absolute bottom-6 left-6">
+                            <span
+                                class="px-4 py-2 bg-fas-primary text-white text-sm rounded-full font-medium">Tentayape</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 leading-relaxed font-light pl-2">Comunidad agrícola donde trabajamos
+                        programas de alimentación y educación.</p>
+                </a>
+
+                <a href="/comunidades/sotos" class="reveal reveal-delay-4 community-card group block">
+                    <div class="relative overflow-hidden rounded-[2rem] mb-5">
+                        <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80"
+                            alt="Huertos comunitarios en Sotos" class="community-img w-full h-80 object-cover"
+                            width="600" height="320" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent">
+                        </div>
+                        <div class="absolute bottom-6 left-6">
+                            <span
+                                class="px-4 py-2 bg-fas-accent text-white text-sm rounded-full font-medium">Sotos</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 leading-relaxed font-light pl-2">Pequeña comunidad donde hemos implementado
+                        huertos comunitarios.</p>
+                </a>
+
+                <a href="/comunidades/ytapembia" class="reveal reveal-delay-5 community-card group block">
+                    <div class="relative overflow-hidden rounded-[2rem] mb-5">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+                            alt="Mujeres de Ytapembia" class="community-img w-full h-80 object-cover" width="600"
+                            height="320" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent">
+                        </div>
+                        <div class="absolute bottom-6 left-6">
+                            <span
+                                class="px-4 py-2 bg-fas-primary-light text-white text-sm rounded-full font-medium">Ytapembia</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 leading-relaxed font-light pl-2">Comunidad donde enfocamos nuestro trabajo
+                        en emprendimiento femenino.</p>
+                </a>
+
+                <a href="/comunidades/pentirenda" class="reveal reveal-delay-3 community-card group block">
+                    <div class="relative overflow-hidden rounded-[2rem] mb-5">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"
+                            alt="Niños en Pentirenda" class="community-img w-full h-80 object-cover" width="600"
+                            height="320" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent">
+                        </div>
+                        <div class="absolute bottom-6 left-6">
+                            <span
+                                class="px-4 py-2 bg-fas-leaf text-white text-sm rounded-full font-medium">Pentirenda</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 leading-relaxed font-light pl-2">Donde llevamos programas de salud
+                        preventiva y nutricionales.</p>
+                </a>
+
+                <a href="/comunidades/ibabirante" class="reveal reveal-delay-4 community-card group block">
+                    <div class="relative overflow-hidden rounded-[2rem] mb-5">
+                        <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=600&q=80"
+                            alt="Niños de Ibabirante" class="community-img w-full h-80 object-cover" width="600"
+                            height="320" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent">
+                        </div>
+                        <div class="absolute bottom-6 left-6">
+                            <span
+                                class="px-4 py-2 bg-fas-accent-warm text-white text-sm rounded-full font-medium">Ibabirante</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 leading-relaxed font-light pl-2">Comunidad con la que trabajamos en
+                        educación y desarrollo infantil.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORY -->
+    <section class="py-32 px-6 bg-gradient-to-br from-fas-cream via-white to-fas-sand/50 relative overflow-hidden">
+        <div class="gradient-mesh"></div>
+        <!-- Quote marks decorative -->
+        <div class="absolute top-10 right-20 text-fas-primary/10 text-9xl font-display" data-speed="0.1">"</div>
+        <!-- Heart element -->
+        <div class="absolute bottom-10 left-10 w-16 h-16 text-fas-accent/15" data-speed="-0.1">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+        </div>
+        <!-- Small dots -->
+        <div class="absolute top-1/2 right-1/3 w-2 h-2 bg-fas-primary/20 rounded-full" data-speed="0.15"></div>
+        <div class="absolute bottom-1/3 left-1/4 w-3 h-3 bg-fas-accent/20 rounded-full" data-speed="-0.08"></div>
+
+        <div class="max-w-4xl mx-auto relative">
+            <div
+                class="reveal bg-white rounded-[3rem] p-12 md:p-16 shadow-2xl shadow-fas-primary/5 border border-fas-sand/50">
+                <div class="flex flex-col md:flex-row items-center gap-10">
+                    <div class="relative flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=300&q=80"
+                            alt="María, madre de familia" class="w-36 h-36 rounded-full object-cover shadow-xl"
+                            width="144" height="144">
+                        <div
+                            class="absolute -bottom-2 -right-2 w-12 h-12 bg-fas-accent rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-quote-right text-white text-sm" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <i class="fas fa-quote-left text-6xl text-fas-primary/10 mb-2" aria-hidden="true"></i>
+                        <p class="text-xl md:text-2xl text-gray-700 italic mb-6 leading-relaxed font-display">
+                            "Antes mis hijos no podían ir a la escuela porque no tenían qué comer. Ahora, gracias a FAS,
+                            reciben alimentación en la escuela y pueden aprender. Yo también recibí capacitación y ahora
+                            tengo mi pequeño negocio."
+                        </p>
+                        <p class="font-display text-xl text-gray-800">— María, madre de familia de Tentayape</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO HELP -->
+    <section id="participa" class="py-32 px-6 bg-white relative overflow-hidden">
+        <!-- Parallax elements - Hands helping -->
+        <!-- Hand holding heart -->
+        <div class="absolute top-0 left-10 w-20 h-20 text-fas-primary/10" data-speed="0.1">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+        </div>
+        <!-- Plus/medical cross -->
+        <div class="absolute bottom-10 right-10 w-16 h-16 text-fas-accent/10" data-speed="-0.1">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            </svg>
+        </div>
+        <!-- Circles -->
+        <div class="absolute top-1/3 right-1/4 w-4 h-4 bg-fas-primary/20 rounded-full" data-speed="0.15"></div>
+        <div class="absolute bottom-1/4 left-1/3 w-3 h-3 bg-fas-accent/30 rounded-full" data-speed="-0.12"></div>
+        <div class="pattern-dots absolute inset-0 opacity-10"></div>
+
+        <div class="max-w-5xl mx-auto relative">
+            <div class="text-center mb-20">
+                <span
+                    class="reveal inline-block text-fas-accent font-body font-medium tracking-[0.25em] uppercase text-xs mb-4">Únete
+                    a nuestra causa</span>
+                <div
+                    class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6">
+                </div>
+                <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-6">Cómo
+                    puedes ayudar</h2>
+                <p class="reveal reveal-delay-3 text-gray-600 max-w-xl mx-auto font-light">Tu apoyo puede hacer la
+                    diferencia en la vida de muchas familias.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div
+                    class="reveal reveal-delay-3 bg-gradient-to-br from-fas-primary to-fas-primary-dark rounded-[3rem] p-10 md:p-14 text-center card-organic shadow-2xl">
+                    <div
+                        class="w-22 h-22 bg-white/10 backdrop-blur rounded-3xl flex items-center justify-center mx-auto mb-8">
+                        <i class="fas fa-heart text-4xl text-white" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="font-display text-3xl md:text-4xl text-white mb-5">Donar</h3>
+                    <p class="text-white/80 mb-10 leading-relaxed font-light">Tu contribución mensual ayuda a que más
+                        niños reciban alimentación, educación y oportunidades.</p>
+                    <div class="bg-white rounded-3xl p-6 mb-8 inline-block shadow-xl">
+                        <p class="text-sm text-gray-500 mb-3 font-medium">Escanea para donate</p>
+                        <div class="w-44 h-44 bg-gray-50 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-qrcode text-8xl text-gray-200" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <a href="#contacto"
+                        class="btn-fas inline-block px-10 py-5 bg-white text-fas-primary rounded-full text-base font-semibold tracking-wide">Apóyanos
+                        ahora</a>
+                </div>
+
+                <div
+                    class="reveal reveal-delay-4 bg-fas-sand/50 rounded-[3rem] p-10 md:p-14 text-center card-organic border border-fas-sand">
+                    <div
+                        class="w-22 h-22 bg-fas-accent rounded-3xl flex items-center justify-center mx-auto mb-8 icon-bounce">
+                        <i class="fas fa-hands-helping text-4xl text-white" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="font-display text-3xl md:text-4xl text-gray-800 mb-5">Participar</h3>
+                    <p class="text-gray-600 mb-10 leading-relaxed font-light">Únete como voluntario. Tu tiempo y
+                        habilidades pueden transformar vidas.</p>
+                    <ul class="text-left space-y-5 mb-10 max-w-xs mx-auto">
+                        <li class="flex items-center gap-4 text-gray-600">
+                            <span class="w-8 h-8 bg-fas-primary/10 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-fas-primary text-sm" aria-hidden="true"></i>
+                            </span>
+                            <span class="font-light">Voluntariado presencial</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-600">
+                            <span class="w-8 h-8 bg-fas-primary/10 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-fas-primary text-sm" aria-hidden="true"></i>
+                            </span>
+                            <span class="font-light">Mentoría profesional</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-600">
+                            <span class="w-8 h-8 bg-fas-primary/10 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-fas-primary text-sm" aria-hidden="true"></i>
+                            </span>
+                            <span class="font-light">Colaboración en eventos</span>
+                        </li>
+                    </ul>
+                    <a href="#contacto"
+                        class="btn-fas inline-block px-10 py-5 border-2 border-fas-primary text-fas-primary rounded-full text-base font-semibold tracking-wide hover:bg-fas-primary hover:text-white transition-all">Quiero
+                        participar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM / TRUST -->
+    <section id="equipo" class="py-32 px-6 bg-fas-cream relative overflow-hidden">
+        <div class="gradient-mesh"></div>
+        <!-- People/group icon -->
+        <div class="absolute -bottom-20 -left-20 w-32 h-32 text-fas-primary/10" data-speed="0.08">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+            </svg>
+        </div>
+        <!-- Target/goal icon -->
+        <div class="absolute top-20 right-10 w-20 h-20 text-fas-accent/10" data-speed="-0.08">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+            </svg>
+        </div>
+        <!-- Small elements -->
+        <div class="absolute top-1/2 left-1/4 w-3 h-3 bg-fas-primary/20 rounded-full" data-speed="0.12"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-2 h-2 bg-fas-accent/30 rounded-full" data-speed="-0.1"></div>
+
+        <div class="max-w-6xl mx-auto relative">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal">
+                    <span
+                        class="inline-block text-fas-accent font-body font-medium tracking-[0.25em] uppercase text-xs mb-4">Conoce
+                        nuestro equipo</span>
+                    <div class="w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mb-8"></div>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-8">Nuestro equipo</h2>
+                    <p class="text-lg text-gray-600 mb-12 leading-loose font-light">
+                        Somos un equipo de personas comprometidas con Bolivia. No trabajamos desde una oficina:
+                        trabajamos en las comunidades, caminando junto a las familias, escuchando sus necesidades y
+                        construyendo soluciones juntos.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div
+                            class="bg-white rounded-3xl p-8 shadow-lg shadow-fas-primary/5 hover:shadow-xl transition-shadow">
+                            <i class="fas fa-bullseye text-4xl text-fas-primary mb-5" aria-hidden="true"></i>
+                            <h4 class="font-display text-2xl text-gray-800 mb-3">Misión</h4>
+                            <p class="text-gray-500 font-light leading-relaxed">Transformar vidas mediante alimentación,
+                                educación, salud y emprendimiento.</p>
+                        </div>
+                        <div
+                            class="bg-white rounded-3xl p-8 shadow-lg shadow-fas-primary/5 hover:shadow-xl transition-shadow">
+                            <i class="fas fa-eye text-4xl text-fas-accent mb-5" aria-hidden="true"></i>
+                            <h4 class="font-display text-2xl text-gray-800 mb-3">Visión</h4>
+                            <p class="text-gray-500 font-light leading-relaxed">Un Bolivia donde cada niño tenga
+                                oportunidades reales de desarrollo.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <a href="/equipo"
+                            class="btn-fas inline-flex items-center gap-2 px-6 py-3 border-2 border-fas-accent text-fas-accent rounded-full font-medium hover:bg-fas-accent hover:text-white transition-colors">
+                            Ver equipo completo
+                            <i class="fas fa-arrow-right text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-delay-2 grid grid-cols-2 gap-5">
+                    <div class="space-y-5">
+                        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80"
+                            alt="Miembro del equipo FAS 1" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full"
+                            width="400" height="300" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1537484001383-7e6dc2cc4929?w=400&q=80"
+                            alt="Miembro del equipo FAS 2"
+                            class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full mt-10" width="400" height="300"
+                            loading="lazy">
+                    </div>
+                    <div class="space-y-5 pt-12">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80"
+                            alt="Miembro del equipo FAS 3" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full"
+                            width="400" height="300" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=400&q=80"
+                            alt="Miembro del equipo FAS 4" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full"
+                            width="400" height="300" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="apoyanos"
+        class="py-32 px-6 bg-gradient-to-br from-fas-primary via-fas-primary-dark to-fas-primary relative overflow-hidden">
+        <div class="gradient-mesh opacity-30"></div>
+
+        <!-- Large heart -->
+        <div class="absolute top-1/4 -left-10 w-24 h-24 text-white/10" data-speed="0.1">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+        </div>
+        <!-- Circle -->
+        <div class="absolute bottom-1/4 right-10 w-20 h-20 border-[12px] border-white/10 rounded-full"
+            data-speed="-0.08"></div>
+        <!-- Stars -->
+        <div class="absolute top-1/3 right-1/4 w-3 h-3 bg-white/20 rounded-full" data-speed="0.15"></div>
+        <div class="absolute bottom-1/3 left-1/4 w-2 h-2 bg-white/30 rounded-full" data-speed="-0.12"></div>
+        <div class="absolute top-20 right-1/3 w-2 h-2 bg-white/20 rounded-full" data-speed="0.08"></div>
+
+        <!-- Decorative elements -->
+        <div
+            class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-fas-accent/50 to-transparent">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-fas-accent/50 to-transparent">
+        </div>
+
+        <div class="max-w-3xl mx-auto text-center relative">
+            <h2 class="reveal font-display text-4xl md:text-5xl lg:text-6xl text-white mb-8 leading-tight">Cada pequeño
+                gesto puede cambiar una vida</h2>
+            <p class="reveal reveal-delay-1 text-xl text-white/85 mb-12 leading-relaxed font-light max-w-xl mx-auto">No
+                necesitamos grandes cosas. Necesitamos personas que decidan caminar junto a nosotros.</p>
+            <a href="#contacto"
+                class="reveal reveal-delay-2 btn-fas inline-block bg-white text-fas-primary px-12 py-6 rounded-full text-lg font-semibold tracking-wide shadow-2xl hover:shadow-3xl">Contáctanos
+                para apoyar</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto" class="bg-gray-900 text-white py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <img src="/static/images/logo.png" alt="FAS - Fundación Alimentando Sonrisas"
+                            class="h-12 w-auto">
+                    </div>
+                    <p class="text-gray-400 mb-2 font-light">Fundación Alimentando Sonrisas</p>
+                    <p class="text-gray-400 font-light">Cochabamba, Bolivia</p>
+                </div>
+
+                <div>
+                    <h4 class="font-display text-xl mb-6">Navegación</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="#inicio" class="hover:text-fas-accent transition-colors font-light">Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-fas-accent transition-colors font-light">Quiénes
+                                somos</a></li>
+                        <li><a href="#programas"
+                                class="hover:text-fas-accent transition-colors font-light">Programas</a></li>
+                        <li><a href="#comunidades"
+                                class="hover:text-fas-accent transition-colors font-light">Comunidades</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-display text-xl mb-6">Contacto</h4>
+                    <ul class="space-y-5 text-gray-400">
+                        <li class="flex items-center gap-4 font-light">
+                            <span
+                                class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fab fa-whatsapp text-fas-accent" aria-hidden="true"></i>
+                            </span>
+                            <span>+591 70000000</span>
+                        </li>
+                        <li class="flex items-center gap-4 font-light">
+                            <span
+                                class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-fas-accent" aria-hidden="true"></i>
+                            </span>
+                            <span>hola@fas.org.bo</span>
+                        </li>
+                        <li class="flex items-center gap-4 font-light">
+                            <span
+                                class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-fas-accent" aria-hidden="true"></i>
+                            </span>
+                            <span>Cochabamba</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-display text-xl mb-6">Síguenos</h4>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"
+                            aria-label="Twitter">
+                            <i class="fab fa-twitter" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-16 pt-10 text-center">
+                <p class="text-gray-500 font-light">&copy; 2025 Fundación Alimentando Sonrisas. Todos los derechos
+                    reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+
+        function checkReveal() {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 100;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkReveal, { passive: true });
+        window.addEventListener('load', checkReveal);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
