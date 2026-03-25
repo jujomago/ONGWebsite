@@ -1,0 +1,14 @@
+wordpress/wp-admin/
+wordpress/wp-includes/
+wordpress/wp-config.php
+wordpress/wp-config-docker.php
+wordpress/wp-config-sample.php
+wordpress/index.php
+wordpress/license.txt
+wordpress/readme.html
+wordpress/*.php
+wordpress/wp-content/languages/
+wordpress/wp-content/plugins/
+wordpress/wp-content/themes/*
+!wordpress/wp-content/themes/fastheme/
+!wordpress/static/
