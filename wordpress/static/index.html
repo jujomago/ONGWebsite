@@ -12,331 +12,9 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'fas-primary': '#72B083',
-                        'fas-primary-dark': '#4A8A5E',
-                        'fas-primary-light': '#94C4A3',
-                        'fas-accent': '#C4704A',
-                        'fas-accent-warm': '#E8A87C',
-                        'fas-cream': '#FAF8F5',
-                        'fas-warm': '#F5F0E8',
-                        'fas-sand': '#EDE8E0',
-                        'fas-leaf': '#72B083',
-                    },
-                    fontFamily: {
-                        'display': ['"Cormorant Garamond"', 'serif'],
-                        'body': ['Outfit', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        :root {
-            --fas-primary: #72B083;
-            --fas-primary-dark: #4A8A5E;
-            --fas-primary-light: #94C4A3;
-            --fas-accent: #C4704A;
-            --fas-accent-warm: #E8A87C;
-            --fas-cream: #FAF8F5;
-            --fas-warm: #F5F0E8;
-            --fas-sand: #EDE8E0;
-            --fas-leaf: #72B083;
-        }
-
-        * {
-            scroll-behavior: smooth;
-        }
-
-        .grain-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -50px;
-            left: 16px;
-            background: var(--fas-primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 0 0 12px 12px;
-            z-index: 100;
-            transition: top 0.3s;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-delay-1 {
-            transition-delay: 0.1s;
-        }
-
-        .reveal-delay-2 {
-            transition-delay: 0.2s;
-        }
-
-        .reveal-delay-3 {
-            transition-delay: 0.3s;
-        }
-
-        .reveal-delay-4 {
-            transition-delay: 0.4s;
-        }
-
-        .reveal-delay-5 {
-            transition-delay: 0.5s;
-        }
-
-        .reveal-delay-6 {
-            transition-delay: 0.6s;
-        }
-
-        .hero-slide {
-            opacity: 0;
-            transition: opacity 1.2s ease;
-        }
-
-        .hero-slide.active {
-            opacity: 1;
-        }
-
-        .card-organic {
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
-        }
-
-        .card-organic:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 32px 64px rgba(46, 92, 72, 0.12);
-        }
-
-        .btn-fas {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .btn-fas:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(46, 92, 72, 0.25);
-        }
-
-        .btn-fas-secondary {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .btn-fas-secondary:hover {
-            transform: translateY(-3px);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-        }
-
-        .dropdown-content {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-12px) translateZ(0);
-            transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
-        }
-
-        .dropdown:hover .dropdown-content,
-        .dropdown:focus-within .dropdown-content {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) translateZ(0);
-        }
-
-        .community-card .community-img {
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .community-card:hover .community-img {
-            transform: scale(1.12);
-        }
-
-        .blob-bg {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-            z-index: 0;
-        }
-
-        .gradient-mesh {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 80%, rgba(107, 155, 122, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(196, 112, 74, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 40% 40%, rgba(46, 92, 72, 0.08) 0%, transparent 40%);
-            z-index: 0;
-        }
-
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-        }
-
-        .scroll-indicator {
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0);
-            }
-
-            40% {
-                transform: translateY(-15px);
-            }
-
-            60% {
-                transform: translateY(-7px);
-            }
-        }
-
-        .pattern-dots {
-            background-image: radial-gradient(circle, var(--fas-primary-light) 1px, transparent 1px);
-            background-size: 24px 24px;
-            opacity: 0.15;
-        }
-
-        .card-shine {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-shine::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .card-organic:hover .card-shine::before {
-            left: 100%;
-        }
-
-        .nav-link-underline {
-            position: relative;
-        }
-
-        .nav-link-underline::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--fas-primary);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-link-underline:hover::after {
-            width: 70%;
-        }
-
-        .icon-bounce:hover i {
-            animation: iconBounce 0.6s ease;
-        }
-
-        @keyframes iconBounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
-            .reveal,
-            .hero-slide.active,
-            .hero-text-reveal,
-            .card-organic,
-            .btn-fas,
-            .btn-fas-secondary,
-            .community-card .community-img,
-            .scroll-indicator,
-            .floating-shape {
-                animation: none;
-                transition: none;
-                transform: none !important;
-            }
-
-            .parallax-hero {
-                background-attachment: scroll;
-            }
-
-            * {
-                scroll-behavior: auto;
-            }
-        }
-
-        section[id] {
-            scroll-margin-top: 80px;
-        }
-
-        .focus-visible:focus {
-            outline: 2px solid var(--fas-primary);
-            outline-offset: 2px;
-        }
-
-        .decorative-line {
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--fas-accent), var(--fas-accent-warm));
-        }
-    </style>
+    <script src="js/tailwind-config.js"></script>
 </head>
 
 <body class="font-body text-gray-700 bg-fas-cream">
@@ -344,24 +22,25 @@
     <a href="#inicio" class="skip-link focus-visible">Saltar al contenido</a>
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-lg border-b border-fas-sand/50">
+    <nav id="main-nav"
+        class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-lg border-b border-fas-sand/50 transition-all duration-500">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <a href="#inicio" class="flex items-center gap-3 group">
+                <a href="#inicio" class="flex items-center gap-3 group h-[75px]">
                     <img src="/static/images/logoTrans.png" alt="FAS - Fundación Alimentando Sonrisas"
-                        class="h-16 w-auto">
+                        class="h-full w-auto">
                 </a>
 
                 <div class="hidden lg:flex items-center gap-1">
                     <a href="#inicio"
-                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Inicio</a>
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Inicio</a>
                     <a href="#nosotros"
-                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Quiénes
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Quiénes
                         somos</a>
 
                     <div class="relative dropdown px-2">
                         <button type="button"
-                            class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1 focus-visible"
+                            class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1 focus-visible"
                             aria-haspopup="true" aria-expanded="false" aria-label="Ver programas">
                             Cómo ayudamos
                             <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
@@ -372,26 +51,26 @@
                         </button>
                         <div class="dropdown-content absolute left-0 top-full mt-3 w-60 bg-white rounded-2xl shadow-2xl border border-fas-sand py-3"
                             role="menu">
-                            <a href="#programas"
-                                class="flex items-center gap-3 px-5 py-3 text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-all"
+                            <a href="alimentacion.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"
                                 role="menuitem">
                                 <i class="fas fa-utensils w-5 text-fas-accent" aria-hidden="true"></i>
                                 Alimentación
                             </a>
-                            <a href="#programas"
-                                class="flex items-center gap-3 px-5 py-3 text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-all"
+                            <a href="salud.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"
                                 role="menuitem">
                                 <i class="fas fa-heartbeat w-5 text-fas-accent" aria-hidden="true"></i>
                                 Salud
                             </a>
-                            <a href="#programas"
-                                class="flex items-center gap-3 px-5 py-3 text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-all"
+                            <a href="educacion.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"
                                 role="menuitem">
                                 <i class="fas fa-graduation-cap w-5 text-fas-accent" aria-hidden="true"></i>
                                 Educación
                             </a>
-                            <a href="#programas"
-                                class="flex items-center gap-3 px-5 py-3 text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-all"
+                            <a href="emprendimiento.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"
                                 role="menuitem">
                                 <i class="fas fa-lightbulb w-5 text-fas-accent" aria-hidden="true"></i>
                                 Emprendimiento
@@ -400,16 +79,16 @@
                     </div>
 
                     <a href="#comunidades"
-                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Comunidades</a>
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Comunidades</a>
                     <a href="#equipo"
-                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Nuestro
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Nuestro
                         equipo</a>
                     <a href="#participa"
-                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Participa</a>
-                    <a href="#apoyanos"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Participa</a>
+                    <a href="donate.html"
                         class="btn-fas ml-3 px-7 py-3.5 bg-fas-primary text-white rounded-full font-medium text-sm tracking-wide">Apóyanos</a>
                     <a href="#contacto"
-                        class="nav-link-underline px-4 py-2 text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Contacto</a>
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Contacto</a>
                 </div>
 
                 <button type="button" id="mobile-menu-btn"
@@ -425,18 +104,18 @@
             <div class="px-6 py-4 space-y-2">
                 <a href="#inicio"
                     class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Inicio</a>
-                <a href="#nosotros"
+                <a href="/static/nosotros.html"
                     class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Quiénes somos</a>
                 <div class="py-2">
                     <span class="px-4 text-gray-400 text-sm">Cómo ayudamos</span>
                     <div class="ml-4 mt-2 space-y-1">
-                        <a href="#programas"
+                        <a href="alimentacion.html"
                             class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Alimentación</a>
-                        <a href="#programas"
+                        <a href="salud.html"
                             class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Salud</a>
-                        <a href="#programas"
+                        <a href="educacion.html"
                             class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Educación</a>
-                        <a href="#programas"
+                        <a href="emprendimiento.html"
                             class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Emprendimiento</a>
                     </div>
                 </div>
@@ -446,7 +125,7 @@
                     equipo</a>
                 <a href="#participa"
                     class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Participa</a>
-                <a href="#apoyanos"
+                <a href="donate.html"
                     class="btn-fas block text-center py-3.5 bg-fas-primary text-white rounded-full font-medium">Apóyanos</a>
                 <a href="#contacto"
                     class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Contacto</a>
@@ -530,7 +209,7 @@
 
         <!-- Slide 3 -->
         <div class="hero-slide absolute inset-0" data-parallax="0.3"
-            style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&q=80'); background-size: cover; background-position: center;">
+            style="background-image: url('images/portada3.png'); background-size: cover; background-position: center;">
             <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
             <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
                 <div class="max-w-3xl">
@@ -556,6 +235,60 @@
             </div>
         </div>
 
+        <!-- Slide 4 -->
+        <div class="hero-slide absolute inset-0" data-parallax="0.3"
+            style="background-image: url('images/teaching.png'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal inline-flex items-center gap-4 mb-6">
+                        <span class="w-16 h-px bg-fas-accent"></span>
+                        <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Educación</span>
+                    </div>
+                    <h1
+                        class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
+                        La educación cambia vidas
+                    </h1>
+                    <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
+                        Brindamos herramientas de aprendizaje para que cada niño pueda alcanzar su máximo potencial.
+                    </p>
+                    <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
+                        <a href="#apoyanos"
+                            class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
+                        <a href="#participa"
+                            class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="hero-slide absolute inset-0" data-parallax="0.3"
+            style="background-image: url('images/portada4.png'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal inline-flex items-center gap-4 mb-6">
+                        <span class="w-16 h-px bg-fas-accent"></span>
+                        <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Comunidad</span>
+                    </div>
+                    <h1
+                        class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
+                        Construyendo juntos el futuro
+                    </h1>
+                    <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
+                        Trabajamos de la mano con las comunidades para crear soluciones sostenibles.
+                    </p>
+                    <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
+                        <a href="#apoyanos"
+                            class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
+                        <a href="#participa"
+                            class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Slider Controls -->
         <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
             <button type="button"
@@ -570,6 +303,10 @@
                     onclick="goToSlide(1)" aria-label="Slide 2"></button>
                 <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all"
                     onclick="goToSlide(2)" aria-label="Slide 3"></button>
+                <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all"
+                    onclick="goToSlide(3)" aria-label="Slide 4"></button>
+                <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all"
+                    onclick="goToSlide(4)" aria-label="Slide 5"></button>
             </div>
             <button type="button"
                 class="w-12 h-12 bg-white/10 backdrop-blur rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110"
@@ -644,13 +381,65 @@
         }
 
         window.addEventListener('scroll', applyParallax, { passive: true });
+
+        // Navbar - change color on scroll
+        const mainNav = document.getElementById('main-nav');
+
+        function handleNavScroll() {
+            const scrollY = window.scrollY;
+            const navTexts = mainNav.querySelectorAll('.nav-text');
+            const navBtn = mainNav.querySelector('.btn-fas');
+            const dropdownContent = mainNav.querySelector('.dropdown-content');
+            const dropdownBtn = mainNav.querySelector('.dropdown button');
+            if (scrollY > 50) {
+                mainNav.classList.add('navbar-scrolled');
+                mainNav.classList.remove('bg-white/85', 'backdrop-blur-lg', 'border-fas-sand/50');
+                mainNav.classList.add('bg-fas-dark/95', 'backdrop-blur-md', 'border-transparent');
+                navTexts.forEach(el => {
+                    el.classList.remove('text-gray-600', 'text-gray-700', 'text-gray-800');
+                    el.classList.add('text-white');
+                });
+                if (dropdownContent) {
+                    dropdownContent.classList.remove('bg-white');
+                    dropdownContent.classList.add('bg-fas-dark', 'border-fas-dark');
+                }
+                if (navBtn) {
+                    navBtn.classList.remove('bg-fas-primary', 'text-white');
+                    navBtn.classList.add('bg-fas-accent', 'text-fas-dark');
+                }
+            } else {
+                mainNav.classList.remove('navbar-scrolled');
+                mainNav.classList.add('bg-white/85', 'backdrop-blur-lg', 'border-fas-sand/50');
+                mainNav.classList.remove('bg-fas-dark/95', 'backdrop-blur-md', 'border-transparent');
+                navTexts.forEach(el => {
+                    el.classList.add('text-gray-600', 'text-gray-700', 'text-gray-800');
+                    el.classList.remove('text-white');
+                });
+                if (dropdownContent) {
+                    dropdownContent.classList.add('bg-white');
+                    dropdownContent.classList.remove('bg-fas-dark', 'border-fas-dark');
+                }
+                if (navBtn) {
+                    navBtn.classList.add('bg-fas-primary', 'text-white');
+                    navBtn.classList.remove('bg-fas-accent', 'text-fas-dark');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', handleNavScroll, { passive: true });
+        handleNavScroll();
     </script>
 
     <!-- PROBLEM SECTION -->
     <section id="nosotros" class="relative py-32 px-6 bg-white overflow-hidden">
         <div class="gradient-mesh"></div>
-        <!-- Heart shape -象征爱心 -->
-        <div class="absolute -top-20 -left-20 w-40 h-40 text-fas-primary/10" data-speed="0.1">
+        <!-- Subtle dot pattern -->
+        <div class="absolute inset-0 opacity-30"
+            style="background-image: radial-gradient(circle, #059ba3 1px, transparent 1px); background-size: 20px 20px;">
+        </div>
+
+        <!-- Heart shape -->
+        <div class="absolute top-10 left-1/4 w-32 h-32 text-fas-primary/10" data-speed="0.1">
             <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
                 <path
                     d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -681,7 +470,7 @@
                 caminar junto a las comunidades, no para dar limosna, sino para construir juntos un futuro mejor.
             </p>
             <div class="reveal reveal-delay-5 mt-10">
-                <a href="/quienes-somos"
+                <a href="/static/nosotros.html"
                     class="btn-fas inline-flex items-center gap-2 px-6 py-3 border-2 border-fas-accent text-fas-accent rounded-full font-medium hover:bg-fas-accent hover:text-white transition-colors">
                     Conoce nuestra historia
                     <i class="fas fa-arrow-right text-sm"></i>
@@ -691,9 +480,14 @@
     </section>
 
     <!-- PROGRAMS - Improved Bento Grid -->
-    <section id="programas" class="py-40 px-6 bg-fas-cream relative overflow-hidden">
-        <!-- Decorative background with parallax -->
-        <div class="absolute inset-0 pattern-dots opacity-30"></div>
+    <section id="programas" class="py-32 px-6 bg-fas-cream relative overflow-hidden">
+        <div class="gradient-mesh" style="background:
+            radial-gradient(ellipse 100% 60% at 50% 0%, rgba(255, 255, 255, 0.6) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 80% 100%, rgba(247, 171, 22, 0.08) 0%, transparent 50%);"></div>
+        <!-- Diagonal pattern -->
+        <div class="absolute inset-0 opacity-5"
+            style="background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(5, 155, 163, 0.5) 10px, rgba(5, 155, 163, 0.5) 11px);">
+        </div>
 
         <!-- Utensils silhouettes (fork & knife shapes) -->
         <div class="absolute top-10 right-10 w-16 h-32 text-fas-primary/10" data-speed="0.08">
@@ -840,15 +634,21 @@
 
     <!-- COMMUNITIES -->
     <section id="comunidades" class="py-32 px-6 bg-white relative overflow-hidden">
+        <div class="gradient-mesh"></div>
+        <!-- Subtle dot pattern -->
+        <div class="absolute inset-0 opacity-30"
+            style="background-image: radial-gradient(circle, #d79363 1px, transparent 1px); background-size: 20px 20px;">
+        </div>
+
         <!-- Parallax decorative elements - House/village shapes -->
         <!-- House silhouette -->
-        <div class="absolute top-10 -left-10 w-24 h-24 text-fas-primary/10" data-speed="0.1">
+        <div class="absolute top-10 left-20 w-24 h-24 text-fas-primary/10" data-speed="0.1">
             <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
             </svg>
         </div>
         <!-- Mountains/nature shape -->
-        <div class="absolute bottom-10 -right-10 w-32 h-32 text-fas-accent/10" data-speed="-0.1">
+        <div class="absolute bottom-10 right-20 w-32 h-32 text-fas-accent/10" data-speed="-0.1">
             <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z" />
             </svg>
@@ -874,7 +674,7 @@
             <div class="grid md:grid-cols-3 gap-8">
                 <a href="/comunidades/tentayape" class="reveal reveal-delay-3 community-card group block">
                     <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&q=80"
+                        <img src="images/comunidadNinas.png"
                             alt="Vista de la comunidad Tentayape" class="community-img w-full h-80 object-cover"
                             width="600" height="320" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent">
@@ -890,7 +690,7 @@
 
                 <a href="/comunidades/sotos" class="reveal reveal-delay-4 community-card group block">
                     <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                        <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80"
+                        <img src="images/comunidadSenoras.png"
                             alt="Huertos comunitarios en Sotos" class="community-img w-full h-80 object-cover"
                             width="600" height="320" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent">
@@ -906,7 +706,7 @@
 
                 <a href="/comunidades/ytapembia" class="reveal reveal-delay-5 community-card group block">
                     <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80"
+                        <img src="images/comunidadSenorasAncianas.png"
                             alt="Mujeres de Ytapembia" class="community-img w-full h-80 object-cover" width="600"
                             height="320" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent">
@@ -958,6 +758,7 @@
     <!-- STORY -->
     <section class="py-32 px-6 bg-gradient-to-br from-fas-cream via-white to-fas-sand/50 relative overflow-hidden">
         <div class="gradient-mesh"></div>
+
         <!-- Quote marks decorative -->
         <div class="absolute top-10 right-20 text-fas-primary/10 text-9xl font-display" data-speed="0.1">"</div>
         <!-- Heart element -->
@@ -1000,6 +801,12 @@
 
     <!-- HOW TO HELP -->
     <section id="participa" class="py-32 px-6 bg-white relative overflow-hidden">
+        <div class="gradient-mesh"></div>
+        <!-- Subtle dot pattern -->
+        <div class="absolute inset-0 opacity-30"
+            style="background-image: radial-gradient(circle, #059ba3 1px, transparent 1px); background-size: 20px 20px;">
+        </div>
+
         <!-- Parallax elements - Hands helping -->
         <!-- Hand holding heart -->
         <div class="absolute top-0 left-10 w-20 h-20 text-fas-primary/10" data-speed="0.1">
@@ -1009,7 +816,7 @@
             </svg>
         </div>
         <!-- Plus/medical cross -->
-        <div class="absolute bottom-10 right-10 w-16 h-16 text-fas-accent/10" data-speed="-0.1">
+        <div class="absolute bottom-10 right-10 w-24 h-24 text-fas-accent/10" data-speed="-0.1">
             <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
             </svg>
@@ -1017,7 +824,6 @@
         <!-- Circles -->
         <div class="absolute top-1/3 right-1/4 w-4 h-4 bg-fas-primary/20 rounded-full" data-speed="0.15"></div>
         <div class="absolute bottom-1/4 left-1/3 w-3 h-3 bg-fas-accent/30 rounded-full" data-speed="-0.12"></div>
-        <div class="pattern-dots absolute inset-0 opacity-10"></div>
 
         <div class="max-w-5xl mx-auto relative">
             <div class="text-center mb-20">
@@ -1034,59 +840,116 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card Donar -->
                 <div
-                    class="reveal reveal-delay-3 bg-gradient-to-br from-fas-primary to-fas-primary-dark rounded-[3rem] p-10 md:p-14 text-center card-organic shadow-2xl">
-                    <div
-                        class="w-22 h-22 bg-white/10 backdrop-blur rounded-3xl flex items-center justify-center mx-auto mb-8">
-                        <i class="fas fa-heart text-4xl text-white" aria-hidden="true"></i>
-                    </div>
-                    <h3 class="font-display text-3xl md:text-4xl text-white mb-5">Donar</h3>
-                    <p class="text-white/80 mb-10 leading-relaxed font-light">Tu contribución mensual ayuda a que más
-                        niños reciban alimentación, educación y oportunidades.</p>
-                    <div class="bg-white rounded-3xl p-6 mb-8 inline-block shadow-xl">
-                        <p class="text-sm text-gray-500 mb-3 font-medium">Escanea para donate</p>
-                        <div class="w-44 h-44 bg-gray-50 rounded-2xl flex items-center justify-center">
-                            <i class="fas fa-qrcode text-8xl text-gray-200" aria-hidden="true"></i>
+                    class="reveal reveal-delay-3 group relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-fas-primary via-fas-primary-dark to-[#047a80] p-10 md:p-14 text-center">
+                    <!-- Decorativo -->
+                    <div class="absolute -top-20 -right-20 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-fas-accent/20 rounded-full blur-2xl"></div>
+                    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\" 60\" height=\"60\"
+                        viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\"
+                        fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36
+                        34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6
+                        34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]
+                        opacity-30"></div>
+
+                    <div class="relative z-10">
+                        <div class="relative inline-block mb-8">
+                            <div
+                                class="w-24 h-24 bg-white/10 backdrop-blur-xl rounded-[2rem] flex items-center justify-center mx-auto border border-white/20 shadow-2xl group-hover:scale-110 transition-transform duration-500">
+                                <i class="fas fa-heart text-4xl text-white" aria-hidden="true"></i>
+                            </div>
+                            <div
+                                class="absolute -bottom-2 -right-2 w-8 h-8 bg-fas-accent rounded-full flex items-center justify-center shadow-lg">
+                                <i class="fas fa-plus text-white text-xs" aria-hidden="true"></i>
+                            </div>
                         </div>
+
+                        <h3 class="font-display text-3xl md:text-4xl text-white mb-4">Donar</h3>
+                        <p class="text-white/75 mb-8 leading-relaxed font-light max-w-xs mx-auto">Tu contribución
+                            mensual ayuda a que más niños reciban alimentación, educación y oportunidades.</p>
+
+                        <div class="relative inline-block mb-6">
+                            <div
+                                class="bg-white rounded-[2rem] p-5 shadow-2xl transform group-hover:scale-105 transition-transform duration-300">
+                                <p class="text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">Escanea para
+                                    donate</p>
+                                <div class="w-36 h-36 bg-gray-50 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-qrcode text-7xl text-gray-300" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="donate.html"
+                            class="btn-fas inline-flex items-center gap-2 px-10 py-5 bg-white text-fas-primary rounded-full text-base font-semibold tracking-wide shadow-xl hover:shadow-2xl hover:scale-105 transition-all">
+                            Apóyanos ahora
+                            <i class="fas fa-arrow-right text-sm" aria-hidden="true"></i>
+                        </a>
                     </div>
-                    <br>
-                    <a href="#contacto"
-                        class="btn-fas inline-block px-10 py-5 bg-white text-fas-primary rounded-full text-base font-semibold tracking-wide">Apóyanos
-                        ahora</a>
                 </div>
 
+                <!-- Card Participar -->
                 <div
-                    class="reveal reveal-delay-4 bg-fas-sand/50 rounded-[3rem] p-10 md:p-14 text-center card-organic border border-fas-sand">
+                    class="reveal reveal-delay-4 group relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-fas-cream to-[#e8dcc8] p-10 md:p-14 text-center border border-fas-sand/50">
+                    <!-- Decorativo -->
+                    <div class="absolute -top-20 -left-20 w-64 h-64 bg-fas-primary/5 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-fas-accent/10 rounded-full blur-2xl"></div>
                     <div
-                        class="w-22 h-22 bg-fas-accent rounded-3xl flex items-center justify-center mx-auto mb-8 icon-bounce">
-                        <i class="fas fa-hands-helping text-4xl text-white" aria-hidden="true"></i>
+                        class="absolute top-0 right-0 w-32 h-32 border-[20px] border-fas-primary/5 rounded-full mr-8 mt-8">
                     </div>
-                    <h3 class="font-display text-3xl md:text-4xl text-gray-800 mb-5">Participar</h3>
-                    <p class="text-gray-600 mb-10 leading-relaxed font-light">Únete como voluntario. Tu tiempo y
-                        habilidades pueden transformar vidas.</p>
-                    <ul class="text-left space-y-5 mb-10 max-w-xs mx-auto">
-                        <li class="flex items-center gap-4 text-gray-600">
-                            <span class="w-8 h-8 bg-fas-primary/10 rounded-full flex items-center justify-center">
-                                <i class="fas fa-check text-fas-primary text-sm" aria-hidden="true"></i>
-                            </span>
-                            <span class="font-light">Voluntariado presencial</span>
-                        </li>
-                        <li class="flex items-center gap-4 text-gray-600">
-                            <span class="w-8 h-8 bg-fas-primary/10 rounded-full flex items-center justify-center">
-                                <i class="fas fa-check text-fas-primary text-sm" aria-hidden="true"></i>
-                            </span>
-                            <span class="font-light">Mentoría profesional</span>
-                        </li>
-                        <li class="flex items-center gap-4 text-gray-600">
-                            <span class="w-8 h-8 bg-fas-primary/10 rounded-full flex items-center justify-center">
-                                <i class="fas fa-check text-fas-primary text-sm" aria-hidden="true"></i>
-                            </span>
-                            <span class="font-light">Colaboración en eventos</span>
-                        </li>
-                    </ul>
-                    <a href="#contacto"
-                        class="btn-fas inline-block px-10 py-5 border-2 border-fas-primary text-fas-primary rounded-full text-base font-semibold tracking-wide hover:bg-fas-primary hover:text-white transition-all">Quiero
-                        participar</a>
+
+                    <div class="relative z-10">
+                        <div class="relative inline-block mb-8">
+                            <div
+                                class="w-24 h-24 bg-gradient-to-br from-fas-primary to-fas-primary-dark rounded-[2rem] flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition-transform duration-500">
+                                <i class="fas fa-hands-helping text-4xl text-white" aria-hidden="true"></i>
+                            </div>
+                            <div
+                                class="absolute -bottom-2 -left-2 w-8 h-8 bg-fas-accent rounded-full flex items-center justify-center shadow-lg">
+                                <i class="fas fa-user-plus text-white text-xs" aria-hidden="true"></i>
+                            </div>
+                        </div>
+
+                        <h3 class="font-display text-3xl md:text-4xl text-gray-800 mb-4">Participar</h3>
+                        <p class="text-gray-600 mb-8 leading-relaxed font-light max-w-xs mx-auto">Únete como voluntario.
+                            Tu tiempo y habilidades pueden transformar vidas.</p>
+
+                        <ul class="space-y-4 mb-10 max-w-xs mx-auto text-left">
+                            <li
+                                class="flex items-center gap-4 text-gray-700 group-hover:translate-x-2 transition-transform duration-300">
+                                <span
+                                    class="w-10 h-10 bg-fas-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-fas-primary group-hover:text-white transition-all duration-300">
+                                    <i class="fas fa-check text-fas-primary text-sm group-hover:text-white"
+                                        aria-hidden="true"></i>
+                                </span>
+                                <span class="font-light">Voluntariado presencial</span>
+                            </li>
+                            <li class="flex items-center gap-4 text-gray-700 group-hover:translate-x-2 transition-transform duration-300"
+                                style="transition-delay: 50ms">
+                                <span
+                                    class="w-10 h-10 bg-fas-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-fas-primary group-hover:text-white transition-all duration-300">
+                                    <i class="fas fa-check text-fas-primary text-sm group-hover:text-white"
+                                        aria-hidden="true"></i>
+                                </span>
+                                <span class="font-light">Mentoría profesional</span>
+                            </li>
+                            <li class="flex items-center gap-4 text-gray-700 group-hover:translate-x-2 transition-transform duration-300"
+                                style="transition-delay: 100ms">
+                                <span
+                                    class="w-10 h-10 bg-fas-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-fas-primary group-hover:text-white transition-all duration-300">
+                                    <i class="fas fa-check text-fas-primary text-sm group-hover:text-white"
+                                        aria-hidden="true"></i>
+                                </span>
+                                <span class="font-light">Colaboración en eventos</span>
+                            </li>
+                        </ul>
+
+                        <a href="contacto.html"
+                            class="btn-fas inline-flex items-center gap-2 px-10 py-5 bg-fas-primary text-white rounded-full text-base font-semibold tracking-wide shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                            Quiero participar
+                            <i class="fas fa-user-plus text-sm" aria-hidden="true"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1094,7 +957,14 @@
 
     <!-- TEAM / TRUST -->
     <section id="equipo" class="py-32 px-6 bg-fas-cream relative overflow-hidden">
-        <div class="gradient-mesh"></div>
+        <div class="gradient-mesh" style="background:
+            radial-gradient(ellipse 100% 60% at 50% 0%, rgba(255, 255, 255, 0.6) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 80% 100%, rgba(247, 171, 22, 0.08) 0%, transparent 50%);"></div>
+        <!-- Diagonal pattern -->
+        <div class="absolute inset-0 opacity-5"
+            style="background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(5, 155, 163, 0.5) 10px, rgba(5, 155, 163, 0.5) 11px);">
+        </div>
+
         <!-- People/group icon -->
         <div class="absolute -bottom-20 -left-20 w-32 h-32 text-fas-primary/10" data-speed="0.08">
             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1145,7 +1015,7 @@
                     </div>
 
                     <div class="mt-10">
-                        <a href="/equipo"
+                        <a href="equipo.html"
                             class="btn-fas inline-flex items-center gap-2 px-6 py-3 border-2 border-fas-accent text-fas-accent rounded-full font-medium hover:bg-fas-accent hover:text-white transition-colors">
                             Ver equipo completo
                             <i class="fas fa-arrow-right text-sm"></i>
@@ -1155,19 +1025,19 @@
 
                 <div class="reveal reveal-delay-2 grid grid-cols-2 gap-5">
                     <div class="space-y-5">
-                        <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80"
+                        <img src="images/personal2.jpeg"
                             alt="Miembro del equipo FAS 1" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full"
                             width="400" height="300" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1537484001383-7e6dc2cc4929?w=400&q=80"
+                        <img src="images/personal1.jpeg"
                             alt="Miembro del equipo FAS 2"
                             class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full mt-10" width="400" height="300"
                             loading="lazy">
                     </div>
                     <div class="space-y-5 pt-12">
-                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80"
+                        <img src="images/girlKids.png"
                             alt="Miembro del equipo FAS 3" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full"
                             width="400" height="300" loading="lazy">
-                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=400&q=80"
+                        <img src="images/community.jpeg"
                             alt="Miembro del equipo FAS 4" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full"
                             width="400" height="300" loading="lazy">
                     </div>
@@ -1179,10 +1049,14 @@
     <!-- FINAL CTA -->
     <section id="apoyanos"
         class="py-32 px-6 bg-gradient-to-br from-fas-primary via-fas-primary-dark to-fas-primary relative overflow-hidden">
+        <!-- Circle pattern -->
+        <div class="absolute inset-0 opacity-10"
+            style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;">
+        </div>
         <div class="gradient-mesh opacity-30"></div>
 
         <!-- Large heart -->
-        <div class="absolute top-1/4 -left-10 w-24 h-24 text-white/10" data-speed="0.1">
+        <div class="absolute top-1/4 left-10 w-24 h-24 text-white/10" data-speed="0.1">
             <svg viewBox="0 0 24 24" fill="currentColor">
                 <path
                     d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -1209,7 +1083,7 @@
                 gesto puede cambiar una vida</h2>
             <p class="reveal reveal-delay-1 text-xl text-white/85 mb-12 leading-relaxed font-light max-w-xl mx-auto">No
                 necesitamos grandes cosas. Necesitamos personas que decidan caminar junto a nosotros.</p>
-            <a href="#contacto"
+            <a href="contacto.html"
                 class="reveal reveal-delay-2 btn-fas inline-block bg-white text-fas-primary px-12 py-6 rounded-full text-lg font-semibold tracking-wide shadow-2xl hover:shadow-3xl">Contáctanos
                 para apoyar</a>
         </div>
@@ -1232,7 +1106,8 @@
                     <h4 class="font-display text-xl mb-6">Navegación</h4>
                     <ul class="space-y-4 text-gray-400">
                         <li><a href="#inicio" class="hover:text-fas-accent transition-colors font-light">Inicio</a></li>
-                        <li><a href="#nosotros" class="hover:text-fas-accent transition-colors font-light">Quiénes
+                        <li><a href="/static/nosotros.html"
+                                class="hover:text-fas-accent transition-colors font-light">Quiénes
                                 somos</a></li>
                         <li><a href="#programas"
                                 class="hover:text-fas-accent transition-colors font-light">Programas</a></li>

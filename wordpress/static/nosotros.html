@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos - Fundación Alimentando Sonrisas (FAS)</title>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+</head>
+
+<body class="font-body text-gray-700 bg-fas-cream">
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <a href="#inicio" class="skip-link focus-visible">Saltar al contenido</a>
+
+    <!-- NAVBAR -->
+    <nav id="main-nav"
+        class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-lg border-b border-fas-sand/50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html#inicio" class="flex items-center gap-3 group h-[75px]">
+                    <img src="/static/images/logoTrans.png" alt="FAS" class="h-full w-auto">
+                </a>
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="index.html#inicio"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Inicio</a>
+                    <a href="nosotros.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-fas-primary hover:text-fas-primary transition-colors rounded-lg">Quiénes
+                        somos</a>
+                    <div class="relative dropdown px-2">
+                        <button type="button"
+                            class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1 focus-visible"
+                            aria-haspopup="true" aria-expanded="false" aria-label="Ver programas">
+                            Cómo ayudamos
+                            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div
+                            class="dropdown-content absolute left-0 top-full mt-3 w-60 bg-white rounded-2xl shadow-2xl border border-fas-sand py-3">
+                            <a href="alimentacion.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i
+                                    class="fas fa-utensils w-5 text-fas-accent"></i> Alimentación</a>
+                            <a href="salud.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i
+                                    class="fas fa-heartbeat w-5 text-fas-accent"></i> Salud</a>
+                            <a href="educacion.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i
+                                    class="fas fa-graduation-cap w-5 text-fas-accent"></i> Educación</a>
+                            <a href="emprendimiento.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i
+                                    class="fas fa-lightbulb w-5 text-fas-accent"></i> Emprendimiento</a>
+                        </div>
+                    </div>
+                    <a href="comunidades.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Comunidades</a>
+                    <a href="equipo.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Nuestro
+                        equipo</a>
+                    <a href="index.html#participa"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Participa</a>
+                    <a href="index.html#apoyanos"
+                        class="btn-fas ml-3 px-7 py-3.5 bg-fas-primary text-white rounded-full font-medium text-sm tracking-wide">Apóyanos</a>
+                    <a href="contacto.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Contacto</a>
+                </div>
+                <button type="button" id="mobile-menu-btn"
+                    class="lg:hidden p-3 text-gray-600 focus-visible rounded-lg hover:bg-fas-cream transition"
+                    aria-label="Abrir menú"><i class="fas fa-bars text-xl"></i></button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-fas-sand">
+            <div class="px-6 py-4 space-y-2">
+                <a href="index.html#inicio"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Inicio</a>
+                <a href="nosotros.html"
+                    class="block py-3 px-4 text-fas-primary font-medium rounded-lg hover:bg-fas-cream transition">Quiénes
+                    somos</a>
+                <div class="py-2"><span class="px-4 text-gray-400 text-sm">Cómo ayudamos</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="alimentacion.html"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Alimentación</a>
+                        <a href="salud.html"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Salud</a>
+                        <a href="educacion.html"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Educación</a>
+                        <a href="emprendimiento.html"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Emprendimiento</a>
+                    </div>
+                </div>
+                <a href="comunidades.html"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Comunidades</a>
+                <a href="equipo.html"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Nuestro equipo</a>
+                <a href="index.html#participa"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Participa</a>
+                <a href="index.html#apoyanos"
+                    class="btn-fas block text-center py-3.5 bg-fas-primary text-white rounded-full font-medium">Apóyanos</a>
+                <a href="contacto.html"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <!-- HERO -->
+        <section class="relative py-32 px-6 bg-white overflow-hidden">
+            <div class="gradient-mesh"></div>
+            <div class="absolute inset-0 opacity-30"
+                style="background-image: radial-gradient(circle, #059ba3 1px, transparent 1px); background-size: 20px 20px;">
+            </div>
+            <div class="absolute top-10 right-10 w-32 h-32 text-fas-primary/10" data-speed="0.1">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+            </div>
+            <div class="absolute bottom-10 left-10 w-24 h-24 border-[12px] border-fas-accent/10 rounded-full"
+                data-speed="-0.1"></div>
+            <div class="absolute top-1/3 right-1/4 w-4 h-4 bg-fas-primary/20 rounded-full" data-speed="0.15"></div>
+
+            <div class="max-w-4xl mx-auto text-center relative">
+                <span
+                    class="reveal inline-block text-fas-accent font-medium tracking-[0.25em] uppercase text-xs mb-6">Nuestra
+                    razón de ser</span>
+                <h1
+                    class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-gray-800 mb-8 leading-[1.15]">
+                    Quiénes Somos</h1>
+                <p class="reveal reveal-delay-2 text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed font-light">
+                    Fundación Alimentando Sonrisas (FAS) es una organización sin fines de lucro que trabaja para
+                    transformar la vida de familias en comunidades vulnerables de Bolivia.
+                </p>
+            </div>
+        </section>
+
+        <!-- HISTORIA -->
+        <section class="py-32 px-6 bg-fas-cream relative overflow-hidden">
+            <div class="gradient-mesh"></div>
+            <div class="absolute inset-0 opacity-30"
+                style="background-image: radial-gradient(circle, #059ba3 1px, transparent 1px); background-size: 20px 20px;">
+            </div>
+            <div class="absolute top-20 left-10 w-24 h-24 text-fas-primary/10" data-speed="0.1">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+            </div>
+            <div class="absolute bottom-20 right-10 w-20 h-20 border-[10px] border-fas-accent/10 rounded-full"
+                data-speed="-0.1"></div>
+
+            <div class="max-w-6xl mx-auto relative">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="reveal">
+                        <span
+                            class="inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Nuestra
+                            historia</span>
+                        <div class="w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mb-6"></div>
+                        <h2 class="font-display text-4xl md:text-5xl text-gray-800 mb-6">Nacimos con una misión</h2>
+                        <div class="space-y-4 text-gray-600 leading-relaxed font-light">
+                            <p>Fundación Alimentando Sonrisas surge de la preocupación por las miles de familias en
+                                Bolivia que enfrentan el desafío diario de no tener suficientes alimentos.</p>
+                            <p>Muchos niños crecen sin acceso a una alimentación adecuada, sin oportunidades de estudio
+                                y sin la posibilidad de soñar con un futuro diferente.</p>
+                            <p>Pero creemos que cada persona merece la oportunidad de construir una vida digna. Por eso
+                                nacimos: para caminar junto a las comunidades, no para dar limosna, sino para construir
+                                juntos un futuro mejor.</p>
+                        </div>
+                    </div>
+                    <div class="reveal reveal-delay-2 relative">
+                        <div class="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl">
+                            <img src="images/girlKids.png" alt="Niños en comunidad" class="w-full h-full object-cover">
+                        </div>
+                        <div
+                            class="absolute -bottom-6 -left-6 w-24 h-24 bg-fas-accent rounded-3xl flex items-center justify-center shadow-xl">
+                            <i class="fas fa-heart text-white text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISIÓN Y VISIÓN -->
+        <section class="py-32 px-6 bg-white relative overflow-hidden">
+            <div class="gradient-mesh"></div>
+            <div class="absolute top-10 left-1/4 w-16 h-16 bg-fas-primary/10 rounded-full" data-speed="0.1"></div>
+            <div class="absolute bottom-10 right-1/4 w-20 h-20 bg-fas-accent/10 rounded-full" data-speed="-0.1"></div>
+
+            <div class="max-w-6xl mx-auto relative">
+                <div class="text-center mb-16">
+                    <span
+                        class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Nuestra
+                        esencia</span>
+                    <div
+                        class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6">
+                    </div>
+                    <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl text-gray-800">Misión y Visión
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="reveal reveal-delay-3 bg-fas-cream rounded-[3rem] p-10 text-center card-organic">
+                        <div
+                            class="w-16 h-16 bg-fas-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-bullseye text-fas-primary text-2xl"></i>
+                        </div>
+                        <h3 class="font-display text-2xl text-gray-800 mb-4">Misión</h3>
+                        <p class="text-gray-600 leading-relaxed font-light">Transformar vidas mediante alimentación,
+                            educación, salud y emprendimiento, caminando junto a las comunidades más vulnerables de
+                            Bolivia para construir un futuro digno.</p>
+                    </div>
+                    <div class="reveal reveal-delay-4 bg-fas-cream rounded-[3rem] p-10 text-center card-organic">
+                        <div
+                            class="w-16 h-16 bg-fas-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-eye text-fas-accent text-2xl"></i>
+                        </div>
+                        <h3 class="font-display text-2xl text-gray-800 mb-4">Visión</h3>
+                        <p class="text-gray-600 leading-relaxed font-light">Un Bolivia donde cada niño tenga
+                            oportunidades reales de desarrollo y donde las comunidades puedan construir su propio futuro
+                            con dignidad, esperanza y herramientas para crecer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALORES -->
+        <section class="py-32 px-6 bg-fas-cream relative overflow-hidden">
+            <div class="gradient-mesh"></div>
+            <div class="absolute inset-0 opacity-30"
+                style="background-image: radial-gradient(circle, #f7ab16 1px, transparent 1px); background-size: 20px 20px;">
+            </div>
+
+            <div class="max-w-6xl mx-auto relative">
+                <div class="text-center mb-16">
+                    <span
+                        class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Lo
+                        que nos guía</span>
+                    <div
+                        class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6">
+                    </div>
+                    <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl text-gray-800">Nuestros Valores
+                    </h2>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div
+                        class="reveal reveal-delay-3 bg-white rounded-[2rem] p-8 text-center shadow-md hover:shadow-lg transition-all card-organic">
+                        <div
+                            class="w-14 h-14 bg-fas-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-fas-primary text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-gray-800 mb-2">Comunidad</h3>
+                        <p class="text-gray-500 text-sm font-light">Caminamos junto a las familias, no frente a ellas
+                        </p>
+                    </div>
+                    <div
+                        class="reveal reveal-delay-4 bg-white rounded-[2rem] p-8 text-center shadow-md hover:shadow-lg transition-all card-organic">
+                        <div
+                            class="w-14 h-14 bg-fas-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-heart text-fas-accent text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-gray-800 mb-2">Empatía</h3>
+                        <p class="text-gray-500 text-sm font-light">Entendemos y sentimos junto a quienes acompañamos
+                        </p>
+                    </div>
+                    <div
+                        class="reveal reveal-delay-5 bg-white rounded-[2rem] p-8 text-center shadow-md hover:shadow-lg transition-all card-organic">
+                        <div
+                            class="w-14 h-14 bg-fas-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-handshake text-fas-primary text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-gray-800 mb-2">Respeto</h3>
+                        <p class="text-gray-500 text-sm font-light">Valoramos la dignidad de cada persona</p>
+                    </div>
+                    <div
+                        class="reveal reveal-delay-6 bg-white rounded-[2rem] p-8 text-center shadow-md hover:shadow-lg transition-all card-organic">
+                        <div
+                            class="w-14 h-14 bg-fas-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-lightbulb text-fas-accent text-xl"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-gray-800 mb-2">Esperanza</h3>
+                        <p class="text-gray-500 text-sm font-light">Creemos en el potencial de cada comunidad</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IMPACTO -->
+        <section
+            class="py-24 px-6 bg-gradient-to-br from-fas-primary to-fas-primary-dark text-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"
+                style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;">
+            </div>
+            <div class="gradient-mesh opacity-30"></div>
+            <div class="absolute top-1/4 left-10 w-24 h-24 text-white/10" data-speed="0.1">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+            </div>
+            <div class="absolute bottom-1/4 right-10 w-20 h-20 border-[10px] border-white/10 rounded-full"
+                data-speed="-0.1"></div>
+
+            <div class="max-w-6xl mx-auto relative">
+                <div class="text-center mb-16">
+                    <span
+                        class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Lo
+                        que hemos logrado</span>
+                    <div
+                        class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6">
+                    </div>
+                    <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl mb-4">Nuestro Impacto</h2>
+                    <p class="reveal reveal-delay-3 text-white/80 font-light">Números que nos llenan de orgullo</p>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-8 text-center">
+                    <div class="reveal reveal-delay-3">
+                        <div class="text-5xl font-display mb-2">4</div>
+                        <div class="text-white/80 font-light">Comunidades</div>
+                    </div>
+                    <div class="reveal reveal-delay-4">
+                        <div class="text-5xl font-display mb-2">500+</div>
+                        <div class="text-white/80 font-light">Niños beneficiados</div>
+                    </div>
+                    <div class="reveal reveal-delay-5">
+                        <div class="text-5xl font-display mb-2">12</div>
+                        <div class="text-white/80 font-light">Programas activos</div>
+                    </div>
+                    <div class="reveal reveal-delay-6">
+                        <div class="text-5xl font-display mb-2">45</div>
+                        <div class="text-white/80 font-light">Voluntarios</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIO -->
+        <section class="py-32 px-6 bg-white relative overflow-hidden">
+            <div class="gradient-mesh"></div>
+            <div class="absolute top-20 right-20 w-16 h-16 bg-fas-primary/10 rounded-full" data-speed="0.1"></div>
+            <div class="absolute bottom-20 left-20 w-20 h-20 border-[10px] border-fas-accent/10 rounded-full"
+                data-speed="-0.1"></div>
+
+            <div class="max-w-4xl mx-auto relative">
+                <div class="reveal bg-fas-cream rounded-[3rem] p-10 md:p-16 text-center">
+                    <i class="fas fa-quote-left text-4xl text-fas-primary/20 mb-6"></i>
+                    <p class="text-2xl md:text-3xl text-gray-700 italic mb-8 leading-relaxed font-display">
+                        "Gracias a FAS, mis hijos pueden ir a la escuela y comer tres veces al día. Mi comunidad ha
+                        cambiado completamente. No nos dan limosna, nos dan herramientas para crecer."
+                    </p>
+                    <div class="flex items-center justify-center gap-4">
+                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=100&q=80" alt="María"
+                            class="w-16 h-16 rounded-full object-cover">
+                        <div class="text-left">
+                            <p class="font-display text-xl text-gray-800">María</p>
+                            <p class="text-gray-500 text-sm font-light">Madre de familia, Comunidad Tentayape</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-24 px-6 bg-fas-cream relative overflow-hidden">
+            <div class="gradient-mesh"></div>
+            <div class="max-w-3xl mx-auto text-center relative">
+                <span
+                    class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Únete
+                    a nosotros</span>
+                <div
+                    class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6">
+                </div>
+                <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl text-gray-800 mb-4">Únete a nuestra
+                    misión</h2>
+                <p class="reveal reveal-delay-3 text-gray-600 mb-10 font-light max-w-xl mx-auto">Cada pequeño gesto
+                    puede cambiar una vida. Necesitamos personas que decidan caminar junto a nosotros.</p>
+                <div class="reveal reveal-delay-4 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="donate.html"
+                        class="btn-fas px-10 py-5 bg-fas-primary text-white rounded-full font-medium text-lg shadow-xl shadow-fas-primary/25">Donar</a>
+                    <a href="contacto.html"
+                        class="btn-fas px-10 py-5 border-2 border-fas-primary text-fas-primary rounded-full font-medium text-lg hover:bg-fas-primary hover:text-white">Contactarnos</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <img src="/static/images/logo.png" alt="FAS" class="h-12 w-auto">
+                    </div>
+                    <p class="text-gray-400 mb-2 font-light">Fundación Alimentando Sonrisas</p>
+                    <p class="text-gray-400 font-light">Cochabamba, Bolivia</p>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl mb-6">Navegación</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="index.html#inicio"
+                                class="hover:text-fas-accent transition-colors font-light">Inicio</a></li>
+                        <li><a href="nosotros.html" class="hover:text-fas-accent transition-colors font-light">Quiénes
+                                somos</a></li>
+                        <li><a href="comunidades.html"
+                                class="hover:text-fas-accent transition-colors font-light">Comunidades</a></li>
+                        <li><a href="equipo.html" class="hover:text-fas-accent transition-colors font-light">Equipo</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl mb-6">Contacto</h4>
+                    <ul class="space-y-5 text-gray-400">
+                        <li class="flex items-center gap-4 font-light">
+                            <span class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center"><i
+                                    class="fab fa-whatsapp text-fas-accent"></i></span>
+                            <span>+591 70000000</span>
+                        </li>
+                        <li class="flex items-center gap-4 font-light">
+                            <span class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center"><i
+                                    class="fas fa-envelope text-fas-accent"></i></span>
+                            <span>hola@fas.org.bo</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl mb-6">Síguenos</h4>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-16 pt-10 text-center">
+                <p class="text-gray-500 font-light">&copy; 2025 Fundación Alimentando Sonrisas. Todos los derechos
+                    reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.setAttribute('aria-expanded', mobileMenuBtn.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+            mobileMenu.classList.toggle('hidden');
+        });
+        mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); }));
+
+        const mainNav = document.getElementById('main-nav');
+        function handleNavScroll() {
+            const scrollY = window.scrollY;
+            const navTexts = mainNav.querySelectorAll('.nav-text');
+            const navBtn = mainNav.querySelector('.btn-fas');
+            const dropdownContent = mainNav.querySelector('.dropdown-content');
+            if (scrollY > 50) {
+                mainNav.classList.add('navbar-scrolled');
+                mainNav.classList.remove('bg-white/85', 'backdrop-blur-lg', 'border-fas-sand/50');
+                mainNav.classList.add('bg-fas-dark/95', 'backdrop-blur-md', 'border-transparent');
+                navTexts.forEach(el => { el.classList.remove('text-gray-600'); el.classList.add('text-white'); });
+                if (dropdownContent) { dropdownContent.classList.remove('bg-white'); dropdownContent.classList.add('bg-fas-dark', 'border-fas-dark'); }
+                if (navBtn) { navBtn.classList.remove('bg-fas-primary', 'text-white'); navBtn.classList.add('bg-fas-accent', 'text-fas-dark'); }
+            } else {
+                mainNav.classList.remove('navbar-scrolled');
+                mainNav.classList.add('bg-white/85', 'backdrop-blur-lg', 'border-fas-sand/50');
+                mainNav.classList.remove('bg-fas-dark/95', 'backdrop-blur-md', 'border-transparent');
+                navTexts.forEach(el => { el.classList.add('text-gray-600'); el.classList.remove('text-white'); });
+                if (dropdownContent) { dropdownContent.classList.add('bg-white'); dropdownContent.classList.remove('bg-fas-dark', 'border-fas-dark'); }
+                if (navBtn) { navBtn.classList.add('bg-fas-primary', 'text-white'); navBtn.classList.remove('bg-fas-accent', 'text-fas-dark'); }
+            }
+        }
+        window.addEventListener('scroll', handleNavScroll, { passive: true });
+        handleNavScroll();
+
+        const revealElements = document.querySelectorAll('.reveal');
+        function checkReveal() { revealElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('active'); }); }
+        window.addEventListener('scroll', checkReveal, { passive: true });
+        window.addEventListener('load', checkReveal);
+
+        const parallaxElements = document.querySelectorAll('[data-speed]');
+        function applyParallax() { const scrollY = window.scrollY; parallaxElements.forEach(el => { const speed = parseFloat(el.dataset.speed); const rect = el.getBoundingClientRect(); const top = el.offsetTop; if (scrollY + window.innerHeight > top && scrollY < top + rect.height) el.style.transform = `translateY(${(scrollY - top) * speed}px)`; }); }
+        window.addEventListener('scroll', applyParallax, { passive: true });
+    </script>
+</body>
+
+</html>

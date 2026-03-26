@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Fundación Alimentando Sonrisas (FAS)</title>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwind-config.js"></script>
+</head>
+
+<body class="font-body text-gray-700 bg-fas-cream">
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <!-- NAVBAR -->
+    <nav id="main-nav"
+        class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-lg border-b border-fas-sand/50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="/static/index.html#inicio" class="flex items-center gap-3 group h-[75px]">
+                    <img src="/static/images/logoTrans.png" alt="FAS - Fundación Alimentando Sonrisas"
+                        class="h-full w-auto">
+                </a>
+
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="/static/index.html#inicio"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Inicio</a>
+                    <a href="/static/index.html#nosotros"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Quiénes
+                        somos</a>
+
+                    <div class="relative dropdown px-2">
+                        <button type="button"
+                            class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1 focus-visible"
+                            aria-haspopup="true" aria-expanded="false" aria-label="Ver programas">
+                            Cómo ayudamos
+                            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="dropdown-content absolute left-0 top-full mt-3 w-60 bg-white rounded-2xl shadow-2xl border border-fas-sand py-3"
+                            role="menu">
+                            <a href="/static/index.html#programas"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"
+                                role="menuitem">
+                                <i class="fas fa-utensils w-5 text-fas-accent" aria-hidden="true"></i>
+                                Alimentación
+                            </a>
+                            <a href="/static/index.html#programas"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"
+                                role="menuitem">
+                                <i class="fas fa-heartbeat w-5 text-fas-accent" aria-hidden="true"></i>
+                                Salud
+                            </a>
+                            <a href="/static/index.html#programas"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"
+                                role="menuitem">
+                                <i class="fas fa-graduation-cap w-5 text-fas-accent" aria-hidden="true"></i>
+                                Educación
+                            </a>
+                            <a href="/static/index.html#programas"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"
+                                role="menuitem">
+                                <i class="fas fa-lightbulb w-5 text-fas-accent" aria-hidden="true"></i>
+                                Emprendimiento
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="/static/index.html#comunidades"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Comunidades</a>
+                    <a href="/static/equipo.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Nuestro
+                        equipo</a>
+                    <a href="/static/index.html#participa"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Participa</a>
+                    <a href="/static/index.html#apoyanos"
+                        class="btn-fas ml-3 px-7 py-3.5 bg-fas-primary text-white rounded-full font-medium text-sm tracking-wide">Apóyanos</a>
+                    <a href="/static/contacto.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Contacto</a>
+                </div>
+
+                <button type="button" id="mobile-menu-btn"
+                    class="lg:hidden p-3 text-gray-600 focus-visible rounded-lg hover:bg-fas-cream transition"
+                    aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+                    <i class="fas fa-bars text-xl" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-fas-sand">
+            <div class="px-6 py-4 space-y-2">
+                <a href="/static/index.html#inicio"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Inicio</a>
+                <a href="/static/index.html#nosotros"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Quiénes somos</a>
+                <div class="py-2">
+                    <span class="px-4 text-gray-400 text-sm">Cómo ayudamos</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="/static/index.html#programas"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Alimentación</a>
+                        <a href="/static/index.html#programas"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Salud</a>
+                        <a href="/static/index.html#programas"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Educación</a>
+                        <a href="/static/index.html#programas"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Emprendimiento</a>
+                    </div>
+                </div>
+                <a href="/static/index.html#comunidades"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Comunidades</a>
+                <a href="/static/equipo.html" class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Nuestro
+                    equipo</a>
+                <a href="/static/index.html#participa"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Participa</a>
+                <a href="/static/index.html#apoyanos"
+                    class="btn-fas block text-center py-3.5 bg-fas-primary text-white rounded-full font-medium">Apóyanos</a>
+                <a href="/static/contacto.html"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <!-- MAP HERO - First Section -->
+        <section class="relative h-[50vh] min-h-[400px] overflow-hidden bg-fas-cream">
+            <div class="gradient-mesh opacity-50"></div>
+            <div class="absolute top-10 left-10 w-20 h-20 text-fas-primary/10" data-speed="0.1">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div class="absolute bottom-10 right-10 w-24 h-24 border-[10px] border-fas-accent/10 rounded-full" data-speed="-0.1"></div>
+            <div class="absolute inset-0">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3796.798874066685!2d-66.14518768485233!3d-17.38949798786363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93e3736f枴f2d9a5%3A0x5a5a5a5a5a5a5a5a!2sCochabamba%2C%20Bolivia!5e0!3m2!1ses!2sbo!4v1700000000000!5m2!1ses!2sbo" 
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+                <div class="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 h-full flex flex-col justify-end pb-16 px-6">
+                <div class="max-w-4xl mx-auto text-center w-full">
+                    <span class="reveal inline-block text-gray-800 font-medium tracking-[0.2em] uppercase text-xs mb-4">Visítanos</span>
+                    <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-gray-800 mb-4 leading-[1.15]">Encuéntranos</h1>
+                    <p class="reveal reveal-delay-2 text-gray-600 text-lg max-w-xl mx-auto font-light">Cochabamba, Bolivia</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT CARDS -->
+        <section class="py-32 px-6 -mt-10 relative z-20 overflow-hidden">
+            <div class="gradient-mesh"></div>
+            <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle, #059ba3 1px, transparent 1px); background-size: 20px 20px;"></div>
+            <div class="absolute top-20 left-10 w-20 h-20 text-fas-primary/10" data-speed="0.1">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div class="absolute bottom-20 right-10 w-24 h-24 border-[10px] border-fas-accent/10 rounded-full" data-speed="-0.1"></div>
+            
+            <div class="max-w-6xl mx-auto relative">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Phone -->
+                    <div class="reveal reveal-delay-2 bg-white rounded-[2.5rem] p-8 shadow-lg text-center group hover:shadow-xl transition-all card-organic">
+                        <div class="w-16 h-16 bg-fas-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-fas-primary group-hover:scale-110 transition-all">
+                            <i class="fas fa-phone text-fas-primary text-2xl group-hover:text-white"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-gray-800 mb-2">Teléfono</h3>
+                        <p class="text-gray-500 mb-4 font-light">Lunes a viernes</p>
+                        <a href="tel:+59170000000" class="text-fas-primary font-medium hover:underline">+591 70000000</a>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="reveal reveal-delay-3 bg-white rounded-[2.5rem] p-8 shadow-lg text-center group hover:shadow-xl transition-all card-organic">
+                        <div class="w-16 h-16 bg-fas-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-fas-accent group-hover:scale-110 transition-all">
+                            <i class="fas fa-envelope text-fas-accent text-2xl group-hover:text-white"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-gray-800 mb-2">Email</h3>
+                        <p class="text-gray-500 mb-4 font-light">Respondemos en 24h</p>
+                        <a href="mailto:hola@fas.org.bo" class="text-fas-primary font-medium hover:underline">hola@fas.org.bo</a>
+                    </div>
+
+                    <!-- WhatsApp -->
+                    <div class="reveal reveal-delay-4 bg-white rounded-[2.5rem] p-8 shadow-lg text-center group hover:shadow-xl transition-all card-organic">
+                        <div class="w-16 h-16 bg-[#25D366]/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-[#25D366] group-hover:scale-110 transition-all">
+                            <i class="fab fa-whatsapp text-[#25D366] text-2xl group-hover:text-white"></i>
+                        </div>
+                        <h3 class="font-display text-xl text-gray-800 mb-2">WhatsApp</h3>
+                        <p class="text-gray-500 mb-4 font-light">Chat rápido</p>
+                        <a href="https://wa.me/59170000000" class="text-fas-primary font-medium hover:underline">Escríbenos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORM SECTION -->
+        <section class="py-32 px-6 bg-white relative overflow-hidden">
+            <div class="gradient-mesh"></div>
+            <div class="absolute top-10 right-1/4 w-16 h-16 bg-fas-primary/10 rounded-full" data-speed="0.1"></div>
+            <div class="absolute bottom-10 left-1/4 w-20 h-20 border-[10px] border-fas-accent/10 rounded-full" data-speed="-0.1"></div>
+            
+            <div class="max-w-3xl mx-auto relative">
+                <div class="text-center mb-12">
+                    <span class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Escríbenos</span>
+                    <div class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6"></div>
+                    <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl text-gray-800 mb-4">Envíanos un mensaje</h2>
+                    <p class="reveal reveal-delay-3 text-gray-500 max-w-lg mx-auto font-light">¿Tienes preguntas sobre nuestra labor? ¿Quieres colaborar? Estamos aquí para ayudarte.</p>
+                </div>
+
+                <div class="reveal reveal-delay-4 bg-fas-cream/50 rounded-[3rem] p-10 md:p-12 border border-fas-sand/30 card-organic">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
+                                <input type="text" class="input-field w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none" placeholder="Tu nombre">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Apellido</label>
+                                <input type="text" class="input-field w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none" placeholder="Tu apellido">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="input-field w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none" placeholder="tu@email.com">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
+                            <input type="tel" class="input-field w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none" placeholder="+591 70000000">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Asunto</label>
+                            <select class="input-field w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none">
+                                <option value="">Selecciona un asunto</option>
+                                <option>Quiero donate</option>
+                                <option>Quiero ser voluntario</option>
+                                <option>Solicitar información</option>
+                                <option>Alianzas institucionales</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
+                            <textarea rows="5" class="input-field w-full px-5 py-4 bg-white border border-gray-200 rounded-2xl focus:outline-none resize-none" placeholder="¿En qué podemos ayudarte?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-fas w-full py-5 bg-fas-primary text-white rounded-2xl font-medium text-lg">
+                            Enviar mensaje
+                            <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOCIAL SECTION -->
+        <section class="py-20 px-6 bg-gradient-to-br from-fas-primary to-fas-primary-dark">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="font-display text-3xl text-white mb-4">Síguenos en redes</h2>
+                <p class="text-white/80 mb-10">Entérate de nuestras últimas actividades y campañas</p>
+                
+                <div class="flex justify-center gap-4">
+                    <a href="#" class="w-14 h-14 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all">
+                        <i class="fab fa-facebook-f text-white text-xl"></i>
+                    </a>
+                    <a href="#" class="w-14 h-14 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all">
+                        <i class="fab fa-instagram text-white text-xl"></i>
+                    </a>
+                    <a href="#" class="w-14 h-14 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all">
+                        <i class="fab fa-twitter text-white text-xl"></i>
+                    </a>
+                    <a href="#" class="w-14 h-14 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all">
+                        <i class="fab fa-youtube text-white text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-fas-dark text-white py-16 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div>
+                    <img src="/static/images/logo.png" alt="FAS" class="h-10 mb-4">
+                    <p class="text-gray-400 text-sm">Fundación Alimentando Sonrisas</p>
+                    <p class="text-gray-400 text-sm">Cochabamba, Bolivia</p>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Navegación</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/static/index.html#nosotros" class="hover:text-fas-accent">Quiénes somos</a></li>
+                        <li><a href="/static/index.html#programas" class="hover:text-fas-accent">Programas</a></li>
+                        <li><a href="/static/index.html#comunidades" class="hover:text-fas-accent">Comunidades</a></li>
+                        <li><a href="/static/equipo.html" class="hover:text-fas-accent">Equipo</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fab fa-whatsapp text-fas-accent mr-2"></i>+591 70000000</li>
+                        <li><i class="fas fa-envelope text-fas-accent mr-2"></i>hola@fas.org.bo</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Síguenos</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-fas-accent transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-fas-accent transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 Fundación Alimentando Sonrisas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Navbar scroll effect - same as index.html
+        const mainNav = document.getElementById('main-nav');
+
+        function handleNavScroll() {
+            const scrollY = window.scrollY;
+            const navTexts = mainNav.querySelectorAll('.nav-text');
+            const navBtn = mainNav.querySelector('.btn-fas');
+            const dropdownContent = mainNav.querySelector('.dropdown-content');
+            const dropdownBtn = mainNav.querySelector('.dropdown button');
+            if (scrollY > 50) {
+                mainNav.classList.add('navbar-scrolled');
+                mainNav.classList.remove('bg-white/85', 'backdrop-blur-lg', 'border-fas-sand/50');
+                mainNav.classList.add('bg-fas-dark/95', 'backdrop-blur-md', 'border-transparent');
+                navTexts.forEach(el => {
+                    el.classList.remove('text-gray-600', 'text-gray-700', 'text-gray-800');
+                    el.classList.add('text-white');
+                });
+                if (dropdownContent) {
+                    dropdownContent.classList.remove('bg-white');
+                    dropdownContent.classList.add('bg-fas-dark', 'border-fas-dark');
+                }
+                if (navBtn) {
+                    navBtn.classList.remove('bg-fas-primary', 'text-white');
+                    navBtn.classList.add('bg-fas-accent', 'text-fas-dark');
+                }
+            } else {
+                mainNav.classList.remove('navbar-scrolled');
+                mainNav.classList.add('bg-white/85', 'backdrop-blur-lg', 'border-fas-sand/50');
+                mainNav.classList.remove('bg-fas-dark/95', 'backdrop-blur-md', 'border-transparent');
+                navTexts.forEach(el => {
+                    el.classList.add('text-gray-600', 'text-gray-700', 'text-gray-800');
+                    el.classList.remove('text-white');
+                });
+                if (dropdownContent) {
+                    dropdownContent.classList.add('bg-white');
+                    dropdownContent.classList.remove('bg-fas-dark', 'border-fas-dark');
+                }
+                if (navBtn) {
+                    navBtn.classList.add('bg-fas-primary', 'text-white');
+                    navBtn.classList.remove('bg-fas-accent', 'text-fas-dark');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', handleNavScroll, { passive: true });
+        handleNavScroll();
+
+        const revealElements = document.querySelectorAll('.reveal');
+        function checkReveal() { revealElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('active'); }); }
+        window.addEventListener('scroll', checkReveal, { passive: true });
+        window.addEventListener('load', checkReveal);
+
+        const parallaxElements = document.querySelectorAll('[data-speed]');
+        function applyParallax() { const scrollY = window.scrollY; parallaxElements.forEach(el => { const speed = parseFloat(el.dataset.speed); const rect = el.getBoundingClientRect(); const top = el.offsetTop; if (scrollY + window.innerHeight > top && scrollY < top + rect.height) el.style.transform = `translateY(${(scrollY - top) * speed}px)`; }); }
+        window.addEventListener('scroll', applyParallax, { passive: true });
+    </script>
+</body>
+
+</html>
