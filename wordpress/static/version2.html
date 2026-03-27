@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundación Alimentando Sonrisas (FAS)</title>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fas': {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#6DBE7B',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        'cream': '#FAF9F6',
+                        'warm': '#F5F0E8',
+                        'stone': '#E7E5E4',
+                    },
+                    fontFamily: {
+                        'serif': ['"Instrument Serif"', 'serif'],
+                        'sans': ['"DM Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { scroll-behavior: smooth; }
+        
+        :root {
+            --fas-green: #6DBE7B;
+            --fas-light: #A8D5BA;
+        }
+        
+        /* Grain texture */
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-75 { transition-delay: 75ms; }
+        .delay-150 { transition-delay: 150ms; }
+        .delay-225 { transition-delay: 225ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-375 { transition-delay: 375ms; }
+        .delay-450 { transition-delay: 450ms; }
+        
+        /* Hero slider */
+        .hero-slide {
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+        }
+        
+        /* Glass morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Bento grid */
+        .bento {
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        
+        /* Cards */
+        .card-3d {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+        }
+        
+        .card-3d:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 30px 60px -12px rgba(109, 190, 123, 0.2);
+        }
+        
+        /* Gradient mesh */
+        .mesh {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(109, 190, 123, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 213, 186, 0.1) 0%, transparent 50%);
+        }
+        
+        /* Buttons */
+        .btn-fas {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .btn-fas:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -12px rgba(109, 190, 123, 0.35);
+        }
+        
+        /* Hover glow */
+        .glow-hover {
+            position: relative;
+        }
+        
+        .glow-hover::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, var(--fas-green), var(--fas-light), var(--fas-green));
+            border-radius: inherit;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .glow-hover:hover::before {
+            opacity: 1;
+        }
+        
+        /* Image hover */
+        .img-zoom {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .group:hover .img-zoom {
+            transform: scale(1.08);
+        }
+        
+        /* Dot pattern */
+        .dot-pattern {
+            background-image: radial-gradient(circle, #6DBE7B 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.08;
+        }
+        
+        /* Parallax */
+        .parallax-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .parallax-img {
+            position: absolute;
+            width: 100%;
+            height: 120%;
+            top: -10%;
+            left: 0;
+            object-fit: cover;
+            will-change: transform;
+        }
+        
+        /* Parallax for hero */
+        .hero-slide {
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-slide {
+                background-attachment: scroll;
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .hero-slide, .card-3d, .btn-fas, .img-zoom, .parallax-img {
+                transition: none;
+                opacity: 1;
+                transform: none !important;
+            }
+        }
+        
+        section[id] { scroll-margin-top: 80px; }
+        
+        html { scroll-padding-top: 80px; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-cream antialiased">
+    <div class="grain"></div>
+    <a href="#inicio" class="skip-link">Saltar al contenido</a>
+    
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#inicio" class="flex items-center gap-3 group">
+                    <img src="/static/images/logo.png" alt="FAS - Fundación Alimentando Sonrisas" class="h-12 w-auto">
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center gap-1">
+                    <a href="#inicio" class="px-4 py-2 text-gray-600 hover:text-fas-600 transition-colors rounded-xl hover:bg-fas-50">Inicio</a>
+                    <a href="#nosotros" class="px-4 py-2 text-gray-600 hover:text-fas-600 transition-colors rounded-xl hover:bg-fas-50">Quiénes somos</a>
+                    
+                    <!-- Dropdown -->
+                    <div class="relative group px-2">
+                        <button class="px-4 py-2 text-gray-600 hover:text-fas-600 transition-colors rounded-xl hover:bg-fas-50 flex items-center gap-1">
+                            Cómo ayudamos
+                            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                            <div class="bg-white rounded-2xl shadow-xl border border-stone-100 p-2">
+                                <a href="#programas" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-fas-50 hover:text-fas-600 rounded-xl transition-colors">
+                                    <div class="w-8 h-8 bg-fas-100 rounded-lg flex items-center justify-center text-fas-600"><i class="fas fa-utensils text-sm"></i></div>
+                                    Alimentación
+                                </a>
+                                <a href="#programas" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-fas-50 hover:text-fas-600 rounded-xl transition-colors">
+                                    <div class="w-8 h-8 bg-fas-100 rounded-lg flex items-center justify-center text-fas-600"><i class="fas fa-heartbeat text-sm"></i></div>
+                                    Salud
+                                </a>
+                                <a href="#programas" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-fas-50 hover:text-fas-600 rounded-xl transition-colors">
+                                    <div class="w-8 h-8 bg-fas-100 rounded-lg flex items-center justify-center text-fas-600"><i class="fas fa-graduation-cap text-sm"></i></div>
+                                    Educación
+                                </a>
+                                <a href="#programas" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-fas-50 hover:text-fas-600 rounded-xl transition-colors">
+                                    <div class="w-8 h-8 bg-fas-100 rounded-lg flex items-center justify-center text-fas-600"><i class="fas fa-lightbulb text-sm"></i></div>
+                                    Emprendimiento
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#comunidades" class="px-4 py-2 text-gray-600 hover:text-fas-600 transition-colors rounded-xl hover:bg-fas-50">Comunidades</a>
+                    <a href="#equipo" class="px-4 py-2 text-gray-600 hover:text-fas-600 transition-colors rounded-xl hover:bg-fas-50">Equipo</a>
+                    <a href="#participa" class="px-4 py-2 text-gray-600 hover:text-fas-600 transition-colors rounded-xl hover:bg-fas-50">Participa</a>
+                    <a href="#apoyanos" class="btn-fas ml-2 px-6 py-3 bg-fas-400 text-white rounded-full font-medium">Apóyanos</a>
+                    <a href="#contacto" class="px-4 py-2 text-gray-600 hover:text-fas-600 transition-colors rounded-xl hover:bg-fas-50">Contacto</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="lg:hidden p-3 text-gray-600" aria-label="Menú">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden glass border-t border-white/20">
+            <div class="px-6 py-4 space-y-2">
+                <a href="#inicio" class="block py-3 px-4 text-gray-700 rounded-xl hover:bg-fas-50">Inicio</a>
+                <a href="#nosotros" class="block py-3 px-4 text-gray-700 rounded-xl hover:bg-fas-50">Quiénes somos</a>
+                <div class="py-2">
+                    <span class="px-4 text-gray-400 text-sm">Cómo ayudamos ▾</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="#programas" class="block py-2 px-4 text-gray-600">Alimentación</a>
+                        <a href="#programas" class="block py-2 px-4 text-gray-600">Salud</a>
+                        <a href="#programas" class="block py-2 px-4 text-gray-600">Educación</a>
+                        <a href="#programas" class="block py-2 px-4 text-gray-600">Emprendimiento</a>
+                    </div>
+                </div>
+                <a href="#comunidades" class="block py-3 px-4 text-gray-700 rounded-xl hover:bg-fas-50">Comunidades</a>
+                <a href="#equipo" class="block py-3 px-4 text-gray-700 rounded-xl hover:bg-fas-50">Equipo</a>
+                <a href="#participa" class="block py-3 px-4 text-gray-700 rounded-xl hover:bg-fas-50">Participa</a>
+                <a href="#apoyanos" class="btn-fas block text-center py-3 bg-fas-400 text-white rounded-full font-medium">Apóyanos</a>
+                <a href="#contacto" class="block py-3 px-4 text-gray-700 rounded-xl hover:bg-fas-50">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SLIDER -->
+    <section id="inicio" class="relative min-h-screen flex items-center">
+        <!-- Slide 1 -->
+        <div class="hero-slide active absolute inset-0" style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/50 to-gray-900/20"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal flex items-center gap-4 mb-6">
+                        <div class="w-16 h-px bg-fas-300"></div>
+                        <span class="text-fas-200 font-medium tracking-widest uppercase text-xs">Fundación Alimentando Sonrisas</span>
+                    </div>
+                    <h1 class="reveal delay-75 font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.1]">Ayudamos a niños a tener un <span class="italic text-fas-300">mejor futuro</span></h1>
+                    <p class="reveal delay-150 text-xl text-white/80 mb-10 max-w-xl font-light">En FAS creemos que cada niño merece la oportunidad de sonar, aprender y crecer con dignidad.</p>
+                    <div class="reveal delay-225 flex flex-wrap gap-4">
+                        <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-400 text-white rounded-full font-medium">Apóyanos</a>
+                        <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="hero-slide absolute inset-0" style="background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1920&q=80'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/50 to-gray-900/20"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal flex items-center gap-4 mb-6">
+                        <div class="w-16 h-px bg-fas-300"></div>
+                        <span class="text-fas-200 font-medium tracking-widest uppercase text-xs">Comunidades Guaraníes</span>
+                    </div>
+                    <h1 class="reveal delay-75 font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.1]">Llevamos alimentación y apoyo a quienes más lo necesitan</h1>
+                    <p class="reveal delay-150 text-xl text-white/80 mb-10 max-w-xl font-light">Trabajamos directamente en las comunidades más vulnerables de Cochabamba, Bolivia.</p>
+                    <div class="reveal delay-225 flex flex-wrap gap-4">
+                        <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-400 text-white rounded-full font-medium">Apóyanos</a>
+                        <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="hero-slide absolute inset-0" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&q=80'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/50 to-gray-900/20"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal flex items-center gap-4 mb-6">
+                        <div class="w-16 h-px bg-fas-300"></div>
+                        <span class="text-fas-200 font-medium tracking-widest uppercase text-xs">Juntos es posible</span>
+                    </div>
+                    <h1 class="reveal delay-75 font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.1]">Juntos podemos generar nuevas oportunidades</h1>
+                    <p class="reveal delay-150 text-xl text-white/80 mb-10 max-w-xl font-light">Tu apoyo puede transformar vidas y construir un Bolivia donde todos tengan chances.</p>
+                    <div class="reveal delay-225 flex flex-wrap gap-4">
+                        <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-400 text-white rounded-full font-medium">Apóyanos</a>
+                        <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slider Controls -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
+            <button class="w-12 h-12 glass-dark rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors" onclick="changeSlide(-1)" aria-label="Anterior">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="flex gap-2">
+                <button class="slide-dot w-2.5 h-2.5 rounded-full bg-white transition-colors" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+                <button class="slide-dot w-2.5 h-2.5 rounded-full bg-white/40 transition-colors" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+                <button class="slide-dot w-2.5 h-2.5 rounded-full bg-white/40 transition-colors" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+            </div>
+            <button class="w-12 h-12 glass-dark rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors" onclick="changeSlide(1)" aria-label="Siguiente">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 right-10 z-20 hidden md:flex flex-col items-center gap-2 text-white/50">
+            <span class="text-xs tracking-widest uppercase">Scroll</span>
+            <div class="w-px h-8 bg-gradient-to-b from-white/50 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section id="nosotros" class="relative py-32 px-6 bg-white overflow-hidden">
+        <div class="mesh"></div>
+        <div class="dot-pattern absolute inset-0"></div>
+        
+        <div class="relative max-w-4xl mx-auto text-center">
+            <span class="reveal inline-block text-fas-500 font-medium tracking-[0.2em] uppercase text-xs mb-6">Nuestra razón de ser</span>
+            <div class="reveal delay-75 w-16 h-px bg-gradient-to-r from-fas-400 to-fas-300 mx-auto mb-8"></div>
+            <h2 class="reveal delay-150 font-serif text-4xl md:text-5xl text-gray-900 mb-10 leading-tight">En Bolivia, miles de familias enfrentan el desafío diario de no tener suficientes alimentos</h2>
+            <p class="reveal delay-225 text-gray-600 text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
+                Muchos niños crecen sin acceso a una alimentación adecuada, sin oportunidades de estudio y sin la posibilidad de soñar con un futuro diferente. En las comunidades más alejadas, la pobreza no es solo falta de dinero: es falta de esperanza.
+            </p>
+            <p class="reveal delay-300 text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
+                Pero creemos que cada persona merece la oportunidad de construir una vida digna. Por eso nacimos: para caminar junto a las comunidades, no para dar limosna, sino para construir juntos un futuro mejor.
+            </p>
+            <div class="reveal delay-375 mt-10">
+                <a href="/quienes-somos" class="btn-fas inline-flex items-center gap-2 px-6 py-3 border-2 border-fas-400 text-fas-500 rounded-full font-medium hover:bg-fas-400 hover:text-white transition-colors">
+                    Conoce nuestra historia
+                    <i class="fas fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAMS - Bento Grid -->
+    <section id="programas" class="relative py-32 px-6 bg-cream overflow-hidden">
+        <div class="mesh"></div>
+        
+        <div class="relative max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="reveal inline-block text-fas-500 font-medium tracking-[0.2em] uppercase text-xs mb-4">Nuestro trabajo</span>
+                <h2 class="reveal delay-75 font-serif text-4xl md:text-5xl text-gray-900 mb-4">Cómo ayudamos</h2>
+                <p class="reveal delay-150 text-gray-600 max-w-xl mx-auto">Trabajamos en 4 pilares fundamentales para generar cambios reales y sostenibles.</p>
+            </div>
+            
+            <!-- Bento Grid -->
+            <div class="grid md:grid-cols-4 gap-6">
+                <!-- Main card -->
+                <div class="reveal delay-75 md:col-span-2 md:row-span-2 bento bg-white shadow-lg card-3d">
+                    <div class="h-full p-8 flex flex-col justify-center">
+                        <div class="w-16 h-16 bg-fas-100 rounded-2xl flex items-center justify-center text-fas-500 mb-6">
+                            <i class="fas fa-utensils text-2xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl text-gray-900 mb-3">Alimentación</h3>
+                        <p class="text-gray-600 leading-relaxed">Llevamos alimentos nutritivos a familias en situación de inseguridad alimentaria. Creemos que una buena alimentación es la base para el desarrollo integral de cada niño.</p>
+                    </div>
+                </div>
+                
+                <div class="reveal delay-150 bento bg-white shadow-lg card-3d">
+                    <div class="h-full p-6 flex flex-col">
+                        <div class="w-12 h-12 bg-fas-100 rounded-xl flex items-center justify-center text-fas-500 mb-4">
+                            <i class="fas fa-heartbeat text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl text-gray-900 mb-2">Salud</h3>
+                        <p class="text-gray-600 text-sm">Brindamos atención médica básica.</p>
+                    </div>
+                </div>
+                
+                <div class="reveal delay-225 bento bg-white shadow-lg card-3d">
+                    <div class="h-full p-6 flex flex-col">
+                        <div class="w-12 h-12 bg-fas-100 rounded-xl flex items-center justify-center text-fas-500 mb-4">
+                            <i class="fas fa-graduation-cap text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-xl text-gray-900 mb-2">Educación</h3>
+                        <p class="text-gray-600 text-sm">Apoyamos con materiales y becas.</p>
+                    </div>
+                </div>
+                
+                <div class="reveal delay-300 md:col-span-2 bento bg-fas-400 shadow-lg card-3d">
+                    <div class="h-full p-8 flex items-center gap-6">
+                        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-white flex-shrink-0">
+                            <i class="fas fa-lightbulb text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-2xl text-white mb-2">Emprendimiento</h3>
+                            <p class="text-white/80">Capacitamos a familias para que puedan generar sus propios ingresos y alcanzar independencia económica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMUNITIES -->
+    <section id="comunidades" class="py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="reveal inline-block text-fas-500 font-medium tracking-[0.2em] uppercase text-xs mb-4">Donde trabajamos</span>
+                <h2 class="reveal delay-75 font-serif text-4xl md:text-5xl text-gray-900 mb-4">Comunidades que acompañamos</h2>
+                <p class="reveal delay-150 text-gray-600 max-w-xl mx-auto">Estamos presentes en comunidades Guaraníes de Cochabamba.</p>
+            </div>
+            
+            <!-- Asymmetric grid -->
+            <div class="grid md:grid-cols-5 gap-6">
+                <div class="reveal delay-75 md:col-span-2 group">
+                    <div class="relative rounded-3xl overflow-hidden aspect-[4/3] mb-4 parallax-container">
+                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&q=80" alt="Tentayape" class="parallax-img img-zoom">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="inline-block px-3 py-1 bg-fas-400 text-white text-sm rounded-full">Tentayape</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">Comunidad agrícola</p>
+                </div>
+                
+                <div class="reveal delay-150 group">
+                    <div class="relative rounded-3xl overflow-hidden aspect-square mb-4 parallax-container">
+                        <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=400&q=80" alt="Sotos" class="parallax-img img-zoom">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="inline-block px-3 py-1 bg-fas-400 text-white text-sm rounded-full">Sotos</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">Huertos comunitarios</p>
+                </div>
+                
+                <div class="reveal delay-225 group">
+                    <div class="relative rounded-3xl overflow-hidden aspect-square mb-4 parallax-container">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80" alt="Ytapembia" class="parallax-img img-zoom">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="inline-block px-3 py-1 bg-fas-400 text-white text-sm rounded-full">Ytapembia</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">Emprendimiento</p>
+                </div>
+                
+                <div class="reveal delay-300 group">
+                    <div class="relative rounded-3xl overflow-hidden aspect-square mb-4 parallax-container">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Pentirenda" class="parallax-img img-zoom">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="inline-block px-3 py-1 bg-fas-400 text-white text-sm rounded-full">Pentirenda</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">Programas de salud</p>
+                </div>
+                
+                <div class="reveal delay-375 md:col-span-2 md:row-start-2 group">
+                    <div class="relative rounded-3xl overflow-hidden aspect-[4/3] mb-4 parallax-container">
+                        <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=600&q=80" alt="Ibabirante" class="parallax-img img-zoom">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span class="inline-block px-3 py-1 bg-fas-400 text-white text-sm rounded-full">Ibabirante</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">Educación infantil</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="py-32 px-6 bg-warm relative overflow-hidden">
+        <div class="mesh"></div>
+        
+        <div class="relative max-w-4xl mx-auto">
+            <div class="reveal bg-white rounded-[2.5rem] p-10 md:p-14 shadow-xl">
+                <div class="flex flex-col md:flex-row items-center gap-10">
+                    <div class="relative flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=200&q=80" alt="María" class="w-32 h-32 rounded-full object-cover shadow-lg">
+                        <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-fas-400 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-quote-right text-sm"></i>
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <p class="text-xl md:text-2xl text-gray-700 italic mb-6 leading-relaxed">
+                            "Antes mis hijos no podían ir a la escuela porque no tenían qué comer. Ahora, gracias a FAS, reciben alimentación y pueden aprender. Yo también recibí capacitación y ahora tengo mi pequeño negocio."
+                        </p>
+                        <p class="font-medium text-gray-900 text-lg">— María, madre de familia</p>
+                        <p class="text-gray-500">Tentayape, Cochabamba</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO HELP -->
+    <section id="participa" class="py-32 px-6 bg-cream">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="reveal inline-block text-fas-500 font-medium tracking-[0.2em] uppercase text-xs mb-4">Únete a nuestra causa</span>
+                <h2 class="reveal delay-75 font-serif text-4xl md:text-5xl text-gray-900 mb-4">Cómo puedes ayudar</h2>
+                <p class="reveal delay-150 text-gray-600 max-w-xl mx-auto">Tu apoyo puede hacer la diferencia en la vida de muchas familias.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Donar -->
+                <div class="reveal delay-150 bg-white rounded-[2.5rem] p-10 shadow-lg card-3d">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-fas-400 rounded-[1.5rem] flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-heart text-3xl text-white"></i>
+                        </div>
+                        <h3 class="font-serif text-3xl text-gray-900 mb-4">Donar</h3>
+                        <p class="text-gray-600 mb-8 leading-relaxed">Tu contribución mensual ayuda a que más niños reciban alimentación, educación y oportunidades de desarrollo.</p>
+                        
+                        <div class="bg-stone-50 rounded-2xl p-6 inline-block mb-6">
+                            <p class="text-xs text-gray-500 mb-3">Escanea para donate</p>
+                            <div class="w-36 h-36 bg-stone-100 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-qrcode text-6xl text-stone-300"></i>
+                            </div>
+                        </div>
+                        <br>
+                        <a href="#contacto" class="btn-fas inline-block px-8 py-4 bg-fas-400 text-white rounded-full font-medium">Apóyanos ahora</a>
+                    </div>
+                </div>
+                
+                <!-- Participar -->
+                <div class="reveal delay-225 bg-white rounded-[2.5rem] p-10 shadow-lg card-3d">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-fas-200 rounded-[1.5rem] flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-hands-helping text-3xl text-fas-600"></i>
+                        </div>
+                        <h3 class="font-serif text-3xl text-gray-900 mb-4">Participar</h3>
+                        <p class="text-gray-600 mb-8 leading-relaxed">Únete como voluntario. Tu tiempo y habilidades pueden transformar vidas.</p>
+                        
+                        <ul class="text-left space-y-4 mb-8 max-w-xs mx-auto text-gray-600">
+                            <li class="flex items-center gap-3">
+                                <div class="w-6 h-6 bg-fas-100 rounded-full flex items-center justify-center text-fas-500"><i class="fas fa-check text-xs"></i></div>
+                                Voluntariado presencial
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-6 h-6 bg-fas-100 rounded-full flex items-center justify-center text-fas-500"><i class="fas fa-check text-xs"></i></div>
+                                Mentoría profesional
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-6 h-6 bg-fas-100 rounded-full flex items-center justify-center text-fas-500"><i class="fas fa-check text-xs"></i></div>
+                                Colaboración en eventos
+                            </li>
+                        </ul>
+                        
+                        <a href="#contacto" class="btn-fas inline-block px-8 py-4 border-2 border-fas-400 text-fas-500 rounded-full font-medium hover:bg-fas-400 hover:text-white transition-colors">Quiero participar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM / TRUST -->
+    <section id="equipo" class="py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="reveal inline-block text-fas-500 font-medium tracking-[0.2em] uppercase text-xs mb-4">Nuestro equipo</span>
+                    <h2 class="reveal delay-75 font-serif text-4xl md:text-5xl text-gray-900 mb-6">Caminamos junto a las comunidades</h2>
+                    <p class="reveal delay-150 text-gray-600 text-lg leading-relaxed mb-10">
+                        Somos un equipo de personas comprometidas con Bolivia. No trabajamos desde una oficina: trabajamos en las comunidades, escuchando sus necesidades y construyendo soluciones juntos.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="reveal delay-225 bg-cream rounded-2xl p-6">
+                            <i class="fas fa-bullseye text-2xl text-fas-400 mb-4 block"></i>
+                            <h4 class="font-serif text-lg text-gray-900 mb-2">Misión</h4>
+                            <p class="text-gray-600 text-sm">Transformar vidas mediante alimentación, educación, salud y emprendimiento.</p>
+                        </div>
+                        <div class="reveal delay-300 bg-cream rounded-2xl p-6">
+                            <i class="fas fa-eye text-2xl text-fas-300 mb-4 block"></i>
+                            <h4 class="font-serif text-lg text-gray-900 mb-2">Visión</h4>
+                            <p class="text-gray-600 text-sm">Un Bolivia donde cada niño tenga oportunidades reales de desarrollo.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal delay-150 grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <div class="rounded-2xl overflow-hidden shadow-lg parallax-container">
+                            <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&q=80" alt="Equipo" class="parallax-img" loading="lazy">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden shadow-lg parallax-container mt-8">
+                            <img src="https://images.unsplash.com/photo-1537484001383-7e6dc2cc4929?w=400&q=80" alt="Equipo" class="parallax-img" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        <div class="rounded-2xl overflow-hidden shadow-lg parallax-container">
+                            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&q=80" alt="Equipo" class="parallax-img" loading="lazy">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden shadow-lg parallax-container">
+                            <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=400&q=80" alt="Equipo" class="parallax-img" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="apoyanos" class="py-32 px-6 bg-fas-400 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.08\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+        
+        <div class="relative max-w-3xl mx-auto text-center">
+            <h2 class="reveal font-serif text-4xl md:text-5xl text-white mb-6">Cada pequeño gesto puede cambiar una vida</h2>
+            <p class="reveal delay-75 text-white/85 text-lg mb-10">No necesitamos grandes cosas. Necesitamos personas que decidan caminar junto a nosotros.</p>
+            <a href="#contacto" class="reveal delay-150 btn-fas inline-block bg-white text-fas-500 px-12 py-5 rounded-full text-lg font-medium shadow-2xl hover:shadow-3xl">Contáctanos para apoyar</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto" class="bg-gray-900 text-white py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="/static/images/logo.png" alt="FAS - Fundación Alimentando Sonrisas" class="h-12 w-auto">
+                    </div>
+                    <p class="text-gray-400 mb-2">Fundación Alimentando Sonrisas</p>
+                    <p class="text-gray-400">Cochabamba, Bolivia</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-5 text-lg">Navegación</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#inicio" class="hover:text-fas-300 transition-colors">Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-fas-300 transition-colors">Quiénes somos</a></li>
+                        <li><a href="#programas" class="hover:text-fas-300 transition-colors">Programas</a></li>
+                        <li><a href="#comunidades" class="hover:text-fas-300 transition-colors">Comunidades</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-5 text-lg">Contacto</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center gap-3">
+                            <i class="fab fa-whatsapp text-fas-400"></i>
+                            <span>+591 70000000</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-fas-400"></i>
+                            <span>hola@fas.org.bo</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-map-marker-alt text-fas-400"></i>
+                            <span>Cochabamba</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium mb-5 text-lg">Síguenos</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-11 h-11 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-fas-400 transition-colors" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-11 h-11 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-fas-400 transition-colors" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-11 h-11 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-fas-400 transition-colors" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-14 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 Fundación Alimentando Sonrisas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Hero slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slide-dot');
+        
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('bg-white');
+                dots[i].classList.add('bg-white/40');
+            });
+            
+            slides[index].classList.add('active');
+            dots[index].classList.remove('bg-white/40');
+            dots[index].classList.add('bg-white');
+        }
+        
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+        
+        // Auto-play cada 6 segundos
+        setInterval(() => changeSlide(1), 6000);
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        function checkReveal() {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkReveal, { passive: true });
+        window.addEventListener('load', checkReveal);
+        
+        // Parallax effect for images
+        const parallaxImages = document.querySelectorAll('.parallax-img');
+        
+        function updateParallax() {
+            const scrollY = window.scrollY;
+            
+            parallaxImages.forEach(img => {
+                const container = img.parentElement;
+                const containerTop = container.getBoundingClientRect().top;
+                const containerHeight = container.offsetHeight;
+                const speed = 0.15;
+                
+                // Only animate when in viewport
+                if (containerTop < window.innerHeight && containerTop + containerHeight > 0) {
+                    const offset = (window.innerHeight - containerTop) * speed;
+                    img.style.transform = `translateY(${offset - 50}px)`;
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateParallax, { passive: true });
+        window.addEventListener('load', updateParallax);
+    </script>
+</body>
+</html>
