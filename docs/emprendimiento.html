@@ -8,7 +8,9 @@
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,76 +22,126 @@
     <a href="#inicio" class="skip-link focus-visible">Saltar al contenido</a>
 
     <!-- NAVBAR -->
-    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-lg border-b border-fas-sand/50 transition-all duration-500">
+    <nav id="main-nav"
+        class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-lg border-b border-fas-sand/50 transition-all duration-500">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="index.html#inicio" class="flex items-center gap-3 group h-[75px]">
-                    <img src="/static/images/logoTrans.png" alt="FAS" class="h-full w-auto">
+                    <img src="images/logoTrans.png" alt="FAS" class="h-full w-auto">
                 </a>
                 <div class="hidden lg:flex items-center gap-1">
-                    <a href="index.html#inicio" class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Inicio</a>
-                    <a href="nosotros.html" class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Quiénes somos</a>
+                    <a href="index.html#inicio"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Inicio</a>
+                    <a href="nosotros.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Quiénes
+                        somos</a>
                     <div class="relative dropdown px-2">
-                        <button type="button" class="nav-link-underline px-4 py-2 nav-text text-fas-primary hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1 focus-visible" aria-haspopup="true" aria-expanded="false">
+                        <button type="button"
+                            class="nav-link-underline px-4 py-2 nav-text text-fas-primary hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1 focus-visible"
+                            aria-haspopup="true" aria-expanded="false">
                             Cómo ayudamos
-                            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
-                        <div class="dropdown-content absolute left-0 top-full mt-3 w-60 bg-white rounded-2xl shadow-2xl border border-fas-sand py-3">
-                            <a href="alimentacion.html" class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i class="fas fa-utensils w-5 text-fas-accent"></i> Alimentación</a>
-                            <a href="salud.html" class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i class="fas fa-heartbeat w-5 text-fas-accent"></i> Salud</a>
-                            <a href="educacion.html" class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i class="fas fa-graduation-cap w-5 text-fas-accent"></i> Educación</a>
-                            <a href="emprendimiento.html" class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i class="fas fa-lightbulb w-5 text-fas-accent"></i> Emprendimiento</a>
+                        <div
+                            class="dropdown-content absolute left-0 top-full mt-3 w-60 bg-white rounded-2xl shadow-2xl border border-fas-sand py-3">
+                            <a href="alimentacion.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i
+                                    class="fas fa-utensils w-5 text-fas-accent"></i> Alimentación</a>
+                            <a href="salud.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i
+                                    class="fas fa-heartbeat w-5 text-fas-accent"></i> Salud</a>
+                            <a href="educacion.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i
+                                    class="fas fa-graduation-cap w-5 text-fas-accent"></i> Educación</a>
+                            <a href="emprendimiento.html"
+                                class="flex items-center gap-3 px-5 py-3 nav-text text-gray-600 hover:bg-fas-cream hover:text-fas-primary transition-colors"><i
+                                    class="fas fa-lightbulb w-5 text-fas-accent"></i> Emprendimiento</a>
                         </div>
                     </div>
-                    <a href="comunidades.html" class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Comunidades</a>
-                    <a href="equipo.html" class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Nuestro equipo</a>
-                    <a href="index.html#participa" class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Participa</a>
-                    <a href="index.html#apoyanos" class="btn-fas ml-3 px-7 py-3.5 bg-fas-primary text-white rounded-full font-medium text-sm tracking-wide">Apóyanos</a>
-                    <a href="contacto.html" class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Contacto</a>
+                    <a href="comunidades.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Comunidades</a>
+                    <a href="equipo.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Nuestro
+                        equipo</a>
+                    <a href="index.html#participa"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Participa</a>
+                    <a href="index.html#apoyanos"
+                        class="btn-fas ml-3 px-7 py-3.5 bg-fas-primary text-white rounded-full font-medium text-sm tracking-wide">Apóyanos</a>
+                    <a href="contacto.html"
+                        class="nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg">Contacto</a>
                 </div>
-                <button type="button" id="mobile-menu-btn" class="lg:hidden p-3 text-gray-600 focus-visible rounded-lg hover:bg-fas-cream transition" aria-label="Abrir menú"><i class="fas fa-bars text-xl"></i></button>
+                <button type="button" id="mobile-menu-btn"
+                    class="lg:hidden p-3 text-gray-600 focus-visible rounded-lg hover:bg-fas-cream transition"
+                    aria-label="Abrir menú"><i class="fas fa-bars text-xl"></i></button>
             </div>
         </div>
         <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-fas-sand">
             <div class="px-6 py-4 space-y-2">
-                <a href="index.html#inicio" class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Inicio</a>
-                <a href="nosotros.html" class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Quiénes somos</a>
-                <div class="py-2"><span class="px-4 text-gray-400 text-sm">Cómo ayudamos</span><div class="ml-4 mt-2 space-y-1">
-                    <a href="alimentacion.html" class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Alimentación</a>
-                    <a href="salud.html" class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Salud</a>
-                    <a href="educacion.html" class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Educación</a>
-                    <a href="emprendimiento.html" class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Emprendimiento</a>
-                </div></div>
-                <a href="comunidades.html" class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Comunidades</a>
-                <a href="equipo.html" class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Nuestro equipo</a>
-                <a href="contacto.html" class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Contacto</a>
+                <a href="index.html#inicio"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Inicio</a>
+                <a href="nosotros.html"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Quiénes somos</a>
+                <div class="py-2"><span class="px-4 text-gray-400 text-sm">Cómo ayudamos</span>
+                    <div class="ml-4 mt-2 space-y-1">
+                        <a href="alimentacion.html"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Alimentación</a>
+                        <a href="salud.html"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Salud</a>
+                        <a href="educacion.html"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Educación</a>
+                        <a href="emprendimiento.html"
+                            class="block py-2 px-4 text-gray-600 rounded-lg hover:bg-fas-cream transition">Emprendimiento</a>
+                    </div>
+                </div>
+                <a href="comunidades.html"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Comunidades</a>
+                <a href="equipo.html"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Nuestro equipo</a>
+                <a href="contacto.html"
+                    class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">Contacto</a>
             </div>
         </div>
     </nav>
 
     <main>
         <!-- HERO -->
-        <section class="relative min-h-[70vh] flex items-center overflow-hidden bg-gradient-to-br from-fas-accent via-[#d9850e] to-[#c4770b]">
+        <section
+            class="relative min-h-[70vh] flex items-center overflow-hidden bg-gradient-to-br from-fas-accent via-[#d9850e] to-[#c4770b]">
             <div class="absolute inset-0 pointer-events-none overflow-hidden">
-                <div class="absolute top-1/4 -left-10 w-64 h-64 border-[30px] border-white/10 rounded-full" data-speed="0.1"></div>
-                <div class="absolute bottom-1/4 right-10 w-48 h-48 border-[20px] border-white/15 rounded-full" data-speed="-0.1"></div>
+                <div class="absolute top-1/4 -left-10 w-64 h-64 border-[30px] border-white/10 rounded-full"
+                    data-speed="0.1"></div>
+                <div class="absolute bottom-1/4 right-10 w-48 h-48 border-[20px] border-white/15 rounded-full"
+                    data-speed="-0.1"></div>
             </div>
-            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\" 60\" height=\"60\" viewBox=\"0 0 60
+                60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg
+                fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36
+                34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6
+                4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
             <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
                 <div class="max-w-3xl">
                     <div class="reveal inline-flex items-center gap-4 mb-6">
                         <span class="w-16 h-px bg-white"></span>
                         <span class="text-white font-medium tracking-[0.2em] uppercase text-xs">Programa</span>
                     </div>
-                    <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
+                    <h1
+                        class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
                         Emprendimiento <span class="italic text-fas-dark">para todos</span>
                     </h1>
                     <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
-                        Capacitamos a las familias para que puedan generar sus propios ingresos y alcanzar independencia económica.
+                        Capacitamos a las familias para que puedan generar sus propios ingresos y alcanzar independencia
+                        económica.
                     </p>
                     <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
-                        <a href="#como-ayudamos" class="btn-fas px-9 py-4 bg-fas-dark text-white rounded-full font-medium shadow-xl">Cómo funcionamos</a>
-                        <a href="contacto.html" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Contáctanos</a>
+                        <a href="#como-ayudamos"
+                            class="btn-fas px-9 py-4 bg-fas-dark text-white rounded-full font-medium shadow-xl">Cómo
+                            funcionamos</a>
+                        <a href="contacto.html"
+                            class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Contáctanos</a>
                     </div>
                 </div>
             </div>
@@ -99,10 +151,14 @@
         <section class="py-10 bg-white border-b border-fas-sand/50">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                    <div><span class="block font-display text-4xl text-fas-accent mb-2">50+</span><span class="text-gray-500 font-light">Emprendedoras</span></div>
-                    <div><span class="block font-display text-4xl text-fas-accent mb-2">20+</span><span class="text-gray-500 font-light">Negocios financiados</span></div>
-                    <div><span class="block font-display text-4xl text-fas-accent mb-2">100%</span><span class="text-gray-500 font-light">Mujeres</span></div>
-                    <div><span class="block font-display text-4xl text-fas-accent mb-2">4</span><span class="text-gray-500 font-light">Comunidades</span></div>
+                    <div><span class="block font-display text-4xl text-fas-accent mb-2">50+</span><span
+                            class="text-gray-500 font-light">Emprendedoras</span></div>
+                    <div><span class="block font-display text-4xl text-fas-accent mb-2">20+</span><span
+                            class="text-gray-500 font-light">Negocios financiados</span></div>
+                    <div><span class="block font-display text-4xl text-fas-accent mb-2">100%</span><span
+                            class="text-gray-500 font-light">Mujeres</span></div>
+                    <div><span class="block font-display text-4xl text-fas-accent mb-2">4</span><span
+                            class="text-gray-500 font-light">Comunidades</span></div>
                 </div>
             </div>
         </section>
@@ -112,26 +168,41 @@
             <div class="gradient-mesh"></div>
             <div class="max-w-7xl mx-auto relative">
                 <div class="text-center mb-20">
-                    <span class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Nuestro enfoque</span>
-                    <div class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6"></div>
-                    <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-6">Qué hacemos</h2>
-                    <p class="reveal reveal-delay-3 text-gray-600 max-w-xl mx-auto font-light">Trabajamos para que las familias tengan herramientas para generar sus propios ingresos.</p>
+                    <span
+                        class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Nuestro
+                        enfoque</span>
+                    <div
+                        class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6">
+                    </div>
+                    <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-6">
+                        Qué hacemos</h2>
+                    <p class="reveal reveal-delay-3 text-gray-600 max-w-xl mx-auto font-light">Trabajamos para que las
+                        familias tengan herramientas para generar sus propios ingresos.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="reveal reveal-delay-3 bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all card-organic">
-                        <div class="w-16 h-16 bg-fas-accent/10 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-lightbulb text-3xl text-fas-accent"></i></div>
+                    <div
+                        class="reveal reveal-delay-3 bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all card-organic">
+                        <div class="w-16 h-16 bg-fas-accent/10 rounded-2xl flex items-center justify-center mb-6"><i
+                                class="fas fa-lightbulb text-3xl text-fas-accent"></i></div>
                         <h3 class="font-display text-2xl text-gray-800 mb-4">Capacitaciones</h3>
-                        <p class="text-gray-500 font-light leading-relaxed">Brindamos talleres de gestión empresarial, finanzas personales y marketing para emprendedores.</p>
+                        <p class="text-gray-500 font-light leading-relaxed">Brindamos talleres de gestión empresarial,
+                            finanzas personales y marketing para emprendedores.</p>
                     </div>
-                    <div class="reveal reveal-delay-4 bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all card-organic">
-                        <div class="w-16 h-16 bg-fas-primary/10 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-hand-holding-usd text-3xl text-fas-primary"></i></div>
+                    <div
+                        class="reveal reveal-delay-4 bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all card-organic">
+                        <div class="w-16 h-16 bg-fas-primary/10 rounded-2xl flex items-center justify-center mb-6"><i
+                                class="fas fa-hand-holding-usd text-3xl text-fas-primary"></i></div>
                         <h3 class="font-display text-2xl text-gray-800 mb-4">Microcréditos</h3>
-                        <p class="text-gray-500 font-light leading-relaxed">Otorgamos créditos pequeños a familias que quieren iniciar o expandir sus negocios.</p>
+                        <p class="text-gray-500 font-light leading-relaxed">Otorgamos créditos pequeños a familias que
+                            quieren iniciar o expandir sus negocios.</p>
                     </div>
-                    <div class="reveal reveal-delay-5 bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all card-organic">
-                        <div class="w-16 h-16 bg-fas-leaf/10 rounded-2xl flex items-center justify-center mb-6"><i class="fas fa-store text-3xl text-fas-leaf"></i></div>
+                    <div
+                        class="reveal reveal-delay-5 bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all card-organic">
+                        <div class="w-16 h-16 bg-fas-leaf/10 rounded-2xl flex items-center justify-center mb-6"><i
+                                class="fas fa-store text-3xl text-fas-leaf"></i></div>
                         <h3 class="font-display text-2xl text-gray-800 mb-4">Fomento comercial</h3>
-                        <p class="text-gray-500 font-light leading-relaxed">Ayudamos a los emprendedores a comercializar sus productos y acceder a nuevos mercados.</p>
+                        <p class="text-gray-500 font-light leading-relaxed">Ayudamos a los emprendedores a comercializar
+                            sus productos y acceder a nuevos mercados.</p>
                     </div>
                 </div>
             </div>
@@ -142,19 +213,34 @@
             <div class="max-w-6xl mx-auto">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
                     <div class="reveal">
-                        <span class="inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Programa especial</span>
+                        <span
+                            class="inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Programa
+                            especial</span>
                         <div class="w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mb-6"></div>
                         <h2 class="font-display text-4xl md:text-5xl text-gray-800 mb-8">Emprendimiento femenino</h2>
-                        <p class="text-lg text-gray-600 mb-8 font-light leading-relaxed">Enfasizamos nuestro trabajo en mujeres emprendedoras, reconociendo su rol fundamental en el desarrollo de las familias y comunidades.</p>
+                        <p class="text-lg text-gray-600 mb-8 font-light leading-relaxed">Enfasizamos nuestro trabajo en
+                            mujeres emprendedoras, reconociendo su rol fundamental en el desarrollo de las familias y
+                            comunidades.</p>
                         <ul class="space-y-4">
-                            <li class="flex items-center gap-4"><span class="w-10 h-10 bg-fas-accent/10 rounded-xl flex items-center justify-center"><i class="fas fa-check text-fas-accent"></i></span><span class="font-light text-gray-700">Artesanas y tejedoras</span></li>
-                            <li class="flex items-center gap-4"><span class="w-10 h-10 bg-fas-accent/10 rounded-xl flex items-center justify-center"><i class="fas fa-check text-fas-accent"></i></span><span class="font-light text-gray-700">Negocios de alimentos</span></li>
-                            <li class="flex items-center gap-4"><span class="w-10 h-10 bg-fas-accent/10 rounded-xl flex items-center justify-center"><i class="fas fa-check text-fas-accent"></i></span><span class="font-light text-gray-700">Servicios locales</span></li>
+                            <li class="flex items-center gap-4"><span
+                                    class="w-10 h-10 bg-fas-accent/10 rounded-xl flex items-center justify-center"><i
+                                        class="fas fa-check text-fas-accent"></i></span><span
+                                    class="font-light text-gray-700">Artesanas y tejedoras</span></li>
+                            <li class="flex items-center gap-4"><span
+                                    class="w-10 h-10 bg-fas-accent/10 rounded-xl flex items-center justify-center"><i
+                                        class="fas fa-check text-fas-accent"></i></span><span
+                                    class="font-light text-gray-700">Negocios de alimentos</span></li>
+                            <li class="flex items-center gap-4"><span
+                                    class="w-10 h-10 bg-fas-accent/10 rounded-xl flex items-center justify-center"><i
+                                        class="fas fa-check text-fas-accent"></i></span><span
+                                    class="font-light text-gray-700">Servicios locales</span></li>
                         </ul>
                     </div>
                     <div class="reveal reveal-delay-2 grid grid-cols-2 gap-6">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Mujeres emprendedoras" class="rounded-3xl shadow-xl w-full h-56 object-cover">
-                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=400&q=80" alt="Artesanas" class="rounded-3xl shadow-xl w-full h-56 object-cover mt-12">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80"
+                            alt="Mujeres emprendedoras" class="rounded-3xl shadow-xl w-full h-56 object-cover">
+                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=400&q=80"
+                            alt="Artesanas" class="rounded-3xl shadow-xl w-full h-56 object-cover mt-12">
                     </div>
                 </div>
             </div>
@@ -163,9 +249,14 @@
         <!-- COMUNIDADES -->
         <section class="py-24 px-6 bg-fas-cream">
             <div class="max-w-6xl mx-auto text-center">
-                <span class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Dónde trabajamos</span>
-                <div class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6"></div>
-                <h2 class="reveal reveal-delay-2 font-display text-3xl md:text-4xl text-gray-800 mb-10">Comunidades con programa de emprendimiento</h2>
+                <span
+                    class="reveal inline-block text-fas-accent font-medium tracking-[0.2em] uppercase text-xs mb-4">Dónde
+                    trabajamos</span>
+                <div
+                    class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6">
+                </div>
+                <h2 class="reveal reveal-delay-2 font-display text-3xl md:text-4xl text-gray-800 mb-10">Comunidades con
+                    programa de emprendimiento</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="reveal reveal-delay-3 bg-white rounded-[2rem] p-6 shadow-lg">
                         <h4 class="font-display text-xl text-gray-800 mb-2">Ytapembia</h4>
@@ -185,11 +276,16 @@
 
         <!-- CTA -->
         <section class="py-24 px-6 bg-gradient-to-br from-fas-accent to-[#d9850e] relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
+            <div class="absolute inset-0 opacity-10"
+                style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;">
+            </div>
             <div class="max-w-3xl mx-auto text-center relative">
-                <h2 class="reveal font-display text-3xl md:text-4xl text-white mb-6">¿Quieres apoyar el emprendimiento local?</h2>
-                <p class="reveal reveal-delay-1 text-white/85 mb-10 font-light max-w-xl mx-auto">Tu apoyo ayuda a más familias a construir sus propios negocios.</p>
-                <a href="contacto.html" class="reveal reveal-delay-2 btn-fas inline-block bg-white text-fas-accent px-10 py-5 rounded-full font-medium text-lg shadow-2xl">Contáctanos</a>
+                <h2 class="reveal font-display text-3xl md:text-4xl text-white mb-6">¿Quieres apoyar el emprendimiento
+                    local?</h2>
+                <p class="reveal reveal-delay-1 text-white/85 mb-10 font-light max-w-xl mx-auto">Tu apoyo ayuda a más
+                    familias a construir sus propios negocios.</p>
+                <a href="contacto.html"
+                    class="reveal reveal-delay-2 btn-fas inline-block bg-white text-fas-accent px-10 py-5 rounded-full font-medium text-lg shadow-2xl">Contáctanos</a>
             </div>
         </section>
     </main>
@@ -199,25 +295,48 @@
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
                 <div>
-                    <div class="flex items-center gap-3 mb-8"><img src="/static/images/logo.png" alt="FAS" class="h-12 w-auto"></div>
+                    <div class="flex items-center gap-3 mb-8"><img src="images/logo.png" alt="FAS" class="h-12 w-auto">
+                    </div>
                     <p class="text-gray-400 mb-2 font-light">Fundación Alimentando Sonrisas</p>
                     <p class="text-gray-400 font-light">Cochabamba, Bolivia</p>
                 </div>
-                <div><h4 class="font-display text-xl mb-6">Navegación</h4><ul class="space-y-4 text-gray-400">
-                    <li><a href="index.html#inicio" class="hover:text-fas-accent transition-colors font-light">Inicio</a></li>
-                    <li><a href="nosotros.html" class="hover:text-fas-accent transition-colors font-light">Quiénes somos</a></li>
-                    <li><a href="comunidades.html" class="hover:text-fas-accent transition-colors font-light">Comunidades</a></li>
-                </ul></div>
-                <div><h4 class="font-display text-xl mb-6">Contacto</h4><ul class="space-y-5 text-gray-400">
-                    <li class="flex items-center gap-4 font-light"><span class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center"><i class="fab fa-whatsapp text-fas-accent"></i></span><span>+591 70000000</span></li>
-                    <li class="flex items-center gap-4 font-light"><span class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center"><i class="fas fa-envelope text-fas-accent"></i></span><span>hola@fas.org.bo</span></li>
-                </ul></div>
-                <div><h4 class="font-display text-xl mb-6">Síguenos</h4><div class="flex gap-4">
-                    <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"><i class="fab fa-instagram"></i></a>
-                </div></div>
+                <div>
+                    <h4 class="font-display text-xl mb-6">Navegación</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li><a href="index.html#inicio"
+                                class="hover:text-fas-accent transition-colors font-light">Inicio</a></li>
+                        <li><a href="nosotros.html" class="hover:text-fas-accent transition-colors font-light">Quiénes
+                                somos</a></li>
+                        <li><a href="comunidades.html"
+                                class="hover:text-fas-accent transition-colors font-light">Comunidades</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl mb-6">Contacto</h4>
+                    <ul class="space-y-5 text-gray-400">
+                        <li class="flex items-center gap-4 font-light"><span
+                                class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center"><i
+                                    class="fab fa-whatsapp text-fas-accent"></i></span><span>+591 70000000</span></li>
+                        <li class="flex items-center gap-4 font-light"><span
+                                class="w-10 h-10 bg-fas-primary/30 rounded-full flex items-center justify-center"><i
+                                    class="fas fa-envelope text-fas-accent"></i></span><span>hola@fas.org.bo</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl mb-6">Síguenos</h4>
+                    <div class="flex gap-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="#"
+                            class="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-fas-primary transition-all btn-fas"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="border-t border-gray-800 mt-16 pt-10 text-center"><p class="text-gray-500 font-light">&copy; 2025 Fundación Alimentando Sonrisas.</p></div>
+            <div class="border-t border-gray-800 mt-16 pt-10 text-center">
+                <p class="text-gray-500 font-light">&copy; 2025 Fundación Alimentando Sonrisas.</p>
+            </div>
         </div>
     </footer>
 
@@ -262,4 +381,5 @@
         window.addEventListener('scroll', applyParallax, { passive: true });
     </script>
 </body>
+
 </html>
