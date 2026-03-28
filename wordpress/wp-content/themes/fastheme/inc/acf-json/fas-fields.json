@@ -1,0 +1,326 @@
+[
+    {
+        "key": "group_fas_homepage",
+        "title": "Configuración Homepage",
+        "fields": [
+            {
+                "key": "field_hero_slides",
+                "label": "Slides del Hero",
+                "name": "hero_slides",
+                "type": "repeater",
+                "layout": "row",
+                "button_label": "Añadir Slide",
+                "sub_fields": [
+                    {
+                        "key": "field_slide_title",
+                        "label": "Título",
+                        "name": "title",
+                        "type": "text",
+                        "wrapper": {"width": "50"}
+                    },
+                    {
+                        "key": "field_slide_subtitle",
+                        "label": "Subtítulo",
+                        "name": "subtitle",
+                        "type": "text",
+                        "wrapper": {"width": "50"}
+                    },
+                    {
+                        "key": "field_slide_text",
+                        "label": "Texto",
+                        "name": "text",
+                        "type": "textarea"
+                    },
+                    {
+                        "key": "field_slide_image",
+                        "label": "Imagen",
+                        "name": "image",
+                        "type": "image",
+                        "return_format": "url",
+                        "preview_size": "medium"
+                    },
+                    {
+                        "key": "field_slide_cta",
+                        "label": "Texto CTA",
+                        "name": "cta_text",
+                        "type": "text",
+                        "wrapper": {"width": "50"}
+                    },
+                    {
+                        "key": "field_slide_cta_link",
+                        "label": "Link CTA",
+                        "name": "cta_link",
+                        "type": "text",
+                        "wrapper": {"width": "50"}
+                    }
+                ]
+            },
+            {
+                "key": "field_nosotros_title",
+                "label": "Título - Nuestra razón de ser",
+                "name": "nosotros_title",
+                "type": "text"
+            },
+            {
+                "key": "field_nosotros_text",
+                "label": "Texto - Nuestra razón de ser",
+                "name": "nosotros_text",
+                "type": "textarea"
+            },
+            {
+                "key": "field_nosotros_link",
+                "label": "Link a quiénes somos",
+                "name": "nosotros_link",
+                "type": "text"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "front-page.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": ""
+    },
+    {
+        "key": "group_fas_programa",
+        "title": "Configuración de Programa",
+        "fields": [
+            {
+                "key": "field_programa_descripcion",
+                "label": "Descripción del Programa",
+                "name": "programa_descripcion",
+                "type": "wysiwyg",
+                "toolbar": "full"
+            },
+            {
+                "key": "field_programa_imagen",
+                "label": "Imagen Principal",
+                "name": "programa_imagen",
+                "type": "image",
+                "return_format": "url",
+                "preview_size": "medium"
+            },
+            {
+                "key": "field_programa_tipo",
+                "label": "Tipo de Programa",
+                "name": "programa_tipo",
+                "type": "taxonomy",
+                "taxonomy": "tipo_programa",
+                "field_type": "select",
+                "allow_null": 1
+            },
+            {
+                "key": "field_programa_proyectos",
+                "label": "Proyectos Relacionados",
+                "name": "programa_proyectos",
+                "type": "relationship",
+                "post_type": ["proyecto"],
+                "filters": ["search", "taxonomy"],
+                "elements": "thumb"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "page"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": ""
+    },
+    {
+        "key": "group_fas_comunidades",
+        "title": "Configuración Comunidades",
+        "fields": [
+            {
+                "key": "field_comunidades",
+                "label": "Lista de Comunidades",
+                "name": "comunidades",
+                "type": "repeater",
+                "layout": "row",
+                "button_label": "Añadir Comunidad",
+                "sub_fields": [
+                    {
+                        "key": "field_comunidad_nombre",
+                        "label": "Nombre",
+                        "name": "nombre",
+                        "type": "text",
+                        "wrapper": {"width": "25"}
+                    },
+                    {
+                        "key": "field_comunidad_slug",
+                        "label": "Slug",
+                        "name": "slug",
+                        "type": "text",
+                        "wrapper": {"width": "25"}
+                    },
+                    {
+                        "key": "field_comunidad_imagen",
+                        "label": "Imagen",
+                        "name": "imagen",
+                        "type": "image",
+                        "return_format": "url",
+                        "preview_size": "medium",
+                        "wrapper": {"width": "25"}
+                    },
+                    {
+                        "key": "field_comunidad_descripcion",
+                        "label": "Descripción",
+                        "name": "descripcion",
+                        "type": "textarea",
+                        "wrapper": {"width": "25"}
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "page-comunidades.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": ""
+    },
+    {
+        "key": "group_fas_equipo",
+        "title": "Configuración Equipo",
+        "fields": [
+            {
+                "key": "field_equipo",
+                "label": "Miembros del Equipo",
+                "name": "equipo",
+                "type": "repeater",
+                "layout": "row",
+                "button_label": "Añadir Miembro",
+                "sub_fields": [
+                    {
+                        "key": "field_miembro_nombre",
+                        "label": "Nombre",
+                        "name": "nombre",
+                        "type": "text",
+                        "wrapper": {"width": "50"}
+                    },
+                    {
+                        "key": "field_miembro_rol",
+                        "label": "Rol",
+                        "name": "rol",
+                        "type": "text",
+                        "wrapper": {"width": "50"}
+                    },
+                    {
+                        "key": "field_miembro_foto",
+                        "label": "Foto",
+                        "name": "foto",
+                        "type": "image",
+                        "return_format": "url",
+                        "preview_size": "medium",
+                        "wrapper": {"width": "50"}
+                    },
+                    {
+                        "key": "field_miembro_bio",
+                        "label": "Biografía",
+                        "name": "bio",
+                        "type": "textarea",
+                        "wrapper": {"width": "50"}
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "page-equipo.php"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": ""
+    },
+    {
+        "key": "group_fas_settings",
+        "title": "Opciones del Tema",
+        "fields": [
+            {
+                "key": "field_theme_logo",
+                "label": "Logo",
+                "name": "theme_logo",
+                "type": "image",
+                "return_format": "url",
+                "preview_size": "medium"
+            },
+            {
+                "key": "field_theme_whatsapp",
+                "label": "WhatsApp",
+                "name": "theme_whatsapp",
+                "type": "text",
+                "placeholder": "59170000000"
+            },
+            {
+                "key": "field_theme_email",
+                "label": "Email",
+                "name": "theme_email",
+                "type": "text",
+                "placeholder": "hola@fas.org.bo"
+            },
+            {
+                "key": "field_theme_facebook",
+                "label": "Facebook",
+                "name": "theme_facebook",
+                "type": "text",
+                "placeholder": "https://facebook.com/..."
+            },
+            {
+                "key": "field_theme_instagram",
+                "label": "Instagram",
+                "name": "theme_instagram",
+                "type": "text",
+                "placeholder": "https://instagram.com/..."
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "fas-settings"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": ""
+    }
+]
