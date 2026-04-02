@@ -12,6 +12,11 @@ wordpress/wp-content/plugins/
 wordpress/wp-content/themes/*
 !wordpress/wp-content/themes/fastheme/
 !wordpress/static/
+# Ignorar backups de Duplicator
+wordpress/wp-content/backups-dup-lite/
+*.zip
+*.tar.gz
+*.log
 .agents/
 .claude/
 .gemini/

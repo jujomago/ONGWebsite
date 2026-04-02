@@ -1,32 +1,26 @@
-name: Deploy to GitHub Pages
+name: 🚀 Deploy Theme to cPanel
 
 on:
   push:
     branches:
-      - main
+      - main  # Esto activa el deploy cada vez que subas cambios a la rama main
 
 jobs:
-  deploy:
+  web-deploy:
+    name: 🎉 Syncing Fastheme
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    concurrency:
-      group: pages
-      cancel-in-progress: false
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'docs'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - name: 🚀 FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
+        # ESTA ES TU RUTA EN GITHUB:
+        local-dir: ./wordpress/wp-content/themes/fastheme/
+        # ESTA ES TU RUTA EN EL SERVIDOR:
+        server-dir: ./

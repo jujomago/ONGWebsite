@@ -62,4 +62,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Initialize GLightbox
+    if (typeof GLightbox !== 'undefined') {
+        const lightbox = GLightbox({
+            touchNavigation: true,
+            loop: true,
+            autoplayVideos: true,
+            selector: '.glightbox, .wp-block-gallery a, .gallery-item a, a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".webp"]'
+        });
+    }
 });

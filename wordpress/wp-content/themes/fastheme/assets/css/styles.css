@@ -50,7 +50,7 @@
 .reveal {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 .reveal.active {
@@ -82,6 +82,14 @@
     transition-delay: 0.6s;
 }
 
+.reveal-delay-7 {
+    transition-delay: 0.7s;
+}
+
+.reveal-delay-8 {
+    transition-delay: 0.85s;
+}
+
 .hero-slide {
     opacity: 0;
     transition: opacity 1.2s ease;
@@ -92,10 +100,12 @@
 }
 
 .card-organic {
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+    transition: transform 1s ease, box-shadow 0.6s ease, opacity 1s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
 .card-organic:hover {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
     transform: translateY(-12px);
     box-shadow: 0 32px 64px rgba(46, 92, 72, 0.12);
 }
@@ -167,9 +177,19 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at 20% 80%, rgba(107, 155, 122, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 80%, rgba(107, 155, 122, 0.12) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 20%, rgba(196, 112, 74, 0.1) 0%, transparent 50%),
         radial-gradient(ellipse at 40% 40%, rgba(46, 92, 72, 0.08) 0%, transparent 40%);
+    z-index: 0;
+}
+
+.gradient-mesh-cream {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 20% 80%, rgba(247, 171, 22, 0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(215, 147, 99, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(247, 171, 22, 0.07) 0%, transparent 40%);
     z-index: 0;
 }
 
@@ -257,7 +277,8 @@
     transform: translateX(-50%);
 }
 
-.nav-link-underline:hover::after {
+.nav-link-underline:hover::after,
+.nav-link-underline.nav-active::after {
     width: 70%;
 }
 
@@ -345,4 +366,262 @@ section[id] {
 
 .dropdown-content a:hover i {
     color: #f7ab16;
+}
+
+/* -------------------------------------------------------------------------
+   WORDPRESS / GUTENBERG COMPATIBILITY
+------------------------------------------------------------------------- */
+.prose-content figure {
+    margin: 0 0 1.5rem 0;
+}
+
+.prose-content img {
+    height: auto;
+    max-width: 100%;
+    border-radius: 1.5rem;
+}
+
+/* Galería de WordPress (Bloque Moderno) */
+.wp-block-gallery,
+.gallery {
+    display: grid !important;
+    gap: 1.5rem !important;
+    list-style-type: none !important;
+    padding: 0 !important;
+    margin: 2.5rem 0 !important;
+}
+
+/* Columnas para Bloque (.columns-X) y Shortcode (.gallery-columns-X) */
+.wp-block-gallery.columns-1,
+.gallery-columns-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.wp-block-gallery.columns-2,
+.gallery-columns-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wp-block-gallery.columns-3,
+.gallery-columns-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.wp-block-gallery.columns-4,
+.gallery-columns-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.wp-block-gallery.columns-5,
+.gallery-columns-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.wp-block-gallery.columns-6,
+.gallery-columns-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.wp-block-gallery .wp-block-image,
+.gallery-item {
+    margin: 0 !important;
+}
+
+.wp-block-gallery .wp-block-image img,
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+    border-radius: 1.5rem;
+}
+
+/* Alineaciones */
+.alignwide {
+    margin-left: -5vw;
+    margin-right: -5vw;
+    max-width: none;
+    width: auto;
+}
+
+.alignfull {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    max-width: none;
+    width: 100vw;
+}
+
+.alignleft {
+    float: left;
+    margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.alignright {
+    float: right;
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* Captions */
+figcaption,
+.wp-element-caption {
+    font-size: 0.85rem;
+    color: var(--fas-muted);
+    margin-top: 0.75rem;
+    font-style: italic;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.pagination .nav-links {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.page-numbers {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background: white;
+    color: #0c131d;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+}
+
+.page-numbers:hover {
+    background: #f7ab16;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(247, 171, 22, 0.2);
+}
+
+.page-numbers.current {
+    background: #059ba3;
+    color: white;
+    border-color: #059ba3;
+    pointer-events: none;
+    box-shadow: 0 10px 20px rgba(5, 155, 163, 0.2);
+}
+
+.page-numbers.dots {
+    background: transparent;
+    border-color: transparent;
+}
+
+.page-numbers.dots:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Lightbox Interactions */
+.wp-block-gallery a,
+.gallery-item a,
+a[href$=".jpg"],
+a[href$=".jpeg"],
+a[href$=".png"],
+a[href$=".webp"] {
+    cursor: zoom-in;
+    display: block;
+    overflow: hidden;
+    border-radius: 1.5rem;
+}
+
+.wp-block-gallery a img,
+.gallery-item a img {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.wp-block-gallery a:hover img,
+.gallery-item a:hover img {
+    transform: scale(1.05) !important;
+}
+
+/* GLightbox Customization to match theme */
+.glightbox-container .gslide-description {
+    background: var(--fas-dark) !important;
+}
+
+.glightbox-container .gslide-title {
+    font-family: 'Outfit', sans-serif;
+    color: var(--fas-accent) !important;
+}
+
+.glightbox-container .gslide-desc {
+    font-family: 'Outfit', sans-serif;
+    color: white !important;
+    opacity: 0.8;
+}
+
+/* -------------------------------------------------------------------------
+   CONTACT FORM 7 SPINNER & MESSAGES FIX
+------------------------------------------------------------------------- */
+.wpcf7-spinner {
+    position: absolute;
+    margin: 0;
+    bottom: -35px;
+    left: 50% !important;
+    transform: translateX(-50%);
+}
+
+[wpcf7-spinner] {
+    display: none !important;
+}
+
+.btn-fas {
+    position: relative;
+}
+
+.wpcf7 form.submitting .btn-fas {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.wpcf7-response-output {
+    margin: 20px 0 0 0 !important;
+    padding: 15px 25px !important;
+    border-radius: 1.5rem !important;
+    border: 2px solid transparent !important;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.wpcf7-mail-sent-ok {
+    background-color: rgba(107, 155, 122, 0.1) !important;
+    border-color: var(--fas-leaf) !important;
+    color: var(--fas-leaf) !important;
+}
+
+.wpcf7-validation-errors,
+.wpcf7-acceptance-missing {
+    background-color: rgba(247, 171, 22, 0.1) !important;
+    border-color: var(--fas-accent) !important;
+    color: var(--fas-accent) !important;
+}
+
+.wpcf7-mail-sent-ng,
+.wpcf7-aborted {
+    background-color: rgba(187, 74, 47, 0.1) !important;
+    border-color: var(--brick) !important;
+    color: var(--brick) !important;
 }

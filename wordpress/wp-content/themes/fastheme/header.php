@@ -4,7 +4,11 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="<?php echo get_template_directory_uri(); ?>/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/favicon/site.webmanifest" />
     <?php wp_head(); ?>
 </head>
 
@@ -23,7 +27,12 @@
                         the_custom_logo();
                     } else {
                         ?>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logoTrans.png" alt="FAS - Fundación Alimentando Sonrisas" class="h-full w-auto">
+                        <img id="nav-logo"
+                             src="<?php echo site_url('/static/images/logo_letrasNegras.png'); ?>"
+                             data-logo-light="<?php echo site_url('/static/images/logo_letrasNegras.png'); ?>"
+                             data-logo-dark="<?php echo site_url('/static/images/logo_letrasBlancas.png'); ?>"
+                             alt="FAS - Fundación Alimentando Sonrisas"
+                             class="h-full w-auto transition-opacity duration-300">
                         <?php
                     }
                     ?>

@@ -8,41 +8,20 @@ get_header();
 
 <main class="pt-20">
     <!-- Hero Section -->
-    <section class="relative py-32 px-6 bg-white overflow-hidden">
-        <div class="gradient-mesh"></div>
-        <div class="max-w-4xl mx-auto text-center">
-            <span class="reveal inline-block text-fas-accent font-medium tracking-[0.25em] uppercase text-xs mb-6">Conócenos</span>
-            <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-gray-800 mb-6 leading-[1.15]">Nuestro Equipo</h1>
-            <p class="reveal reveal-delay-2 text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed font-light">
-                Detrás de cada sonrisa hay un equipo comprometido con transformar vidas. Conoce a las personas que hacen posible esta labor.
-            </p>
+    <section class="relative py-32 px-6 bg-fas-primary overflow-hidden min-h-[60vh] flex items-center">
+        <!-- Decorativos -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <div class="absolute top-1/4 -left-10 w-64 h-64 border-[30px] border-white/10 rounded-full" data-speed="0.1"></div>
+            <div class="absolute bottom-1/4 right-10 w-48 h-48 border-[20px] border-fas-accent/20 rounded-full" data-speed="-0.1"></div>
+            <div class="absolute inset-0 opacity-[0.05] pattern-dots text-white"></div>
         </div>
-    </section>
-
-    <!-- Mission & Vision -->
-    <section class="py-32 px-6 bg-fas-cream relative overflow-hidden">
-        <div class="gradient-mesh"></div>
-        <div class="max-w-6xl mx-auto relative">
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="reveal reveal-delay-2 bg-white rounded-[3rem] p-10 shadow-lg card-organic">
-                    <div class="w-16 h-16 bg-fas-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-bullseye text-fas-primary text-2xl"></i>
-                    </div>
-                    <h3 class="font-display text-2xl text-gray-800 mb-4">Misión</h3>
-                    <p class="text-gray-600 leading-relaxed font-light">
-                        Transformar vidas mediante alimentación, educación, salud y emprendimiento, caminando junto a las comunidades más vulnerables de Bolivia.
-                    </p>
-                </div>
-                <div class="reveal reveal-delay-3 bg-white rounded-[3rem] p-10 shadow-lg card-organic">
-                    <div class="w-16 h-16 bg-fas-accent/10 rounded-2xl flex items-center justify-center mb-6">
-                        <i class="fas fa-eye text-fas-accent text-2xl"></i>
-                    </div>
-                    <h3 class="font-display text-2xl text-gray-800 mb-4">Visión</h3>
-                    <p class="text-gray-600 leading-relaxed font-light">
-                        Un Bolivia donde cada niño tenga oportunidades reales de desarrollo y donde las comunidades puedan construir su propio futuro con dignidad.
-                    </p>
-                </div>
-            </div>
+        
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="reveal inline-block text-fas-accent font-medium tracking-[0.25em] uppercase text-xs mb-6">Conócenos</span>
+            <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">Nuestro Equipo</h1>
+            <p class="reveal reveal-delay-2 text-white/90 text-lg max-w-2xl mx-auto leading-relaxed font-light italic">
+                "Detrás de cada sonrisa hay un equipo comprometido con transformar vidas. Conoce a las personas que hacen posible esta labor."
+            </p>
         </div>
     </section>
 
@@ -57,30 +36,47 @@ get_header();
             </div>
 
             <?php
-            $equipo = get_field('equipo');
-            if ($equipo):
+            $miembros = new WP_Query([
+                'post_type' => 'miembro',
+                'posts_per_page' => -1,
+                'orderby' => 'menu_order',
+                'order' => 'ASC'
+            ]);
+            
+            if ($miembros->have_posts()):
             ?>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <?php foreach ($equipo as $miembro): ?>
+                <?php while ($miembros->have_posts()): $miembros->the_post(); 
+                    $rol = get_field('miembro_rol');
+                    $bio = get_field('miembro_bio');
+                ?>
                 <div class="reveal team-card group">
-                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4]">
-                        <img src="<?php echo $miembro['foto']; ?>" alt="<?php echo $miembro['nombre']; ?>" class="team-img w-full h-full object-cover">
+                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4] bg-white shadow-sm overflow-hidden border border-white/40">
+                        <?php if (has_post_thumbnail()): ?>
+                            <?php the_post_thumbnail('medium', ['class' => 'team-img w-full h-full object-cover']); ?>
+                        <?php else: ?>
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/personal/placeholder.jpg" alt="<?php the_title(); ?>" class="team-img w-full h-full object-cover">
+                        <?php endif; ?>
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <?php if ($bio): ?>
                         <div class="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                            <p class="text-white text-sm"><?php echo $miembro['bio']; ?></p>
+                            <p class="text-white text-sm"><?php echo esc_html($bio); ?></p>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <div class="text-center">
-                        <h3 class="font-display text-xl text-gray-800 mb-1"><?php echo $miembro['nombre']; ?></h3>
-                        <p class="text-fas-primary font-medium text-sm mb-2"><?php echo $miembro['rol']; ?></p>
+                        <h3 class="font-display text-xl text-gray-800 mb-1"><?php the_title(); ?></h3>
+                        <?php if ($rol): ?>
+                        <p class="text-fas-primary font-medium text-sm mb-2"><?php echo esc_html($rol); ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <?php endforeach; ?>
+                <?php endwhile; wp_reset_postdata(); ?>
             </div>
             <?php else: ?>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="reveal reveal-delay-3 team-card group">
-                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4]">
+                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4] bg-white shadow-sm border border-white/40">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/personal/1.jpeg" alt="Director Ejecutivo" class="team-img w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </div>
@@ -91,7 +87,7 @@ get_header();
                 </div>
 
                 <div class="reveal reveal-delay-4 team-card group">
-                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4]">
+                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4] bg-white shadow-sm border border-white/40">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/personal/2.jpeg" alt="Directora de Programas" class="team-img w-full h-full object-cover">
                     </div>
                     <div class="text-center">
@@ -101,7 +97,7 @@ get_header();
                 </div>
 
                 <div class="reveal reveal-delay-5 team-card group">
-                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4]">
+                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4] bg-white shadow-sm border border-white/40">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/personal/3.jpeg" alt="Coordinador de Comunidades" class="team-img w-full h-full object-cover">
                     </div>
                     <div class="text-center">
@@ -111,7 +107,7 @@ get_header();
                 </div>
 
                 <div class="reveal reveal-delay-6 team-card group">
-                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4]">
+                    <div class="relative overflow-hidden rounded-[3rem] mb-6 aspect-[3/4] bg-white shadow-sm border border-white/40">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/personal/4.jpeg" alt="Responsable de Salud" class="team-img w-full h-full object-cover">
                     </div>
                     <div class="text-center">
@@ -126,7 +122,7 @@ get_header();
 
     <!-- JOIN CTA -->
     <section class="py-32 px-6 bg-fas-cream relative overflow-hidden">
-        <div class="gradient-mesh"></div>
+        <div class="gradient-mesh-cream"></div>
         <div class="max-w-4xl mx-auto text-center relative">
             <h2 class="reveal font-display text-4xl md:text-5xl text-gray-800 mb-6">¿Quieres sumarte al equipo?</h2>
             <p class="reveal reveal-delay-1 text-gray-600 text-lg font-light mb-8">Siempre estamos buscando personas comprometidas con nuestra misión.</p>

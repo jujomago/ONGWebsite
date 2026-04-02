@@ -4,58 +4,6 @@
         "title": "Configuración Homepage",
         "fields": [
             {
-                "key": "field_hero_slides",
-                "label": "Slides del Hero",
-                "name": "hero_slides",
-                "type": "repeater",
-                "layout": "row",
-                "button_label": "Añadir Slide",
-                "sub_fields": [
-                    {
-                        "key": "field_slide_title",
-                        "label": "Título",
-                        "name": "title",
-                        "type": "text",
-                        "wrapper": {"width": "50"}
-                    },
-                    {
-                        "key": "field_slide_subtitle",
-                        "label": "Subtítulo",
-                        "name": "subtitle",
-                        "type": "text",
-                        "wrapper": {"width": "50"}
-                    },
-                    {
-                        "key": "field_slide_text",
-                        "label": "Texto",
-                        "name": "text",
-                        "type": "textarea"
-                    },
-                    {
-                        "key": "field_slide_image",
-                        "label": "Imagen",
-                        "name": "image",
-                        "type": "image",
-                        "return_format": "url",
-                        "preview_size": "medium"
-                    },
-                    {
-                        "key": "field_slide_cta",
-                        "label": "Texto CTA",
-                        "name": "cta_text",
-                        "type": "text",
-                        "wrapper": {"width": "50"}
-                    },
-                    {
-                        "key": "field_slide_cta_link",
-                        "label": "Link CTA",
-                        "name": "cta_link",
-                        "type": "text",
-                        "wrapper": {"width": "50"}
-                    }
-                ]
-            },
-            {
                 "key": "field_nosotros_title",
                 "label": "Título - Nuestra razón de ser",
                 "name": "nosotros_title",
@@ -77,9 +25,9 @@
         "location": [
             [
                 {
-                    "param": "page_template",
+                    "param": "post_type",
                     "operator": "==",
-                    "value": "front-page.php"
+                    "value": "page"
                 }
             ]
         ],
@@ -145,56 +93,29 @@
         "hide_on_screen": ""
     },
     {
-        "key": "group_fas_comunidades",
-        "title": "Configuración Comunidades",
+        "key": "group_fas_miembro",
+        "title": "Datos del Miembro",
         "fields": [
             {
-                "key": "field_comunidades",
-                "label": "Lista de Comunidades",
-                "name": "comunidades",
-                "type": "repeater",
-                "layout": "row",
-                "button_label": "Añadir Comunidad",
-                "sub_fields": [
-                    {
-                        "key": "field_comunidad_nombre",
-                        "label": "Nombre",
-                        "name": "nombre",
-                        "type": "text",
-                        "wrapper": {"width": "25"}
-                    },
-                    {
-                        "key": "field_comunidad_slug",
-                        "label": "Slug",
-                        "name": "slug",
-                        "type": "text",
-                        "wrapper": {"width": "25"}
-                    },
-                    {
-                        "key": "field_comunidad_imagen",
-                        "label": "Imagen",
-                        "name": "imagen",
-                        "type": "image",
-                        "return_format": "url",
-                        "preview_size": "medium",
-                        "wrapper": {"width": "25"}
-                    },
-                    {
-                        "key": "field_comunidad_descripcion",
-                        "label": "Descripción",
-                        "name": "descripcion",
-                        "type": "textarea",
-                        "wrapper": {"width": "25"}
-                    }
-                ]
+                "key": "field_miembro_rol",
+                "label": "Rol / Cargo",
+                "name": "miembro_rol",
+                "type": "text"
+            },
+            {
+                "key": "field_miembro_bio",
+                "label": "Biografía corta",
+                "name": "miembro_bio",
+                "type": "textarea",
+                "rows": 3
             }
         ],
         "location": [
             [
                 {
-                    "param": "page_template",
+                    "param": "post_type",
                     "operator": "==",
-                    "value": "page-comunidades.php"
+                    "value": "miembro"
                 }
             ]
         ],
@@ -206,56 +127,67 @@
         "hide_on_screen": ""
     },
     {
-        "key": "group_fas_equipo",
-        "title": "Configuración Equipo",
+        "key": "group_fas_comunidad",
+        "title": "Datos de la Comunidad",
         "fields": [
             {
-                "key": "field_equipo",
-                "label": "Miembros del Equipo",
-                "name": "equipo",
-                "type": "repeater",
-                "layout": "row",
-                "button_label": "Añadir Miembro",
-                "sub_fields": [
-                    {
-                        "key": "field_miembro_nombre",
-                        "label": "Nombre",
-                        "name": "nombre",
-                        "type": "text",
-                        "wrapper": {"width": "50"}
-                    },
-                    {
-                        "key": "field_miembro_rol",
-                        "label": "Rol",
-                        "name": "rol",
-                        "type": "text",
-                        "wrapper": {"width": "50"}
-                    },
-                    {
-                        "key": "field_miembro_foto",
-                        "label": "Foto",
-                        "name": "foto",
-                        "type": "image",
-                        "return_format": "url",
-                        "preview_size": "medium",
-                        "wrapper": {"width": "50"}
-                    },
-                    {
-                        "key": "field_miembro_bio",
-                        "label": "Biografía",
-                        "name": "bio",
-                        "type": "textarea",
-                        "wrapper": {"width": "50"}
-                    }
-                ]
+                "key": "field_comunidad_descripcion",
+                "label": "Descripción corta",
+                "name": "comunidad_descripcion",
+                "type": "textarea",
+                "rows": 3
             }
         ],
         "location": [
             [
                 {
-                    "param": "page_template",
+                    "param": "post_type",
                     "operator": "==",
-                    "value": "page-equipo.php"
+                    "value": "comunidad"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": ""
+    },
+    {
+        "key": "group_fas_slide",
+        "title": "Datos del Slide",
+        "fields": [
+            {
+                "key": "field_slide_label",
+                "label": "Etiqueta superior",
+                "name": "slide_label",
+                "type": "text",
+                "instructions": "Texto pequeño que aparece arriba del título (ej: Fundación Alimentando Sonrisas)"
+            },
+            {
+                "key": "field_slide_title",
+                "label": "Título (soporta HTML)",
+                "name": "slide_title",
+                "type": "textarea",
+                "rows": 2,
+                "instructions": "Título del slide. Puedes usar HTML. Ej: Ayudamos a niños a tener un <span class='italic text-fas-accent'>mejor futuro</span>"
+            },
+            {
+                "key": "field_slide_subtitle",
+                "label": "Subtítulo",
+                "name": "slide_subtitle",
+                "type": "textarea",
+                "rows": 2,
+                "instructions": "Texto descriptivo debajo del título"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "slide"
                 }
             ]
         ],

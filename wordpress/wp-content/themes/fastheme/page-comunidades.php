@@ -67,22 +67,36 @@ get_header();
             </div>
 
             <?php
-            $comunidades = get_field('comunidades');
-            if ($comunidades):
+            $comunidades = new WP_Query([
+                'post_type' => 'comunidad',
+                'posts_per_page' => -1,
+                'orderby' => 'menu_order',
+                'order' => 'ASC'
+            ]);
+            
+            if ($comunidades->have_posts()):
             ?>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <?php foreach ($comunidades as $comunidad): ?>
-                <a href="/comunidades/<?php echo $comunidad['slug']; ?>" class="reveal community-card group block">
+                <?php while ($comunidades->have_posts()): $comunidades->the_post(); 
+                    $descripcion = get_field('comunidad_descripcion');
+                ?>
+                <a href="<?php the_permalink(); ?>" class="reveal community-card group block">
                     <div class="relative overflow-hidden rounded-[2.5rem] mb-6 aspect-[4/3]">
-                        <img src="<?php echo $comunidad['imagen']; ?>" alt="<?php echo $comunidad['nombre']; ?>" class="community-img w-full h-full object-cover" loading="lazy">
+                        <?php if (has_post_thumbnail()): ?>
+                            <?php the_post_thumbnail('medium', ['class' => 'community-img w-full h-full object-cover', 'loading' => 'lazy']); ?>
+                        <?php else: ?>
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/comunidad-placeholder.jpg" alt="<?php the_title(); ?>" class="community-img w-full h-full object-cover" loading="lazy">
+                        <?php endif; ?>
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent"></div>
                         <div class="absolute bottom-6 left-6">
-                            <span class="px-4 py-2 bg-fas-primary text-white text-sm rounded-full font-medium"><?php echo $comunidad['nombre']; ?></span>
+                            <span class="px-4 py-2 bg-fas-primary text-white text-sm rounded-full font-medium"><?php the_title(); ?></span>
                         </div>
                     </div>
-                    <p class="text-gray-500 leading-relaxed font-light"><?php echo $comunidad['descripcion']; ?></p>
+                    <?php if ($descripcion): ?>
+                    <p class="text-gray-500 leading-relaxed font-light"><?php echo esc_html($descripcion); ?></p>
+                    <?php endif; ?>
                 </a>
-                <?php endforeach; ?>
+                <?php endwhile; wp_reset_postdata(); ?>
             </div>
             <?php else: ?>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

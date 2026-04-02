@@ -19,141 +19,112 @@ get_header();
     </div>
 
     <?php
-    $hero_slides = get_field('hero_slides');
-    $slide_count = is_array($hero_slides) ? count($hero_slides) : 0;
+    global $post;
+    $original_post = $post;
+    
+    $slides_query = new WP_Query([
+        'post_type' => 'slide',
+        'posts_per_page' => -1,
+        'orderby' => 'menu_order',
+        'order' => 'ASC'
+    ]);
+    
+    $slides_data = [];
+    
+    if ($slides_query->have_posts()) {
+        while ($slides_query->have_posts()) {
+            $slides_query->the_post();
+            $label = get_field('slide_label');
+            $title = get_field('slide_title');
+            $title_accent = get_field('slide_title_accent');
+            $subtitle = get_field('slide_subtitle');
+            $image = get_the_post_thumbnail_url(get_the_ID(), 'full');
+            
+            if (!$title) {
+                $title = get_the_title();
+            }
+            
+            $slides_data[] = [
+                'label' => $label,
+                'title' => $title,
+                'title_accent' => $title_accent,
+                'subtitle' => $subtitle,
+                'image' => $image
+            ];
+        }
+        wp_reset_postdata();
+    }
+    
+    $post = $original_post;
+    setup_postdata($post);
+    
+    $hero_slides = $slides_data;
     ?>
 
-    <!-- Slide 1 -->
-    <div class="hero-slide active absolute inset-0" data-parallax="0.3" style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
-            <div class="max-w-3xl">
-                <div class="reveal inline-flex items-center gap-4 mb-6">
-                    <span class="w-16 h-px bg-fas-accent"></span>
-                    <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Fundación Alimentando Sonrisas</span>
-                </div>
-                <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
-                    Ayudamos a niños a tener un <span class="italic text-fas-accent">mejor futuro</span>
-                </h1>
-                <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
-                    En FAS creemos que cada niño merece la oportunidad de sonar, aprender y crecer con dignidad.
-                </p>
-                <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
-                    <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
-                    <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 2 -->
-    <div class="hero-slide absolute inset-0" data-parallax="0.3" style="background-image: url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1920&q=80'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
-            <div class="max-w-3xl">
-                <div class="reveal inline-flex items-center gap-4 mb-6">
-                    <span class="w-16 h-px bg-fas-accent"></span>
-                    <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Comunidades Guaraníes</span>
-                </div>
-                <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
-                    Llevamos alimentación y apoyo a quienes más lo necesitan
-                </h1>
-                <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
-                    Trabajamos directamente en las comunidades más vulnerables de Cochabamba, Bolivia.
-                </p>
-                <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
-                    <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
-                    <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+    <?php if (!empty($hero_slides)): ?>
+        <?php foreach ($hero_slides as $index => $slide): ?>
+        <div class="hero-slide <?php echo $index === 0 ? 'active' : ''; ?> absolute inset-0" data-parallax="0.3" style="background-image: url('<?php echo esc_url($slide['image'] ?: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80'); ?>'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal inline-flex items-center gap-4 mb-6">
+                        <span class="w-16 h-px bg-fas-accent"></span>
+                        <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs"><?php echo esc_html($slide['label']); ?></span>
+                    </div>
+                    <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
+                        <?php echo wp_kses_post($slide['title']); ?>
+                    </h1>
+                    <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
+                        <?php echo esc_html($slide['subtitle']); ?>
+                    </p>
+                    <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
+                        <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
+                        <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Slide 3 -->
-    <div class="hero-slide absolute inset-0" data-parallax="0.3" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/portada3.png'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
-            <div class="max-w-3xl">
-                <div class="reveal inline-flex items-center gap-4 mb-6">
-                    <span class="w-16 h-px bg-fas-accent"></span>
-                    <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Juntos es posible</span>
-                </div>
-                <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
-                    Juntos podemos generar nuevas oportunidades
-                </h1>
-                <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
-                    Tu apoyo puede transformar vidas y construir un Bolivia donde todos tengan chances.
-                </p>
-                <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
-                    <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
-                    <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 4 -->
-    <div class="hero-slide absolute inset-0" data-parallax="0.3" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/teaching.png'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
-            <div class="max-w-3xl">
-                <div class="reveal inline-flex items-center gap-4 mb-6">
-                    <span class="w-16 h-px bg-fas-accent"></span>
-                    <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Educación</span>
-                </div>
-                <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
-                    La educación cambia vidas
-                </h1>
-                <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
-                    Brindamos herramientas de aprendizaje para que cada niño pueda alcanzar su máximo potencial.
-                </p>
-                <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
-                    <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
-                    <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="hero-slide active absolute inset-0" data-parallax="0.3" style="background-image: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80'); background-size: cover; background-position: center;">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
+                <div class="max-w-3xl">
+                    <div class="reveal inline-flex items-center gap-4 mb-6">
+                        <span class="w-16 h-px bg-fas-accent"></span>
+                        <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Fundación Alimentando Sonrisas</span>
+                    </div>
+                    <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
+                        Ayudamos a niños a tener un <span class="italic text-fas-accent">mejor futuro</span>
+                    </h1>
+                    <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
+                        En FAS creemos que cada niño merece la oportunidad de sonar, aprender y crecer con dignidad.
+                    </p>
+                    <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
+                        <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
+                        <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Slide 5 -->
-    <div class="hero-slide absolute inset-0" data-parallax="0.3" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/portada4.png'); background-size: cover; background-position: center;">
-        <div class="absolute inset-0 bg-gradient-to-r from-gray-900/80 via-gray-900/40 to-gray-900/10"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 w-full">
-            <div class="max-w-3xl">
-                <div class="reveal inline-flex items-center gap-4 mb-6">
-                    <span class="w-16 h-px bg-fas-accent"></span>
-                    <span class="text-fas-accent font-medium tracking-[0.2em] uppercase text-xs">Comunidad</span>
-                </div>
-                <h1 class="reveal reveal-delay-1 font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.15]">
-                    Construyendo juntos el futuro
-                </h1>
-                <p class="reveal reveal-delay-2 text-xl text-white/80 mb-10 max-w-xl font-light leading-relaxed">
-                    Trabajamos de la mano con las comunidades para crear soluciones sostenibles.
-                </p>
-                <div class="reveal reveal-delay-3 flex flex-wrap gap-4">
-                    <a href="#apoyanos" class="btn-fas px-9 py-4 bg-fas-primary text-white rounded-full font-medium shadow-xl shadow-fas-primary/25">Apóyanos</a>
-                    <a href="#participa" class="px-9 py-4 border border-white/30 text-white rounded-full font-medium hover:bg-white/10 transition-colors">Participa</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php endif; ?>
 
     <!-- Slider Controls -->
+    <?php if ($hero_slides && count($hero_slides) > 1): ?>
     <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
         <button type="button" class="w-12 h-12 bg-white/10 backdrop-blur rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110" onclick="changeSlide(-1)" aria-label="Anterior">
             <i class="fas fa-chevron-left"></i>
         </button>
         <div class="flex gap-2">
-            <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white transition-all" onclick="goToSlide(0)" aria-label="Slide 1"></button>
-            <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all" onclick="goToSlide(1)" aria-label="Slide 2"></button>
-            <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all" onclick="goToSlide(2)" aria-label="Slide 3"></button>
-            <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all" onclick="goToSlide(3)" aria-label="Slide 4"></button>
-            <button type="button" class="slide-dot w-3 h-3 rounded-full bg-white/40 transition-all" onclick="goToSlide(4)" aria-label="Slide 5"></button>
+            <?php foreach ($hero_slides as $index => $slide): ?>
+            <button type="button" class="slide-dot w-3 h-3 rounded-full <?php echo $index === 0 ? 'bg-white' : 'bg-white/40'; ?> transition-all" onclick="goToSlide(<?php echo $index; ?>)" aria-label="Slide <?php echo $index + 1; ?>"></button>
+            <?php endforeach; ?>
         </div>
         <button type="button" class="w-12 h-12 bg-white/10 backdrop-blur rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110" onclick="changeSlide(1)" aria-label="Siguiente">
             <i class="fas fa-chevron-right"></i>
         </button>
     </div>
+    <?php endif; ?>
 
     <!-- Scroll indicator -->
     <div class="absolute bottom-10 right-10 z-20 hidden md:flex flex-col items-center gap-2 text-white/50 scroll-indicator">
@@ -190,7 +161,7 @@ get_header();
         
         <?php if (get_field('nosotros_text')): ?>
         <p class="reveal reveal-delay-3 text-lg text-gray-600 leading-loose max-w-2xl mx-auto mb-6 font-light">
-            <?php echo get_field('nosotros_text'); ?>
+            <?php echo wp_kses_post(get_field('nosotros_text')); ?>
         </p>
         <?php else: ?>
         <p class="reveal reveal-delay-3 text-lg text-gray-600 leading-loose max-w-2xl mx-auto mb-6 font-light">
@@ -202,7 +173,8 @@ get_header();
         <?php endif; ?>
         
         <div class="reveal reveal-delay-5 mt-10">
-            <a href="<?php echo get_permalink(get_page_by_path('nosotros')); ?>" class="btn-fas inline-flex items-center gap-2 px-6 py-3 border-2 border-fas-accent text-fas-accent rounded-full font-medium hover:bg-fas-accent hover:text-white transition-colors">
+            <?php $nosotros_link = get_field('nosotros_link'); ?>
+            <a href="<?php echo $nosotros_link ? esc_url($nosotros_link) : get_permalink(get_page_by_path('nosotros')); ?>" class="btn-fas inline-flex items-center gap-2 px-6 py-3 border-2 border-fas-accent text-fas-accent rounded-full font-medium hover:bg-fas-accent hover:text-white transition-colors">
                 Conoce nuestra historia
                 <i class="fas fa-arrow-right text-sm"></i>
             </a>
@@ -229,73 +201,86 @@ get_header();
 
         <!-- Bento Grid -->
         <div class="grid md:grid-cols-4 gap-5">
-            <!-- Main Card - Alimentacion -->
-            <div class="reveal reveal-delay-3 md:col-span-2 md:row-span-2 group">
-                <a href="<?php echo get_permalink(get_page_by_path('alimentacion')); ?>" class="block h-full bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-500 card-organic overflow-hidden relative">
-                    <div class="absolute top-0 right-0 w-40 h-40 bg-fas-primary/5 rounded-full blur-3xl group-hover:bg-fas-primary/10 transition-all duration-500"></div>
-                    <div class="relative z-10 h-full flex flex-col justify-between">
-                        <div class="w-18 h-18 bg-fas-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-utensils text-2xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-3xl text-gray-800 mb-4">Alimentación</h3>
-                            <p class="text-gray-500 leading-relaxed font-light text-lg">Llevamos alimentos nutritivos a familias en situación de inseguridad alimentaria. Creemos que una buena alimentación es la base para el desarrollo integral de cada niño.</p>
-                        </div>
-                        <div class="mt-6 flex items-center gap-2 text-fas-primary font-medium">
-                            <span>Ver más</span>
-                            <i class="fas fa-arrow-right text-sm group-hover:translate-x-2 transition-transform"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            <?php
+            $programas_terms = get_terms([
+                'taxonomy'   => 'tipo_programa',
+                'hide_empty' => false,
+            ]);
 
-            <!-- Card - Salud -->
-            <div class="reveal reveal-delay-4 group">
-                <a href="<?php echo get_permalink(get_page_by_path('salud')); ?>" class="block h-full bg-white rounded-[2rem] p-6 shadow-md hover:shadow-2xl transition-all duration-500 card-organic overflow-hidden relative">
-                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-fas-accent/10 rounded-full blur-2xl"></div>
-                    <div class="relative z-10">
-                        <div class="w-14 h-14 bg-gradient-to-br from-fas-accent to-fas-accent-warm rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-heartbeat text-xl text-white"></i>
-                        </div>
-                        <h3 class="font-display text-xl text-gray-800 mb-2">Salud</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed font-light">Atención médica básica y programas de salud preventiva para todas las edades.</p>
-                    </div>
-                </a>
-            </div>
+            if (!empty($programas_terms) && !is_wp_error($programas_terms)) :
+                $i = 0;
+                foreach ($programas_terms as $term) :
+                    // Obtener campos ACF del término
+                    $icono = get_field('icono_element', $term);
+                    $descripcion_acf = get_field('descripcion', $term);
+                    // Usar el campo ACF 'descripcion' y si no existe, la descripción nativa del término
+                    $descripcion = $descripcion_acf ?: $term->description;
+                    $delay = 3 + ($i % 4); // Distribución de delay para la animación
 
-            <!-- Card - Educación -->
-            <div class="reveal reveal-delay-5 group">
-                <a href="<?php echo get_permalink(get_page_by_path('educacion')); ?>" class="block h-full bg-white rounded-[2rem] p-6 shadow-md hover:shadow-2xl transition-all duration-500 card-organic overflow-hidden relative">
-                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-fas-leaf/20 rounded-full blur-2xl"></div>
-                    <div class="relative z-10">
-                        <div class="w-14 h-14 bg-gradient-to-br from-fas-primary-light to-fas-leaf rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-graduation-cap text-xl text-white"></i>
+                    // Posicion 0: Tarjeta Principal (Grande)
+                    if ($i === 0) : ?>
+                        <div class="reveal reveal-delay-<?php echo $delay; ?> md:col-span-2 md:row-span-2 group">
+                            <a href="<?php echo get_term_link($term); ?>" class="block h-full bg-white rounded-[2.5rem] p-8 lg:p-10 shadow-lg hover:shadow-2xl transition-all duration-500 card-organic overflow-hidden relative">
+                                <div class="absolute top-0 right-0 w-40 h-40 bg-fas-primary/5 rounded-full blur-3xl group-hover:bg-fas-primary/10 transition-all duration-500"></div>
+                                <div class="relative z-10 h-full flex flex-col justify-between">
+                                    <div class="w-18 h-18 bg-fas-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="<?php echo esc_attr($icono ?: 'fas fa-utensils'); ?> text-2xl text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-display text-3xl text-gray-800 mb-4"><?php echo esc_html($term->name); ?></h3>
+                                        <p class="text-gray-500 leading-relaxed font-light text-lg"><?php echo esc_html($descripcion); ?></p>
+                                    </div>
+                                    <div class="mt-6 flex items-center gap-2 text-fas-primary font-medium">
+                                        <span>Ver más</span>
+                                        <i class="fas fa-arrow-right text-sm group-hover:translate-x-2 transition-transform"></i>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                        <h3 class="font-display text-xl text-gray-800 mb-2">Educación</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed font-light">Materiales educativos, becas y apoyo escolar para niños y jóvenes.</p>
-                    </div>
-                </a>
-            </div>
+                    <?php 
+                    // Posiciones 1 y 2: Tarjetas Pequeñas
+                    elseif ($i === 1 || $i === 2) : ?>
+                        <div class="reveal reveal-delay-<?php echo $delay; ?> group">
+                            <a href="<?php echo get_term_link($term); ?>" class="block h-full bg-white rounded-[2rem] p-6 shadow-md hover:shadow-2xl transition-all duration-500 card-organic overflow-hidden relative">
+                                <div class="absolute -top-10 -right-10 w-24 h-24 <?php echo ($i === 1) ? 'bg-fas-accent/10' : 'bg-fas-leaf/20'; ?> rounded-full blur-2xl"></div>
+                                <div class="relative z-10">
+                                    <div class="w-14 h-14 <?php echo ($i === 1) ? 'bg-gradient-to-br from-fas-accent to-fas-accent-warm' : 'bg-gradient-to-br from-fas-primary-light to-fas-leaf'; ?> rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="<?php echo esc_attr($icono ?: ($i === 1 ? 'fas fa-heartbeat' : 'fas fa-graduation-cap')); ?> text-xl text-white"></i>
+                                    </div>
+                                    <h3 class="font-display text-xl text-gray-800 mb-2"><?php echo esc_html($term->name); ?></h3>
+                                    <p class="text-gray-500 text-sm leading-relaxed font-light"><?php echo esc_html($descripcion); ?></p>
+                                </div>
+                            </a>
+                        </div>
+                    <?php 
+                    // Posición 3: Tarjeta Destacada (Horizontal)
+                    else : ?>
+                        <div class="reveal reveal-delay-<?php echo $delay; ?> md:col-span-2 group">
+                            <a href="<?php echo get_term_link($term); ?>" class="block h-full bg-gradient-to-br from-fas-primary to-fas-primary-dark rounded-[2rem] p-8 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden relative">
+                                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+                                <div class="absolute bottom-0 left-0 w-32 h-32 bg-fas-accent/20 rounded-full blur-2xl"></div>
+                                <div class="relative z-10 flex items-center gap-6">
+                                    <div class="w-20 h-20 bg-white/15 backdrop-blur rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="<?php echo esc_attr($icono ?: 'fas fa-lightbulb'); ?> text-3xl text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-display text-2xl text-white mb-2"><?php echo esc_html($term->name); ?></h3>
+                                        <p class="text-white/75 leading-relaxed font-light"><?php echo esc_html($descripcion); ?></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php 
+                    endif;
+                    $i++;
+                    // Limitamos a 4 programas para no romper el grid inicial, si hay más, se ignoran o se puede ajustar la lógica
+                    if($i >= 4) break; 
+                endforeach;
+            endif;
+            ?>
 
-            <!-- Featured Card - Emprendimiento -->
-            <div class="reveal reveal-delay-6 md:col-span-2 group">
-                <a href="<?php echo get_permalink(get_page_by_path('emprendimiento')); ?>" class="block h-full bg-gradient-to-br from-fas-primary to-fas-primary-dark rounded-[2rem] p-8 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden relative">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
-                    <div class="absolute bottom-0 left-0 w-32 h-32 bg-fas-accent/20 rounded-full blur-2xl"></div>
-                    <div class="relative z-10 flex items-center gap-6">
-                        <div class="w-20 h-20 bg-white/15 backdrop-blur rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 animate-pulse">
-                            <i class="fas fa-lightbulb text-3xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-display text-2xl text-white mb-2">Emprendimiento</h3>
-                            <p class="text-white/75 leading-relaxed font-light">Capacitamos a familias para que puedan generar sus propios ingresos y alcanzar independencia económica.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Stats Card -->
-            <div class="reveal reveal-delay-6 md:col-span-2 bg-white rounded-[2rem] p-6 shadow-md">
+            <!-- Stats Card (Mantenido aparte) -->
+            <div class="reveal reveal-delay-7 md:col-span-2 bg-white rounded-[2rem] p-6 shadow-md">
                 <div class="grid grid-cols-3 gap-4 text-center">
                     <div>
                         <span class="block font-display text-3xl text-fas-primary">4</span>
@@ -325,84 +310,64 @@ get_header();
             <span class="reveal inline-block text-fas-accent font-body font-medium tracking-[0.25em] uppercase text-xs mb-4">Donde trabajamos</span>
             <div class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6"></div>
             <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-6">Comunidades que acompañamos</h2>
-            <p class="reveal reveal-delay-3 text-gray-600 max-w-xl mx-auto font-light">Estamos presentes en comunidades Guaraníes de Cochabamba, Bolivia.</p>
+            <p class="reveal reveal-delay-3 text-gray-600 max-w-xl mx-auto font-light">Estamos presentes en comunidades Guaraníes de Chuquisaca y Tarija, Bolivia.</p>
         </div>
 
         <?php
-        $comunidades = get_field('comunidades');
-        if ($comunidades):
+        $comunidades_query = new WP_Query([
+            'post_type'      => 'comunidad',
+            'posts_per_page' => -1,
+            'orderby'        => 'menu_order',
+            'order'          => 'ASC'
+        ]);
+        
+        if ($comunidades_query->have_posts()):
         ?>
-        <div class="grid md:grid-cols-3 gap-8">
-            <?php foreach ($comunidades as $comunidad): ?>
-            <a href="/comunidades/<?php echo $comunidad['slug']; ?>" class="reveal community-card group block">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <?php 
+            $i = 0;
+            while ($comunidades_query->have_posts()): $comunidades_query->the_post(); 
+                $delay = 3 + ($i % 3);
+                $thumb = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                // Alternamos colores de badges para dinamismo visual
+                $badge_class = ($i % 2 === 0) ? 'bg-fas-primary' : 'bg-fas-accent';
+                if ($i % 3 === 2) $badge_class = 'bg-fas-primary-light';
+            ?>
+            <a href="<?php the_permalink(); ?>" class="reveal reveal-delay-<?php echo $delay; ?> community-card group block">
                 <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                    <img src="<?php echo $comunidad['imagen']; ?>" alt="<?php echo $comunidad['nombre']; ?>" class="community-img w-full h-80 object-cover" width="600" height="320" loading="lazy">
+                    <?php if ($thumb): ?>
+                        <img src="<?php echo esc_url($thumb); ?>" alt="<?php the_title(); ?>" class="community-img w-full h-80 object-cover" width="600" height="320" loading="lazy">
+                    <?php else: ?>
+                        <div class="w-full h-80 bg-fas-sand flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt text-4xl text-fas-accent"></i>
+                        </div>
+                    <?php endif; ?>
+                    
                     <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent"></div>
                     <div class="absolute bottom-6 left-6">
-                        <span class="px-4 py-2 bg-fas-primary text-white text-sm rounded-full font-medium"><?php echo $comunidad['nombre']; ?></span>
+                        <span class="px-4 py-2 <?php echo $badge_class; ?> text-white text-sm rounded-full font-medium">
+                            <?php the_title(); ?>
+                        </span>
                     </div>
                 </div>
-                <p class="text-gray-500 leading-relaxed font-light pl-2"><?php echo $comunidad['descripcion']; ?></p>
+                <div class="text-gray-500 leading-relaxed font-light pl-2 mb-2">
+                    <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
+                </div>
+                <!-- <span class="text-fas-primary text-sm font-medium pl-2 group-hover:translate-x-2 inline-flex items-center gap-1 transition-transform">
+                    Leer más <i class="fas fa-arrow-right text-xs"></i>
+                </span> -->
             </a>
-            <?php endforeach; ?>
+            <?php 
+                $i++;
+            endwhile; 
+            wp_reset_postdata();
+            ?>
         </div>
         <?php else: ?>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <a href="/comunidades/tentayape" class="reveal reveal-delay-3 community-card group block">
-                <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/comunidadNinas.png" alt="Tentayape" class="community-img w-full h-80 object-cover" width="600" height="320" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <span class="px-4 py-2 bg-fas-primary text-white text-sm rounded-full font-medium">Tentayape</span>
-                    </div>
-                </div>
-                <p class="text-gray-500 leading-relaxed font-light pl-2">Comunidad agrícola donde trabajamos programas de alimentación y educación.</p>
-            </a>
-
-            <a href="/comunidades/sotos" class="reveal reveal-delay-4 community-card group block">
-                <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/comunidadSenoras.png" alt="Sotos" class="community-img w-full h-80 object-cover" width="600" height="320" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <span class="px-4 py-2 bg-fas-accent text-white text-sm rounded-full font-medium">Sotos</span>
-                    </div>
-                </div>
-                <p class="text-gray-500 leading-relaxed font-light pl-2">Pequeña comunidad donde hemos implementado huertos comunitarios.</p>
-            </a>
-
-            <a href="/comunidades/ytapembia" class="reveal reveal-delay-5 community-card group block">
-                <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/comunidadSenorasAncianas.png" alt="Ytapembia" class="community-img w-full h-80 object-cover" width="600" height="320" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <span class="px-4 py-2 bg-fas-primary-light text-white text-sm rounded-full font-medium">Ytapembia</span>
-                    </div>
-                </div>
-                <p class="text-gray-500 leading-relaxed font-light pl-2">Comunidad donde enfocamos nuestro trabajo en emprendimiento femenino.</p>
-            </a>
-
-            <a href="/comunidades/pentirenda" class="reveal reveal-delay-3 community-card group block">
-                <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Pentirenda" class="community-img w-full h-80 object-cover" width="600" height="320" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <span class="px-4 py-2 bg-fas-leaf text-white text-sm rounded-full font-medium">Pentirenda</span>
-                    </div>
-                </div>
-                <p class="text-gray-500 leading-relaxed font-light pl-2">Donde llevamos programas de salud preventiva y nutricionales.</p>
-            </a>
-
-            <a href="/comunidades/ibabirante" class="reveal reveal-delay-4 community-card group block">
-                <div class="relative overflow-hidden rounded-[2rem] mb-5">
-                    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=600&q=80" alt="Ibabirante" class="community-img w-full h-80 object-cover" width="600" height="320" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6">
-                        <span class="px-4 py-2 bg-fas-accent-warm text-white text-sm rounded-full font-medium">Ibabirante</span>
-                    </div>
-                </div>
-                <p class="text-gray-500 leading-relaxed font-light pl-2">Comunidad con la que trabajamos en educación y desarrollo infantil.</p>
-            </a>
-        </div>
+            <div class="text-center py-20 bg-fas-cream/50 rounded-[3rem] border-2 border-dashed border-fas-sand">
+                <i class="fas fa-map-marked-alt text-4xl text-fas-accent/30 mb-4"></i>
+                <p class="text-gray-500">Próximamente publicaremos más detalles sobre nuestras comunidades.</p>
+            </div>
         <?php endif; ?>
     </div>
 </section>
@@ -443,30 +408,114 @@ get_header();
 <!-- HOW TO HELP -->
 <section id="participa" class="py-32 px-6 bg-white relative overflow-hidden">
     <div class="gradient-mesh"></div>
+    <!-- Subtle dot pattern -->
+    <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle, #059ba3 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+    <!-- Parallax elements - Hands helping -->
+    <div class="absolute top-0 left-10 w-20 h-20 text-fas-primary/10" data-speed="0.1">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+    </div>
+    <div class="absolute bottom-10 right-10 w-24 h-24 text-fas-accent/10" data-speed="-0.1">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        </svg>
+    </div>
+    <div class="absolute top-1/3 right-1/4 w-4 h-4 bg-fas-primary/20 rounded-full" data-speed="0.15"></div>
+    <div class="absolute bottom-1/4 left-1/3 w-3 h-3 bg-fas-accent/30 rounded-full" data-speed="-0.12"></div>
+
     <div class="max-w-5xl mx-auto relative">
         <div class="text-center mb-20">
             <span class="reveal inline-block text-fas-accent font-body font-medium tracking-[0.25em] uppercase text-xs mb-4">Únete a nuestra causa</span>
             <div class="reveal reveal-delay-1 w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mx-auto mb-6"></div>
             <h2 class="reveal reveal-delay-2 font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-6">Cómo puedes ayudar</h2>
+            <p class="reveal reveal-delay-3 text-gray-600 max-w-xl mx-auto font-light">Tu apoyo puede hacer la diferencia en la vida de muchas familias.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8">
-            <div class="reveal reveal-delay-3 bg-fas-cream rounded-[2rem] p-10 text-center hover:shadow-xl transition-all">
-                <div class="w-20 h-20 bg-fas-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-heart text-3xl text-white"></i>
+            <!-- Card Donar -->
+            <div class="reveal reveal-delay-3 group relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-fas-primary via-fas-primary-dark to-[#047a80] p-10 md:p-14 text-center">
+                <!-- Decorativo -->
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-fas-accent/20 rounded-full blur-2xl"></div>
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
+
+                <div class="relative z-10">
+                    <div class="relative inline-block mb-8">
+                        <div class="w-24 h-24 bg-white/10 backdrop-blur-xl rounded-[2rem] flex items-center justify-center mx-auto border border-white/20 shadow-2xl group-hover:scale-110 transition-transform duration-500">
+                            <i class="fas fa-heart text-4xl text-white"></i>
+                        </div>
+                        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-fas-accent rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-plus text-white text-xs"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-3xl md:text-4xl text-white mb-4">Donar</h3>
+                    <p class="text-white/75 mb-8 leading-relaxed font-light max-w-xs mx-auto">Tu contribución mensual ayuda a que más niños reciban alimentación, educación y oportunidades.</p>
+
+                 <!--    <div class="relative inline-block mb-6">
+                        <div class="bg-white rounded-[2rem] p-5 shadow-2xl transform group-hover:scale-105 transition-transform duration-300">
+                            <p class="text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">Escanea para donar</p>
+                            <div class="w-36 h-36 bg-gray-50 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-qrcode text-7xl text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <a href="<?php echo get_permalink(get_page_by_path('apoyanos')); ?>" class="btn-fas inline-flex items-center gap-2 px-10 py-5 bg-white text-fas-primary rounded-full text-base font-semibold tracking-wide shadow-xl hover:shadow-2xl hover:scale-105 transition-all">
+                        Apóyanos ahora
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </a>
                 </div>
-                <h3 class="font-display text-2xl text-gray-800 mb-4">Donar</h3>
-                <p class="text-gray-600 font-light mb-6">Tu contribución económica nos ayuda a seguir llevando alimentos, educación y salud a las comunidades que más lo necesitan.</p>
-                <a href="<?php echo get_permalink(get_page_by_path('apoyanos')); ?>" class="btn-fas px-8 py-4 bg-fas-primary text-white rounded-full font-medium">Donar ahora</a>
             </div>
 
-            <div class="reveal reveal-delay-4 bg-fas-cream rounded-[2rem] p-10 text-center hover:shadow-xl transition-all">
-                <div class="w-20 h-20 bg-fas-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-hands-helping text-3xl text-white"></i>
+            <!-- Card Participar -->
+            <div class="reveal reveal-delay-4 group relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-fas-cream to-[#e8dcc8] p-10 md:p-14 text-center border border-fas-sand/50">
+                <!-- Decorativo -->
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-fas-primary/5 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-fas-accent/10 rounded-full blur-2xl"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 border-[20px] border-fas-primary/5 rounded-full mr-8 mt-8"></div>
+
+                <div class="relative z-10">
+                    <div class="relative inline-block mb-8">
+                        <div class="w-24 h-24 bg-gradient-to-br from-fas-primary to-fas-primary-dark rounded-[2rem] flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition-transform duration-500">
+                            <i class="fas fa-hands-helping text-4xl text-white"></i>
+                        </div>
+                        <div class="absolute -bottom-2 -left-2 w-8 h-8 bg-fas-accent rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-user-plus text-white text-xs"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display text-3xl md:text-4xl text-gray-800 mb-4">Participar</h3>
+                    <p class="text-gray-600 mb-8 leading-relaxed font-light max-w-xs mx-auto">Únete como voluntario. Tu tiempo y habilidades pueden transformar vidas.</p>
+
+                    <ul class="space-y-4 mb-10 max-w-xs mx-auto text-left">
+                        <li class="flex items-center gap-4 text-gray-700 group-hover:translate-x-2 transition-transform duration-300">
+                            <span class="w-10 h-10 bg-fas-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-fas-primary group-hover:text-white transition-all duration-300">
+                                <i class="fas fa-check text-fas-primary text-sm group-hover:text-white"></i>
+                            </span>
+                            <span class="font-light">Voluntariado presencial</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-700 group-hover:translate-x-2 transition-transform duration-300" style="transition-delay: 50ms">
+                            <span class="w-10 h-10 bg-fas-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-fas-primary group-hover:text-white transition-all duration-300">
+                                <i class="fas fa-check text-fas-primary text-sm group-hover:text-white"></i>
+                            </span>
+                            <span class="font-light">Mentoría profesional</span>
+                        </li>
+                        <li class="flex items-center gap-4 text-gray-700 group-hover:translate-x-2 transition-transform duration-300" style="transition-delay: 100ms">
+                            <span class="w-10 h-10 bg-fas-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-fas-primary group-hover:text-white transition-all duration-300">
+                                <i class="fas fa-check text-fas-primary text-sm group-hover:text-white"></i>
+                            </span>
+                            <span class="font-light">Colaboración en eventos</span>
+                        </li>
+                    </ul>
+
+                    <a href="<?php echo get_permalink(get_page_by_path('contacto')); ?>" class="btn-fas inline-flex items-center gap-2 px-10 py-5 bg-fas-primary text-white rounded-full text-base font-semibold tracking-wide shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+                        Quiero participar
+                        <i class="fas fa-user-plus text-sm"></i>
+                    </a>
                 </div>
-                <h3 class="font-display text-2xl text-gray-800 mb-4">Participar</h3>
-                <p class="text-gray-600 font-light mb-6">Únete como voluntario o collaborator. Tu tiempo y habilidades pueden hacer la diferencia en la vida de muchos niños.</p>
-                <a href="<?php echo get_permalink(get_page_by_path('participa')); ?>" class="px-8 py-4 border-2 border-fas-accent text-fas-accent rounded-full font-medium hover:bg-fas-accent hover:text-white transition-colors">Participa</a>
             </div>
         </div>
     </div>
@@ -496,20 +545,28 @@ get_header();
                 <span class="inline-block text-fas-accent font-body font-medium tracking-[0.25em] uppercase text-xs mb-4">Conoce nuestro equipo</span>
                 <div class="w-16 h-px bg-gradient-to-r from-fas-accent to-fas-accent-warm mb-8"></div>
                 <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-gray-800 mb-8">Nuestro equipo</h2>
+                
+                <?php 
+                $seccion_equipo = get_field('seccion_equipo');
+                $texto_equipo = ($seccion_equipo && !empty($seccion_equipo['nuestro'])) ? $seccion_equipo['nuestro'] : 'Somos un equipo de personas comprometidas con Bolivia. No trabajamos desde una oficina: trabajamos en las comunidades, caminando junto a las familias, escuchando sus necesidades y construyendo juntos.';
+                $texto_mision = ($seccion_equipo && !empty($seccion_equipo['mision'])) ? $seccion_equipo['mision'] : 'Transformar vidas mediante alimentación, educación, salud y emprendimiento.';
+                $texto_vision = ($seccion_equipo && !empty($seccion_equipo['vision'])) ? $seccion_equipo['vision'] : 'Una Bolivia donde cada niño tenga oportunidades reales de desarrollo.';
+                ?>
+
                 <p class="text-lg text-gray-600 mb-12 leading-loose font-light">
-                    Somos un equipo de personas comprometidas con Bolivia. No trabajamos desde una oficina: trabajamos en las comunidades, caminando junto a las familias, escuchando sus necesidades y construyendo juntos.
+                    <?php echo wp_kses_post($texto_equipo); ?>
                 </p>
 
                 <div class="grid grid-cols-2 gap-6">
                     <div class="bg-white rounded-3xl p-8 shadow-lg shadow-fas-primary/5 hover:shadow-xl transition-shadow">
                         <i class="fas fa-bullseye text-4xl text-fas-primary mb-5" aria-hidden="true"></i>
                         <h4 class="font-display text-2xl text-gray-800 mb-3">Misión</h4>
-                        <p class="text-gray-500 font-light leading-relaxed">Transformar vidas mediante alimentación, educación, salud y emprendimiento.</p>
+                        <p class="text-gray-500 font-light leading-relaxed"><?php echo esc_html($texto_mision); ?></p>
                     </div>
                     <div class="bg-white rounded-3xl p-8 shadow-lg shadow-fas-primary/5 hover:shadow-xl transition-shadow">
                         <i class="fas fa-eye text-4xl text-fas-accent mb-5" aria-hidden="true"></i>
                         <h4 class="font-display text-2xl text-gray-800 mb-3">Visión</h4>
-                        <p class="text-gray-500 font-light leading-relaxed">Un Bolivia donde cada niño tenga oportunidades reales de desarrollo.</p>
+                        <p class="text-gray-500 font-light leading-relaxed"><?php echo esc_html($texto_vision); ?></p>
                     </div>
                 </div>
 
@@ -522,13 +579,19 @@ get_header();
             </div>
 
             <div class="reveal reveal-delay-2 grid grid-cols-2 gap-5">
+                <?php 
+                $img1 = ($seccion_equipo && !empty($seccion_equipo['imagen1'])) ? $seccion_equipo['imagen1'] : get_template_directory_uri() . '/assets/images/personal2.jpeg';
+                $img2 = ($seccion_equipo && !empty($seccion_equipo['imagen2'])) ? $seccion_equipo['imagen2'] : get_template_directory_uri() . '/assets/images/personal1.jpeg';
+                $img3 = ($seccion_equipo && !empty($seccion_equipo['imagen3'])) ? $seccion_equipo['imagen3'] : get_template_directory_uri() . '/assets/images/girlKids.png';
+                $img4 = ($seccion_equipo && !empty($seccion_equipo['imagen4'])) ? $seccion_equipo['imagen4'] : get_template_directory_uri() . '/assets/images/community.jpeg';
+                ?>
                 <div class="space-y-5">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/personal2.jpeg" alt="Miembro del equipo FAS 1" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full" width="400" height="300" loading="lazy">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/personal1.jpeg" alt="Miembro del equipo FAS 2" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full mt-10" width="400" height="300" loading="lazy">
+                    <img src="<?php echo esc_url($img1); ?>" alt="Miembro del equipo FAS 1" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full" width="400" height="300" loading="lazy">
+                    <img src="<?php echo esc_url($img2); ?>" alt="Miembro del equipo FAS 2" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full mt-10" width="400" height="300" loading="lazy">
                 </div>
                 <div class="space-y-5 pt-12">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/girlKids.png" alt="Miembro del equipo FAS 3" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full" width="400" height="300" loading="lazy">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/community.jpeg" alt="Miembro del equipo FAS 4" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full" width="400" height="300" loading="lazy">
+                    <img src="<?php echo esc_url($img3); ?>" alt="Miembro del equipo FAS 3" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full" width="400" height="300" loading="lazy">
+                    <img src="<?php echo esc_url($img4); ?>" alt="Miembro del equipo FAS 4" class="rounded-3xl shadow-2xl shadow-fas-primary/10 w-full" width="400" height="300" loading="lazy">
                 </div>
             </div>
         </div>
@@ -569,13 +632,17 @@ get_header();
     function showSlide(index) {
         slides.forEach((slide, i) => {
             slide.classList.remove('active');
-            dots[i].classList.remove('bg-white');
-            dots[i].classList.add('bg-white/40');
+            if (dots[i]) {
+                dots[i].classList.remove('bg-white');
+                dots[i].classList.add('bg-white/40');
+            }
         });
 
         slides[index].classList.add('active');
-        dots[index].classList.remove('bg-white/40');
-        dots[index].classList.add('bg-white');
+        if (dots[index]) {
+            dots[index].classList.remove('bg-white/40');
+            dots[index].classList.add('bg-white');
+        }
 
         const activeSlide = slides[index];
         activeSlide.querySelectorAll('.reveal').forEach(el => {
@@ -594,7 +661,10 @@ get_header();
         showSlide(currentSlide);
     }
 
-    setInterval(() => changeSlide(1), 6000);
+    // Only set interval if there's more than 1 slide
+    if (slides.length > 1) {
+        setInterval(() => changeSlide(1), 6000);
+    }
 
     // Parallax effect
     const parallaxElements = document.querySelectorAll('[data-speed]');
@@ -619,6 +689,7 @@ get_header();
 
     // Navbar scroll effect
     const mainNav = document.getElementById('main-nav');
+    const navLogo = document.getElementById('nav-logo');
 
     function handleNavScroll() {
         const scrollY = window.scrollY;
@@ -642,6 +713,10 @@ get_header();
                 navBtn.classList.remove('bg-fas-primary', 'text-white');
                 navBtn.classList.add('bg-fas-accent', 'text-fas-dark');
             }
+            // Logo: bg-dark → letras blancas
+            if (navLogo && navLogo.dataset.logoDark) {
+                navLogo.src = navLogo.dataset.logoDark;
+            }
         } else {
             mainNav.classList.remove('navbar-scrolled');
             mainNav.classList.add('bg-white/85', 'backdrop-blur-lg', 'border-fas-sand/50');
@@ -657,6 +732,10 @@ get_header();
             if (navBtn) {
                 navBtn.classList.add('bg-fas-primary', 'text-white');
                 navBtn.classList.remove('bg-fas-accent', 'text-fas-dark');
+            }
+            // Logo: bg-white → letras negras
+            if (navLogo && navLogo.dataset.logoLight) {
+                navLogo.src = navLogo.dataset.logoLight;
             }
         }
     }

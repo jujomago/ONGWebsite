@@ -3,6 +3,73 @@
  * Custom Menu Walker
  */
 
+/**
+ * Agregar campo de icono en el admin de menús
+ */
+function fas_menu_icon_field($item_id, $item) {
+    $icon = get_post_meta($item_id, '_menu_item_icon', true);
+    ?>
+    <div class="field-menu-icon description-wide" style="margin: 10px 0;">
+        <label for="menu-item-icon-<?php echo $item_id; ?>">
+            Icono (FontAwesome)<br>
+            <input type="text" 
+                   id="menu-item-icon-<?php echo $item_id; ?>" 
+                   name="menu-item-icon[<?php echo $item_id; ?>]" 
+                   value="<?php echo esc_attr($icon); ?>" 
+                   placeholder="fas fa-heart"
+                   style="width: 100%; margin-top: 5px;">
+            <span style="font-size: 12px; color: #666;">Ej: fas fa-utensils, fas fa-heartbeat</span>
+        </label>
+    </div>
+    <?php
+}
+add_action('wp_nav_menu_item_custom_fields', 'fas_menu_icon_field', 10, 2);
+
+/**
+ * Agregar campo anchor_home en el admin de menús
+ */
+function fas_anchor_home_field($item_id, $item) {
+    $anchor = get_post_meta($item_id, '_menu_item_anchor_home', true);
+    ?>
+    <div class="field-anchor-home description-wide" style="margin: 10px 0;">
+        <label for="menu-item-anchor-home-<?php echo $item_id; ?>">
+            Anchor Home<br>
+            <input type="text" 
+                   id="menu-item-anchor-home-<?php echo $item_id; ?>" 
+                   name="menu-item-anchor-home[<?php echo $item_id; ?>]" 
+                   value="<?php echo esc_attr($anchor); ?>" 
+                   placeholder="#participa"
+                   style="width: 100%; margin-top: 5px;">
+        </label>
+    </div>
+    <?php
+}
+add_action('wp_nav_menu_item_custom_fields', 'fas_anchor_home_field', 10, 2);
+
+/**
+ * Guardar el icono del menú
+ */
+function fas_save_menu_icon($menu_id, $menu_item_db_id) {
+    if (isset($_POST['menu-item-icon'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_icon', sanitize_text_field($_POST['menu-item-icon'][$menu_item_db_id]));
+    } else {
+        delete_post_meta($menu_item_db_id, '_menu_item_icon');
+    }
+}
+add_action('wp_update_nav_menu_item', 'fas_save_menu_icon', 10, 2);
+
+/**
+ * Guardar el anchor_home del menú
+ */
+function fas_save_anchor_home($menu_id, $menu_item_db_id) {
+    if (isset($_POST['menu-item-anchor-home'][$menu_item_db_id])) {
+        update_post_meta($menu_item_db_id, '_menu_item_anchor_home', sanitize_text_field($_POST['menu-item-anchor-home'][$menu_item_db_id]));
+    } else {
+        delete_post_meta($menu_item_db_id, '_menu_item_anchor_home');
+    }
+}
+add_action('wp_update_nav_menu_item', 'fas_save_anchor_home', 10, 2);
+
 class FAS_Walker_Nav_Menu extends Walker_Nav_Menu {
     public function start_lvl(&$output, $depth = 0, $args = null) {
         $indent = str_repeat("\t", $depth);
@@ -15,6 +82,11 @@ class FAS_Walker_Nav_Menu extends Walker_Nav_Menu {
     }
 
     public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        // Hide "Participa" if not on home page
+        if ($item->title === 'Participa' && !is_front_page()) {
+            return;
+        }
+
         $indent = ($depth) ? str_repeat("\t", $depth) : '';
 
         $classes = empty($item->classes) ? array() : (array) $item->classes;
@@ -33,6 +105,14 @@ class FAS_Walker_Nav_Menu extends Walker_Nav_Menu {
 
         $atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
 
+        // Logic for anchor_home only on front page
+        if (is_front_page()) {
+            $anchor_home_val = get_post_meta($item->ID, '_menu_item_anchor_home', true);
+            if (!empty($anchor_home_val)) {
+                $atts['href'] = $anchor_home_val;
+            }
+        }
+
         $attributes = '';
         foreach ($atts as $attr => $value) {
             if (!empty($value)) {
@@ -47,7 +127,7 @@ class FAS_Walker_Nav_Menu extends Walker_Nav_Menu {
         $item_output = $args->before;
 
         // Handle icon class
-        $icon_class = get_post_meta($item->ID, '_menu_item_icon', true);
+        $icon_class = get_post_meta($item->ID, '_menu_item_icon', true);        
         $icon_html = '';
         if ($icon_class) {
             $icon_html = '<i class="' . esc_attr($icon_class) . '"></i> ';
@@ -57,7 +137,12 @@ class FAS_Walker_Nav_Menu extends Walker_Nav_Menu {
         if ($depth === 0) {
             // Main navigation items
             $is_button = in_array('menu-item-btn', $classes);
-            $button_class = $is_button ? 'btn-fas ml-3 px-7 py-3.5 bg-fas-primary text-white rounded-full font-medium text-sm tracking-wide' : 'nav-link-underline px-4 py-2 nav-text text-gray-600 hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1';
+            $is_current = in_array('current-menu-item', $classes);
+            
+            $text_color = $is_current ? 'text-fas-primary' : 'text-gray-600';
+            
+            $active_class = $is_current ? ' nav-active' : '';
+            $button_class = $is_button ? 'btn-fas ml-3 px-7 py-3.5 bg-fas-primary text-white rounded-full font-medium text-sm tracking-wide' : 'nav-link-underline px-4 py-2 nav-text hover:text-fas-primary transition-colors rounded-lg flex items-center gap-1 ' . $text_color . $active_class;
 
             $item_output .= '<a' . $attributes . ' class="' . $button_class . '" ';
 
@@ -129,6 +214,11 @@ class FAS_Walker_Nav_Menu_Mobile extends Walker_Nav_Menu {
     }
 
     public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        // Hide "Participa" if not on home page
+        if ($item->title === 'Participa' && !is_front_page()) {
+            return;
+        }
+
         $indent = ($depth) ? str_repeat("\t", $depth) : '';
 
         $classes = empty($item->classes) ? array() : (array) $item->classes;
@@ -145,6 +235,14 @@ class FAS_Walker_Nav_Menu_Mobile extends Walker_Nav_Menu {
         $atts['href']   = !empty($item->url)        ? $item->url        : '#';
 
         $atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
+
+        // Logic for anchor_home only on front page
+        if (is_front_page()) {
+            $anchor_home_val_mob = get_post_meta($item->ID, '_menu_item_anchor_home', true);
+            if (!empty($anchor_home_val_mob)) {
+                $atts['href'] = $anchor_home_val_mob;
+            }
+        }
 
         $attributes = '';
         foreach ($atts as $attr => $value) {
@@ -173,7 +271,9 @@ class FAS_Walker_Nav_Menu_Mobile extends Walker_Nav_Menu {
             } elseif ($is_button) {
                 $item_output .= '<a' . $attributes . ' class="btn-fas block text-center py-3.5 bg-fas-primary text-white rounded-full font-medium">' . $title . '</a>';
             } else {
-                $item_output .= '<a' . $attributes . ' class="block py-3 px-4 text-gray-700 rounded-lg hover:bg-fas-cream transition">' . $title . '</a>';
+                $is_current = in_array('current-menu-item', $classes);
+                $mobile_text_color = $is_current ? 'text-fas-primary' : 'text-gray-700';
+                $item_output .= '<a' . $attributes . ' class="block py-3 px-4 rounded-lg hover:bg-fas-cream transition ' . $mobile_text_color . '">' . $title . '</a>';
             }
         } else {
             // Submenu items

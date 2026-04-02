@@ -1,7 +1,7 @@
 Create a custom WordPress theme for a nonprofit NGO called “Fundación Alimentando Sonrisas (FAS)”.
 
 The theme must be structured based on the following navigation menu:
-
+algo mas
 MAIN MENU:
 - Inicio
 - Quiénes somos
