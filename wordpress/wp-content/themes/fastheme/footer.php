@@ -16,7 +16,7 @@
                     the_custom_logo();
                 } else {
                     ?>
-                    <img src="<?php echo site_url('/static/images/logo_letrasBlancas.png'); ?>" alt="FAS" class="h-24 mb-8">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/logo_letrasBlancas.png" alt="FAS" class="h-24 mb-8">
                     <?php
                 }
                 ?>

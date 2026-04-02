@@ -28,9 +28,9 @@
                     } else {
                         ?>
                         <img id="nav-logo"
-                             src="<?php echo site_url('/static/images/logo_letrasNegras.png'); ?>"
-                             data-logo-light="<?php echo site_url('/static/images/logo_letrasNegras.png'); ?>"
-                             data-logo-dark="<?php echo site_url('/static/images/logo_letrasBlancas.png'); ?>"
+                             src="<?php echo get_template_directory_uri(); ?>/assets/logo_letrasNegras.png"
+                             data-logo-light="<?php echo get_template_directory_uri(); ?>/assets/logo_letrasNegras.png"
+                             data-logo-dark="<?php echo get_template_directory_uri(); ?>/assets/logo_letrasBlancas.png"
                              alt="FAS - Fundación Alimentando Sonrisas"
                              class="h-full w-auto transition-opacity duration-300">
                         <?php
